@@ -71,7 +71,7 @@ feature {NONE} -- Initialize
 			extend (main_horizontal_box)
 			set_default_push_button (ok_button)
 			set_default_cancel_button (ok_button)
-			set_title (default_title)
+			set_title (Application_about_title)
 			set_size (400, 150)
 
 				-- set icon of window
@@ -79,29 +79,7 @@ feature {NONE} -- Initialize
 			icon.set_with_named_file ("graphics/newsreader_icon.png")
 			set_icon_pixmap (icon)
 		end
-	
-feature 
-
-	message: STRING is
-		do
-			Result := message_label.text
-		end
-	
-feature 
-
-	set_message (a_message: STRING) is
-		do
-			message_label.set_text (a_message)
-		end
-	
-feature {NONE} 
-
-	message_label: EV_LABEL
 
 	ok_button: EV_BUTTON
-	
-feature {NONE} 
-
-	Default_title: STRING is "About Dialog"
 	
 end -- class ABOUT_DIALOG

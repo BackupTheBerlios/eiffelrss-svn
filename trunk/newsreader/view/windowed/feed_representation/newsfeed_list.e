@@ -23,8 +23,7 @@ feature -- Initialisation
 		do
 			Precursor
 			create list
-			
-				-- test
+
 			set_label_text ("Newsfeed List")
 			
 			extend (list)

@@ -104,9 +104,9 @@ feature
 	
 feature -- Window elements
 
+		-- menus and toolbar
 	toolbar: TOOLBAR
 	standard_menu_bar: EV_MENU_BAR
-
 	file_menu: FILE_MENU
 	edit_menu: EDIT_MENU
 	channel_menu: CHANNEL_MENU
@@ -132,6 +132,22 @@ feature -- Window elements
 
 	
 feature -- Events
+
+	on_debug_window is
+		local
+			dw: DEBUG_WINDOW
+		do
+			dw ?= application.logfile
+			if dw /= void then
+				if dw.is_show_requested then
+					application.logfile.log_message ("Hiding debug window", feature{LOGFILE}.Info)
+					dw.hide
+				else
+					application.logfile.log_message ("Showing debug window", feature{LOGFILE}.Info)
+					dw.show
+				end
+			end
+		end
 
 	request_close_window is
 			-- show confirmation dialog if Ask_on_exit is 'yes', else close window and application
@@ -263,7 +279,7 @@ feature {NONE} -- Implementation
 
 	main_container: EV_VERTICAL_BOX
 	
-	news_view: NEWS_VIEW
+	news_view: NEWS_VIEW -- list of feeds and list of items
 
 	build_main_view is
 		require
@@ -356,7 +372,7 @@ feature {NONE} -- Implementation
 				-- CTRL-ALT-TAB: open/close debug window
 			create key.make_with_code (feature {EV_KEY_CONSTANTS}.key_tab)
 			create accelerator.make_with_key_combination (key, true, true, false)
-			accelerator.actions.extend (agent application.on_debug_window)
+			accelerator.actions.extend (agent on_debug_window)
 			accelerators.extend (accelerator)
 		end
 		

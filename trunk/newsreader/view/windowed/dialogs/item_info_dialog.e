@@ -9,8 +9,6 @@ class
 
 inherit
 	SETTINGS_DIALOG
-		rename
-			on_ok as on_edited
 		redefine
 			initialize
 		end
@@ -95,7 +93,7 @@ feature -- Initialization
 
 feature {NONE} -- Implementation
 
-	on_edited is
+	on_ok is
 			-- click on ok
 		do
 			

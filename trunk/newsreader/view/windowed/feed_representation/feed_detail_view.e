@@ -162,7 +162,7 @@ feature -- Events
 		end
 	
 	on_feed_url_click (a,b,c: INTEGER; d,e,f: DOUBLE; g,h: INTEGER) is
-			-- 
+			-- called when url of feed (in the top label) is clicked
 		do
 			open_url (application.current_feed.link, true)
 		end

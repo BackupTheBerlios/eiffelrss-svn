@@ -128,6 +128,7 @@ feature -- Initialization
 			accelerator: EV_ACCELERATOR
 			key: EV_KEY
 			icon: EV_PIXMAP
+			mw: MAIN_WINDOW
 		do
 			Precursor
 			create main_vbox
@@ -155,7 +156,10 @@ feature -- Initialization
 				-- set accelerators
 			create key.make_with_code (feature {EV_KEY_CONSTANTS}.key_tab)
 			create accelerator.make_with_key_combination (key, true, true, false)
-			accelerator.actions.extend (agent application.on_debug_window)
+			mw ?= application.application_displayer
+			if mw /= void then
+				accelerator.actions.extend (agent mw.on_debug_window)
+			end
 			accelerators.extend (accelerator)
 			
 			close_request_actions.extend (agent hide)
@@ -184,6 +188,7 @@ feature -- Initialization
 feature -- Events
 
 	on_refresh is
+			-- called when refresh button is clicked
 		local
 			string: STRING
 		do

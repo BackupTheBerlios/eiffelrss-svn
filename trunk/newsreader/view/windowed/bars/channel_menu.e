@@ -41,7 +41,6 @@ feature -- Initialization
 	make is
 		local
 			menu_item: EV_MENU_ITEM
-			mw: MAIN_WINDOW
 		do		
 			make_app_ref
 

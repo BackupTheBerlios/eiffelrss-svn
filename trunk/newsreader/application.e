@@ -75,25 +75,6 @@ feature {NONE} -- Initialization
 				Precursor
 			end
 		end
-		
-
-feature -- Events
-
-	on_debug_window is
-		local
-			dw: DEBUG_WINDOW
-		do
-			dw ?= logfile
-			if dw /= void then
-				if dw.is_show_requested then
-					logfile.log_message ("Hiding debug window", feature{LOGFILE}.Info)
-					dw.hide
-				else
-					logfile.log_message ("Showing debug window", feature{LOGFILE}.Info)
-					dw.show
-				end
-			end
-		end
 
 feature -- Access
 
@@ -210,7 +191,8 @@ feature {NONE} -- Implementation
 	application_displayer_initialized: BOOLEAN
 	
 	create_log is
-			-- 
+			-- create logfile
+			-- create debug window if in windowed mode
 		local
 			dw: DEBUG_WINDOW
 		do

@@ -44,7 +44,6 @@ feature -- Initialization
 		end
 	
 	initialize is
-			-- 
 		do
 			Precursor
 			set_text (feed.title)
