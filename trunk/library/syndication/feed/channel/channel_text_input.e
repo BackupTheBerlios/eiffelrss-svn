@@ -85,7 +85,7 @@ feature -- Setter
 feature -- Debug
 
 	to_string: STRING is
-			-- Returns a string representation of guid
+			-- Returns a string representation of text input
 			-- This feature is especially useful for debugging
 		do
 			Result := "* Title: " + title + "%N* Description: " + description + "%N* Name: " + name + "%N* Link: " + link.location + "%N"

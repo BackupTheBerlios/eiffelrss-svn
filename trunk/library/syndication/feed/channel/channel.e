@@ -571,7 +571,7 @@ feature -- Sort
 feature -- Debug
 
 	to_string: STRING is
-			-- Returns a string representation of source
+			-- Returns a string representation of channel
 			-- This feature is especially useful for debugging
 		do	
 			Result := "Channel:%N========%N%N"

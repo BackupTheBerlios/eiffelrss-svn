@@ -78,7 +78,7 @@ feature -- Status
 feature -- Debug
 
 	to_string: STRING is
-			-- Returns a string representation of category_item
+			-- Returns a string representation of category
 			-- This feature is especially useful for debugging
 		do
 			Result := title

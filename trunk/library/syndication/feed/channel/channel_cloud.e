@@ -100,7 +100,7 @@ feature -- Setter
 feature -- Debug
 
 	to_string: STRING is
-			-- Returns a string representation of guid
+			-- Returns a string representation of cloud
 			-- This feature is especially useful for debugging
 		do
 			Result := "* Domain: " + domain + "%N* Port: " + port.out + "%N* Path: " + path + "%N* Register procedure: " + register_procedure + "%N* Protocol: " + protocol + "%N"

@@ -281,7 +281,7 @@ feature -- Status
 feature -- Debug
 
 	to_string: STRING is
-			-- Returns a string representation of source
+			-- Returns a string representation of item
 			-- This feature is especially useful for debugging
 		do
 			Result := "Item:%N=====%N%N"		

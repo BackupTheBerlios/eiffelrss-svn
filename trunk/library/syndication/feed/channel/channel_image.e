@@ -135,7 +135,7 @@ feature -- Status
 feature -- Debug
 
 	to_string: STRING is
-			-- Returns a string representation of guid
+			-- Returns a string representation of image
 			-- This feature is especially useful for debugging
 		do
 			Result := "* URL: " + url.location + "%N* Title: " + title + "%N* Link: " + link.location + "%N"

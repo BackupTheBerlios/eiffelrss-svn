@@ -245,7 +245,8 @@ feature -- Basic operations
 feature -- Debug
 
 	to_string: STRING is
-			-- 
+			-- Returns a string representation of feed
+			-- This feature is especially useful for debugging
 		do
 			Result := "Feed:%N=====%N%N"
 
