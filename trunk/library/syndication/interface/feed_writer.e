@@ -32,19 +32,25 @@ feature -- Initialisation
 	require
 		valid_target: target /= Void
 	local
-		file: PLAIN_TEXT_FILE
-		formatter: XM_FORMATTER
 		document: XM_DOCUMENT
 		writer: WRITER_DEF
+		formatter: XM_FORMATTER
+		os: KL_TEXT_OUTPUT_FILE
 	do
-		create file.make_open_write (target)
+		create formatter.make
 		
-		if file.is_open_write then
+		create os.make (target)
+		os.open_write
+
+		if os.is_open_write then
 			writer := Format_list.get_writer (format)
 			if writer.get_name.is_equal ("Error") then
 				error := Invalid_format
 			else
-				document := writer.write
+				document := writer.write (feed)
+				formatter.set_output (os)
+				formatter.process_document (document)
+				os.close
 			end
 		else
 			error := Invalid_target
