@@ -230,7 +230,53 @@ feature -- Status
 			Result := title /= Void and then not title.is_empty
 		end
 		
--- [TODO]: Write other `has_*' features
+	has_link: BOOLEAN is
+			-- Is `link' set?
+		do
+			Result := link /= Void
+		end
+		
+	has_description: BOOLEAN is
+			-- Is `description' set and non-empty?
+		do
+			Result := description /= Void and then not description.is_empty
+		end
+		
+	has_author: BOOLEAN is
+			-- Is `author' set and non-empty?
+		do
+			Result := author /= Void and then not author.is_empty
+		end
+		
+	has_comments: BOOLEAN is
+			-- Is `comments' set?
+		do
+			Result := comments /= Void
+		end
+		
+	has_enclosure: BOOLEAN is
+			-- Is `enclosure' set?
+		do
+			Result := enclosure /= Void
+		end
+		
+	has_guid: BOOLEAN is
+			-- Is `guid' set?
+		do
+			Result := guid /= Void
+		end
+		
+	has_pub_date: BOOLEAN is
+			-- Is `pub_date' set?
+		do
+			Result := pub_date /= Void
+		end
+		
+	has_source: BOOLEAN is
+			-- Is `source' set?
+		do
+			Result := source /= Void
+		end
 
 feature -- Debug
 

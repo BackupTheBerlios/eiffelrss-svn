@@ -103,13 +103,33 @@ feature -- Setter
 		end
 		
 	set_description (a_description: STRING) is
-			-- Set  to`a_'
+			-- Set  to`a_description'
 		require
 			non_empty_description: a_description /= Void and then not a_description.is_empty
 		do
 			description := a_description
 		ensure
 			description_set:  description = a_description
+		end
+		
+feature -- Status
+
+	has_width: BOOLEAN is
+			-- Is `width' set?
+		do
+			Result := width > 0
+		end
+		
+	has_height: BOOLEAN is
+			-- Is `height' set?
+		do
+			Result := height > 0
+		end
+
+	has_description: BOOLEAN is
+			-- Is `description' set and non-empty?
+		do
+			Result := description /= Void and then not description.is_empty
 		end
 
 feature -- Debug

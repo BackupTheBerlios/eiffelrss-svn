@@ -346,6 +346,102 @@ feature -- Setter (metadata)
 --		ensure
 --			
 --		end
+
+feature -- Status
+
+	has_language: BOOLEAN is
+			-- Is `language' set and non-empty?
+		do
+			Result := language /= Void and then not language.is_empty
+		end
+		
+	has_copyright: BOOLEAN is
+			-- Is `copyright' set and non-empty?
+		do
+			Result := copyright /= Void and then not copyright.is_empty
+		end
+		
+	has_managing_editor: BOOLEAN is
+			-- Is `managing_editor' set and non-empty?
+		do
+			Result := managing_editor /= Void and then not managing_editor.is_empty
+		end
+		
+	has_web_master: BOOLEAN is
+			-- Is `web_master' set and non-empty?
+		do
+			Result := web_master /= Void and then not web_master.is_empty
+		end
+		
+	has_pub_date: BOOLEAN is
+			-- Is `pub_date' set?
+		do
+			Result := pub_date /= Void
+		end	
+		
+	has_feed_generator: BOOLEAN is
+			-- Is `feed_generator' set and non-empty?
+		do
+			Result := feed_generator /= Void and then not feed_generator.is_empty
+		end
+		
+	has_docs: BOOLEAN is
+			-- Is `docs' set?
+		do
+			Result := docs /= Void
+		end
+		
+	has_cloud: BOOLEAN is
+			-- Is `cloud' set?
+		do
+			Result := cloud /= Void
+		end
+
+	has_ttl: BOOLEAN is
+			-- Is `ttl' set?
+		do
+			Result := ttl /= 0
+		end
+		
+	has_image: BOOLEAN is
+			-- Is `image' set?
+		do
+			Result := image /= Void
+		end
+		
+	has_text_input: BOOLEAN is
+			-- Is `text_input' set?
+		do
+			Result := text_input /= Void
+		end
+		
+	has_items: BOOLEAN is
+			-- Is `items' set?
+		do
+			Result := items.count > 0
+		end
+
+feature -- Status (RSS 0.91)
+
+	has_rating: BOOLEAN is
+			-- Is `rating' set and non-empty?
+		do
+			Result := rating /= Void and then not rating.is_empty
+		end
+
+feature -- Status (RSS 1.0)
+
+-- [TODO]
+
+feature -- Status (metadata)
+
+-- [TODO]
+
+	has_last_added_item: BOOLEAN is
+			-- Is `last_added_item' set?
+		do
+			Result := last_added_item /= Void
+		end
 		
 feature -- Basic operations
 
