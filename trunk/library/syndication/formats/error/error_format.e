@@ -1,6 +1,6 @@
 indexing
-	description: "Objects that ..."
-	author: ""
+	description: "Implementation of the error format"
+	author: "Michael Käser"
 	date: "$Date$"
 	revision: "$Revision$"
 
