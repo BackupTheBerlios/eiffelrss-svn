@@ -20,8 +20,8 @@ feature -- Initialization
 			feed: FEED
 		do
 			-- Get a feed location from the user
-			io.put_string ("Enter an URL:")
-			io.read_string
+			io.put_string ("Enter an URL: ")
+			io.read_line
 			
 			location := io.last_string.twin
 			
@@ -32,8 +32,8 @@ feature -- Initialization
 			feed := reader.read
 			
 			-- Print feed
-			io.put_string ("Received feed:%N")
-			io.put_string ("============%N%N%N")
+			io.put_string ("%NReceived feed:%N")
+			io.put_string ("==============%N%N%N")
 			io.put_string (feed.to_string)
 		end
 
