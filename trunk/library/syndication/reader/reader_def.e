@@ -27,7 +27,7 @@ feature -- Access
 	
 feature{NONE} -- Implementation
 	
-	read_or_default (a_element: XM_ELEMENT; default_value: STRING): STRING is
+	read_or_default_element (a_element: XM_ELEMENT; default_value: STRING): STRING is
 			-- Read the text of `a_element' or use `default_value' if `a_element' is Void or empty
 	require
 		default_value /= Void
@@ -41,7 +41,22 @@ feature{NONE} -- Implementation
 	ensure
 		valid_result: Result /= Void
 	end
-	
+
+	read_or_default_attribute (a_attribute: XM_ATTRIBUTE; default_value: STRING): STRING is
+			-- Read the value of `a_attribute' or use `default_value' if `a_element' is Void or empty
+	require
+		default_value /= Void
+	do
+		Result := default_value
+		if (a_attribute /= Void) and then not a_attribute.value.is_empty then
+			Result := a_attribute.value
+		else
+			Result := default_value
+		end
+	ensure
+		valid_result: Result /= Void
+	end
+
 	read_date (a_string: STRING): DATE_TIME is
 			-- Convert an RFC 822 date string to a DATE_TIME object
 	require
@@ -57,14 +72,6 @@ feature{NONE} -- Implementation
 		create date_constants
 		
 		proper_string := a_string
-		
-		-- Remove time zone information
-		if proper_string.item (proper_string.count - 5) = ' ' then
-			proper_string.remove_tail(6)
-		end
-		
-		-- Remove ddd
-		proper_string.remove_head (5)
 		
 		if proper_string.count = 20 or proper_string.count = 18 then
 			-- Read day
@@ -114,12 +121,14 @@ feature{NONE} -- Implementation
 			proper_string.remove_head (3)
 
 			-- Read second
-			second := proper_string
+			second := proper_string.twin
+			second.keep_head (2)
+			proper_string.remove_head (3)
 			
 			-- Set data if everything is fine
 			if (month /= 0) and (year.is_integer) and (day.is_integer) and (hour.is_integer) and (minute.is_integer) and (second.is_integer) then
 				Result.make (year.to_integer, month, day.to_integer, hour.to_integer, minute.to_integer, second.to_integer)
-			end			
+			end
 		end
 	ensure
 		Result /= Void

@@ -33,15 +33,41 @@ feature -- Operations
 		channel := a_document.root_element.element_by_name ("channel")
 		
 		if channel /= Void then
-			Result.set_title (read_or_default (channel.element_by_name ("title"), "Undefined"))
-			Result.set_link (create {HTTP_URL}.make (read_or_default (channel.element_by_name ("link"), "http://")))
-			Result.set_description (read_or_default (channel.element_by_name ("description"), "Undefined"))
+			-- Required fields
+			Result.set_title (read_or_default_element (channel.element_by_name ("title"), "Undefined"))
+			Result.set_link (create {HTTP_URL}.make (read_or_default_element (channel.element_by_name ("link"), "http://")))
+			Result.set_description (read_or_default_element (channel.element_by_name ("description"), "Undefined"))
 
+			-- Optional fields
 			if (channel.element_by_name ("lastBuildDate") /= Void) then
 				Result.set_last_build_date (read_date(channel.element_by_name ("lastBuildDate").text))
 			end
 			if (channel.element_by_name ("language") /= Void) then
 				Result.set_language (channel.element_by_name ("language").text)
+			end
+			if (channel.element_by_name ("copyright") /= Void) then
+				Result.set_copyright (channel.element_by_name ("copyright").text)
+			end
+			if (channel.element_by_name ("managingEditor") /= Void) then
+				Result.set_managing_editor (channel.element_by_name ("managingEditor").text)
+			end
+			if (channel.element_by_name ("webMaster") /= Void) then
+				Result.set_web_master (channel.element_by_name ("webMaster").text)
+			end
+			if (channel.element_by_name ("pubDate") /= Void) then
+				Result.set_pub_date (read_date(channel.element_by_name ("pubDate").text))
+			end
+			if (channel.element_by_name ("generator") /= Void) then
+				Result.set_feed_generator (channel.element_by_name ("generator").text)
+			end
+			if (channel.element_by_name ("docs") /= Void) then
+				Result.set_docs (create {HTTP_URL}.make (channel.element_by_name ("docs").text))			
+			end
+			if (channel.element_by_name ("cloud") /= Void) then
+				Result.create_cloud (read_or_default_attribute (channel.element_by_name ("cloud").attribute_by_name ("domain"), "http://"), read_or_default_attribute (channel.element_by_name ("cloud").attribute_by_name ("port"), "80").to_integer, read_or_default_attribute (channel.element_by_name ("cloud").attribute_by_name ("path"), "/"), read_or_default_attribute (channel.element_by_name ("cloud").attribute_by_name ("registerProcedure"), "-"), read_or_default_attribute (channel.element_by_name ("cloud").attribute_by_name ("protocol"), "-"))
+			end		
+			if (channel.element_by_name ("ttl") /= Void) and then (channel.element_by_name ("ttl").text.is_integer) then
+				Result.set_ttl (channel.element_by_name ("ttl").text.to_integer)
 			end
 			
 			from
@@ -50,8 +76,20 @@ feature -- Operations
 				channel.after
 			loop
 				item_element ?= channel.item_for_iteration
+
+				-- Category
+				if item_element /= Void and then item_element.name.is_equal("category") then
+					if item_element.attribute_by_name ("category") = Void then
+						Result.add_category (create {CATEGORY}.make_title (item_element.text))	
+					else
+						Result.add_category (create {CATEGORY}.make_title_domain (item_element.text, create {HTTP_URL}.make (item_element.attribute_by_name ("category").value)))
+					end
+				end
+
+			
+				-- Item
 				if item_element /= Void and then item_element.name.is_equal("item") then
-					create new_item.make (Result, read_or_default (item_element.element_by_name ("title"), "Undefined"), create {HTTP_URL}.make (read_or_default (item_element.element_by_name ("link"), "")), read_or_default (item_element.element_by_name ("description"), "Undefined"))
+					create new_item.make (Result, read_or_default_element (item_element.element_by_name ("title"), "Undefined"), create {HTTP_URL}.make (read_or_default_element (item_element.element_by_name ("link"), "")), read_or_default_element (item_element.element_by_name ("description"), "Undefined"))
 					
 					if (item_element.element_by_name ("author") /= Void) then
 						new_item.set_author (item_element.element_by_name ("author").text)

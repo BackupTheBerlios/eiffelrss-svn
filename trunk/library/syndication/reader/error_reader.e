@@ -67,5 +67,5 @@ feature -- Basic operations
 feature{NONE} -- Implementation
 
 	errors: LINKED_LIST [STRING]
-		
+
 end -- class ERROR_READER

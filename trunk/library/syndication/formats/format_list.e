@@ -78,6 +78,8 @@ feature -- Access
 			if item.is_of_format (a_document) then
 				Result := item.get_name
 			end
+			
+			forth
 		end
 	end
 		

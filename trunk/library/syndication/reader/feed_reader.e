@@ -39,11 +39,13 @@ feature -- Initialization
 		
 		create fetcher.make_source (url)
 		fetcher.fetch
+
+		create tree_pipe.make
 		
 		if fetcher.error = fetcher.None then
 			create {XM_EIFFEL_PARSER} xml_parser.make
 			xml_parser.set_string_mode_mixed
-			create tree_pipe.make
+
 			xml_parser.set_callbacks (tree_pipe.start)
 
 			xml_parser.parse_from_string (fetcher.data)
@@ -66,7 +68,11 @@ feature -- Initialization
 			end
 		end
 		
-		Result := reader.read (tree_pipe.document)
+		if tree_pipe.document = Void then
+			Result := reader.read (create {XM_DOCUMENT}.make)
+		else
+			Result := reader.read (tree_pipe.document)
+		end
 	end
 
 feature -- Error
