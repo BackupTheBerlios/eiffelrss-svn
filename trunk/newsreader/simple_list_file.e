@@ -12,7 +12,7 @@ inherit
 
 create
 	make
-		
+
 feature -- Persistence
 
 	load (input: FILE) is

@@ -105,7 +105,7 @@ feature -- Access
 
 feature -- Feeds
 	
-	save_feed_uris is
+	save_feed_urls is
 			-- save feeds
 		local
 			file: PLAIN_TEXT_FILE
@@ -119,7 +119,9 @@ feature -- Feeds
 			end
 			create file.make_create_read_write (path + operating_environment.directory_separator.out + application_default_properties.get ("Feed_file"))
 			
-			feeds := feed_manager.feed_addresses
+			create feeds.make
+			
+			feeds.fill (feed_manager.feed_addresses)
 			feeds.store (file)
 		end
 
@@ -152,10 +154,8 @@ feature -- Feeds
 			create feeds.make
 			if file.exists then
 				file.open_read_write
-				feeds := feed_manager.feed_addresses
 				feeds.load (file)
 			end
-			
 
 			if feeds.count > 0 then
 				logfile.log_message ("Loading all feeds...", feature{LOGFILE}.Info)

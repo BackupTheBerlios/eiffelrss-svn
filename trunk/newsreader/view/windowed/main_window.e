@@ -145,7 +145,7 @@ feature -- Events
 					application.logfile.log_message ("saving preferences", feature{LOGFILE}.Info)
 					application.save_properties
 					application.logfile.log_message ("saving feed uris", feature{LOGFILE}.Info)
-					application.save_feed_uris
+					application.save_feed_urls
 					application.logfile.log_message ("destroying window...", feature{LOGFILE}.Info)
 					destroy
 					application.logfile.log_message ("destroying application", feature{LOGFILE}.Info)
@@ -155,7 +155,7 @@ feature -- Events
 				application.logfile.log_message ("saving preferences", feature{LOGFILE}.Info)
 				application.save_properties
 				application.logfile.log_message ("saving feed uris", feature{LOGFILE}.Info)
-				application.save_feed_uris
+				application.save_feed_urls
 				application.logfile.log_message ("destroying window...", feature{LOGFILE}.Info)
 				destroy
 				application.logfile.log_message ("destroying application", feature{LOGFILE}.Info)
