@@ -49,6 +49,8 @@ cluster
 			"french"; "german"; 
 		end
 
+	library net:		"$ISE_EIFFEL\library\net"
+
 	library gobo:		"$ISE_EIFFEL\free_add_ons\gobo\library"
 		exclude
 			"other"; "ve"; "se"; "hact"; "expat"; 

@@ -54,7 +54,16 @@ feature -- Initialization
 			set_first (newsfeed_list)
 			set_second (feed_detail_view)
 		end
+
+feature --  Basic Operations
+
+	display_feed is
+			-- set feed to be shown in detail view
+		do
+			feed_detail_view.display_feed (application.current_feed)
+		end
 		
+
 feature {NONE} -- Implementation
 
 	newsfeed_list: NEWSFEED_LIST

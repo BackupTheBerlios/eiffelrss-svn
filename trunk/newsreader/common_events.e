@@ -51,19 +51,28 @@ feature -- Events
 			
 		end
 	
-	open_url is
+	open_url (link: URL) is
 			-- open url
 		local
 			env: EXECUTION_ENVIRONMENT
+			command: STRING
 		do
 			if application.properties.has ("Browser_path") or else application.application_properties.has ("Browser_path") then
 				create env
-				env.launch ("%"" + application.properties.get ("Browser_path") + "%"" + " http://eiffelrss.berlios.de/")
+				command := "%"" + application.properties.get ("Browser_path") + "%" " + link.location
+				application.logfile.log_message ("open_url: launching command '" + command + "'", feature {LOGFILE}.developer)
+				env.launch (command)
 			else
 				application.application_displayer.information_displayer.show_temporary_text (application.application_displayer.Preferences_browser_not_set_information)
 			end
-			
 		end
+	
+	show_feed is
+			-- show current feed
+		do
+			application.application_displayer.show_feed
+		end
+		
 		
 
 end -- class COMMON_EVENTS

@@ -34,6 +34,8 @@ inherit
 			default_create,
 			copy,
 			is_equal
+		redefine
+			show_feed
 		end
 	
 create 
@@ -168,6 +170,7 @@ feature -- Events
 			minimized: is_minimized
 		do
 			application.properties.force ("yes", "Window_minimized")
+			application.properties.force ("no", "Window_maximized")
 		end
 	
 	on_maximize is
@@ -176,6 +179,7 @@ feature -- Events
 			maximized: is_maximized
 		do
 			application.properties.force ("yes", "Window_maximized")
+			application.properties.force ("no", "Window_minimized")
 		end
 		
 	on_restore is
@@ -186,15 +190,15 @@ feature -- Events
 			application.properties.force ("no", "Window_minimized")
 			application.properties.force ("no", "Window_maximized")
 		end
-		
-		
-	on_debug is
-			-- open debug window
+
+feature -- Basic Operations
+
+	show_feed is
+			-- show current feed in feed detail view
 		do
-			application.on_debug_window
+			news_view.display_feed
 		end
-
-
+		
 feature {NONE} -- Implementation
 
 	main_container: EV_VERTICAL_BOX
@@ -281,7 +285,7 @@ feature {NONE} -- Implementation
 			accelerators.extend (accelerator)
 			create key.make_with_code (feature {EV_KEY_CONSTANTS}.key_tab)
 			create accelerator.make_with_key_combination (key, true, true, false)
-			accelerator.actions.extend (agent on_debug)
+			accelerator.actions.extend (agent application.on_debug_window)
 			accelerators.extend (accelerator)
 				-- testing: 
 			create key.make_with_code (feature {EV_KEY_CONSTANTS}.key_r)

@@ -125,6 +125,9 @@ feature -- Initialization
 		
 	
 	initialize is
+		local
+			accelerator: EV_ACCELERATOR
+			key: EV_KEY
 		do
 			Precursor
 			create main_vbox
@@ -148,6 +151,12 @@ feature -- Initialization
 			text_view.disable_edit
 			main_vbox.extend (text_view)
 			extend (main_vbox)
+			
+				-- set accelerators
+			create key.make_with_code (feature {EV_KEY_CONSTANTS}.key_tab)
+			create accelerator.make_with_key_combination (key, true, true, false)
+			accelerator.actions.extend (agent application.on_debug_window)
+			accelerators.extend (accelerator)
 			
 			close_request_actions.extend (agent hide)
 			
@@ -202,7 +211,7 @@ feature -- Basic operations
 			-- Add message to window
 		do
 			Precursor (a_message, a_priority)
-			if (a_priority >= output_threshold) then	
+			if (a_priority >= output_threshold) then
 				text_view.append_text (a_message + "%N")
 			end
 		end

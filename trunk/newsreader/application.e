@@ -42,12 +42,28 @@ feature {NONE} -- Initialization
 			
 				-- create logfile
 			create_log
+			logfile.log_message ("APPLICATION started and logfile created", logfile.info)
 			
+				-- testing
+			create current_feed.make ("EiffelRSS", create {HTTP_URL}.make ("http://eiffelrss.berlios.de/Main/AllRecentChanges?action=rss"), "AllRecentChanges")
+			current_feed.new_item ("Version 23 released!", create {HTTP_URL}.make ("http://eiffelrss.berlios.de/Main/News"), 
+				"Version 23 of EiffelRSS got release today. Happy syndicating!")
+			current_feed.last_added_item.add_category (create {CATEGORY}.make_title_domain ("News", create {HTTP_URL}.make ("http://eiffelrss.berlios.de/Main/News/")))
+			
+			current_feed.new_item ("Microsoft uses EiffelRSS", create {HTTP_URL}.make ("http://eiffelrss.berlios.de/Main/WhoUsesEiffelRSS"), 
+				"Microsoft announced in a press release today that they will use EiffelRSS to syndicate news on their website.")
+			current_feed.last_added_item.set_source (create {ITEM_SOURCE}.make ("Microsoft", create {HTTP_URL}.make ("http://www.microsoft.com")))
+			current_feed.last_added_item.set_enclosure (create {ITEM_ENCLOSURE}.make (create {HTTP_URL}.make ("http://eiffelrss.berlios.de/files/ms-press-release.pdf"), 1000, "application/pdf"))
+				
+			current_feed.new_item ("EiffelRSS wins award", create {HTTP_URL}.make ("http://eiffelrss.berlios.de/Main/Awards"),
+				"EiffelRSS has been awarded by ISE as best syndication software written in Eiffel. For more info see award-winning pages: http://eiffelrss.berlios.de")
+			current_feed.last_added_item.set_guid (create {ITEM_GUID}.make_perma_link ("http://eiffelrss.berlios.de/newsItem42"))
 			
 				-- Open properties files
 			load_properties
 
 			create_application_displayer
+			application_displayer.show_feed
 			
 				-- create debug window and hide
 		end
@@ -88,6 +104,8 @@ feature -- Events
 feature -- Access
 
 	application_displayer: APPLICATION_DISPLAYER
+	
+	current_feed: FEED
 	
 feature {NONE} -- Implementation
 
