@@ -5,7 +5,7 @@ indexing
 	revision: "$Revision$"
 
 class
-	ITEM_EDIT_DIALOG
+	ITEM_INFO_DIALOG
 
 inherit
 	SETTINGS_DIALOG

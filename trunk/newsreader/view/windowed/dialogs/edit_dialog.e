@@ -5,7 +5,7 @@ indexing
 	revision: "$Revision$"
 
 class
-	EDIT_DIALOG
+	FEED_INFO_DIALOG	
 
 inherit
 	SETTINGS_DIALOG
