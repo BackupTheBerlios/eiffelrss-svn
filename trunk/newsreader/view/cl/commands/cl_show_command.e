@@ -38,8 +38,8 @@ feature -- Initialization
 			Precursor (args)
 			make_parser
 			args.start
-			if args.count > 0 then
---				application.set_current_feed (application.feeds.i_th (args.item.to_integer)) --- NEEDS CHANGE
+			if args.count > 0 and then (args.item.is_integer and then (args.item.to_integer > 0 and args.item.to_integer <= application.feed_manager.count)) then
+				application.set_current_feed (application.feed_manager.item (application.feed_manager.feed_links.i_th (args.item.to_integer)))
 				show_feed
 				parse
 				if is_exit_requested then

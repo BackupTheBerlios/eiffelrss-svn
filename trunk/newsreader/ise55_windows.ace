@@ -15,16 +15,12 @@ default
 	arguments ("-no_debug_window")
 	disabled_debug (yes)
 	disabled_debug ("dlg_dispatcher")
-	disabled_debug ("gelex")
-	disabled_debug ("geyacc")
 	disabled_debug ("vision2_windows")
 	disabled_debug ("vision2_windows_gdi")
 	disabled_debug ("wel")
 	disabled_debug ("wel_gdi_count")
 	disabled_debug ("wel_gdi_references")
 	disabled_debug ("win_dispatcher")
-	disabled_debug ("xml_input_stream")
-	disabled_debug ("xml_parser")
 	debug (no)
 	line_generation (no)
 	trace (no)
@@ -60,7 +56,7 @@ cluster
 
 	feed_context (commands):		"$\feed_context"
 
-	library eiffelrss:		"..\library"
+	all eiffelrss:		"..\library"
 		exclude
 			".svn"; 
 		default
@@ -93,7 +89,6 @@ cluster
 		end
 
 	library wel:		"$ISE_EIFFEL\library\wel"
-
 
 	library vision2:		"${ISE_EIFFEL}\library\vision2"
 		exclude

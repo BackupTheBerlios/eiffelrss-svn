@@ -59,6 +59,7 @@ feature -- Initialization
 	start is
 			-- start
 		do
+			application.load_feeds
 			parse
 			application.destroy
 		end
@@ -136,4 +137,5 @@ feature -- Basic Operations
 feature {NONE} -- Implementation
 	
 	command_string: STRING is ""
+	
 end -- class CL_MAIN

@@ -32,10 +32,17 @@ feature -- Initialization
 				
 				io.put_new_line
 				disp.show_temporary_text (Info_item_title_item + ": " + feed_item.title)
-				disp.show_temporary_text (Info_item_description_item + ": " + feed_item.description)
+				if feed_item.description.count > 50 then
+					io.put_new_line
+					disp.show_temporary_text (Info_item_description_item + ": ")
+					disp.show_temporary_text (feed_item.description)
+					io.put_new_line
+				else
+					disp.show_temporary_text (Info_item_description_item + ": " + feed_item.description)
+				end
 				disp.show_temporary_text (Info_item_link_item + ": " + feed_item.link.location)
 				if feed_item.pub_date /= void then
-					disp.show_temporary_text (Info_item_pub_date_item + ": " + feed_item.pub_date.default_format_string)
+					disp.show_temporary_text (Info_item_pub_date_item + ": " + feed_item.pub_date.formatted_out (application.properties.get ("Date_format")))
 				end
 				if feed_item.author /= void then
 					disp.show_temporary_text (Info_item_author_item + ": " + feed_item.author)

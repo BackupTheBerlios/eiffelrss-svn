@@ -26,13 +26,21 @@ feature -- Initialization
 		do
 			Precursor (args)
 			args.start
---			if args.count > 0 and then  application.current_feed.items.valid_index (args.item.to_integer) then
+			if args.count > 0 and then  application.current_feed.items.valid_index (args.item.to_integer) then
 				feed := application.current_feed
 				disp := application.application_displayer.information_displayer
 				
 				io.put_new_line
 				disp.show_temporary_text (Info_feed_title_item + ": " + feed.title)
 				disp.show_temporary_text (Info_feed_description_item + ": " + feed.description)
+				if feed.description.count > 50 then
+					io.put_new_line
+					disp.show_temporary_text (Info_feed_description_item + ": ")
+					disp.show_temporary_text (feed.description)
+					io.put_new_line
+				else
+					disp.show_temporary_text (Info_feed_description_item + ": " + feed.description)
+				end
 				disp.show_temporary_text (Info_feed_link_item + ": " + feed.link.location)
 				
 				if feed.has_pub_date then
@@ -57,9 +65,9 @@ feature -- Initialization
 					disp.show_temporary_text (Info_feed_feed_generator_item + ": " + feed.feed_generator)
 				end
 				io.put_new_line
---			else 
---				application.application_displayer.information_displayer.show_temporary_text (Argument_error_item)
---			end
+			else 
+				application.application_displayer.information_displayer.show_temporary_text (Argument_error_item)
+			end
 			
 		end
 		
