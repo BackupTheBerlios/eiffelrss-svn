@@ -220,14 +220,21 @@ structures.
 \texttt{TWO\_WAY\_LINKED\_LIST} to implement a sortable doubly-linked
 list.
 
-[TODO: BON diagram]
+See figure \ref{fig:adt} for an overview of the cluster.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.7\textwidth]{./figures/EIFFELRSS_ADT}
+  \caption{BON diagram of cluster \texttt{ADT}}
+  \label{fig:adt}
+\end{figure}
 
 
 \subsection{FETCH}
 \label{sec:fetch}
 
 \texttt{FETCH} is a class which has features that can fetch data from
-a source address to a local \texttt{STRING} using varoius services.
+a source address to a local \texttt{STRING} using various services.
 \texttt{FETCH} provides a simple interface for the
 \texttt{DATA\_RESOURCE} class in EiffelNet.
 
@@ -236,7 +243,14 @@ A valid source address has the following format:
 
 Supported services are: file, http, ftp.
 
-[TODO: BON diagram]
+See figure \ref{fig:fetch} for an overview of the cluster.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.7\textwidth]{./figures/EIFFELRSS_FETCH}
+  \caption{BON diagram of cluster \texttt{FETCH}}
+  \label{fig:fetch}
+\end{figure}
 
 
 \subsection{LOGFILE}
@@ -250,7 +264,14 @@ logfile a certain user defined threshold. If the priority of the
 message is greater or equal than the threshold, it gets written to the
 log file together with a timestamp.
 
-[TODO: BON diagram]
+See figure \ref{fig:logfile} for an overview of the class.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[scale=.6]{./figures/LOGFILE}
+  \caption{BON diagram of class \texttt{LOGFILE}}
+  \label{fig:logfile}
+\end{figure}
 
 
 \subsection{PROPERTIES}
@@ -270,43 +291,78 @@ class. The main difference is, that \texttt{PROPERTIES} doesn't
 support keys and values separated by whitespace only. It always
 expects \texttt{:} or \texttt{=} as a separator between key and value.
 
-[TODO: BON diagram]
+See figure \ref{fig:properties} for an overview of the cluster.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[scale=.6]{./figures/EIFFELRSS_PROPERTIES}
+  \caption{BON diagram of cluster \texttt{PROPERTIES}}
+  \label{fig:properties}
+\end{figure}
 
 
 \subsection{SYNDICATION}
 \label{sec:syndication}
 
-\texttt{SYNDICATION} is the main cluster of EiffelRSS. It contains
-several subclusters.
+\texttt{SYNDICATION} is the main cluster of EiffelRSS with a feed
+object model, and classes to load and write feeds. It is divided into
+three subclusters.
+
+See figure \ref{fig:syndication} for an overview of the cluster.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\textwidth]{./figures/EIFFELRSS_SYNDICATION}
+  \caption{BON diagram of cluster \texttt{SYNDICATION}}
+  \label{fig:syndication}
+\end{figure}
+
+
+\subsubsection{INTERFACE}
+
+\texttt{INTERFACE} is the sub-cluster of syndication with all the
+classes a developer needs to use the library. There are classes to
+read into and write from a \texttt{FEED}, a \texttt{FEED\_MANAGER} to
+administrate a list of \texttt{FEED}s, and a factory class which makes
+it easy to create all necessary objects.
+
+See figure \ref{fig:interface} for an overview of the cluster.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[scale=.6]{./figures/EIFFELRSS_SYNDICATION_INTERFACE}
+  \caption{BON diagram of cluster \texttt{INTERFACE}}
+  \label{fig:interface}
+\end{figure}
 
 
 \subsubsection{FEED}
 
-\texttt{FEED} is the central datastructure. It defines an abstract
-syndication feed.
+\texttt{FEED} is the central datastructure of EiffelRSS. t defines an
+abstract syndication feed.
 
-[TODO: BON diagram]
+See figure \ref{fig:feed} for an overview of the cluster.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\textwidth]{./figures/EIFFELRSS_SYNDICATION_FEED}
+  \caption{BON diagram of cluster \texttt{FEED}}
+  \label{fig:feed}
+\end{figure}
 
 
 \subsubsection{FORMATS}
 
 \texttt{FORMATS} defines the different syndication formats.
 
-[TODO: BON diagram]
+See figure \ref{fig:formats} for an overview of the cluster.
 
-
-\subsubsection{READERS}
-
-\texttt{READERS} defines readers for different syndication formats.
-
-[TODO: BON diagram]
-
-
-\subsubsection{WRITERS}
-
-\texttt{WRITERS} defines writers for different syndication formats.
-
-[TODO: BON diagram]
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\textwidth]{./figures/EIFFELRSS_SYNDICATION_FORMATS}
+  \caption{BON diagram of cluster \texttt{FORMATS}}
+  \label{fig:formats}
+\end{figure}
 
 
 \section{Newsreader}
@@ -327,8 +383,6 @@ interface.
   \caption{Screenshot of the graphical user interface of Newsreader}
   \label{fig:newsreader}
 \end{figure}
-
-[TODO: BON diagram]
 
 
 \section{Extensibility}
