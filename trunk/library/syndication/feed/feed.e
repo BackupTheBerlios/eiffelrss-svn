@@ -48,6 +48,9 @@ feature -- Setter
 			set_items (a_channel.items)
 			set_categories (a_channel.categories)
 			set_ttl (a_channel.ttl)
+			set_skip_hours (a_channel.skip_hours)
+			set_skip_days (a_channel.skip_days)
+			set_items_toc (a_channel.items_toc)
 			
 			if language /= Void then
 				set_language (a_channel.language)
@@ -96,6 +99,10 @@ feature -- Setter
 			if rating /= Void then
 				set_rating (a_channel.rating)
 			end			
+
+			if textinput /= Void then
+				set_textinput (a_channel.textinput)
+			end	
 		end
 		
 	set_refresh_period (a_refresh_period: INTEGER) is

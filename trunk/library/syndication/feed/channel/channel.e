@@ -697,6 +697,7 @@ invariant
 	non_empty_description: description /= Void and then not description.is_empty
 	non_void_items_toc: items_toc /= Void
 	non_void_items: items /= Void
+	non_void_skip_days: skip_days /= Void
 	non_void_skip_hours: skip_hours /= Void
 
 end -- class CHANNEL
