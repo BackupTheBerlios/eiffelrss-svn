@@ -45,7 +45,8 @@ feature -- Initialization
 		if fetcher.error = fetcher.None then
 			create {XM_EIFFEL_PARSER} xml_parser.make
 			xml_parser.set_string_mode_mixed
-
+			
+			xml_parser.set_entity_resolver (create {RSS_RESOLVER})
 			xml_parser.set_callbacks (tree_pipe.start)
 
 			xml_parser.parse_from_string (fetcher.data)
