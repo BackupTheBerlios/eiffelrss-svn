@@ -1,6 +1,6 @@
 indexing
-	description: "Objects that ..."
-	author: ""
+	description: "Resource factory which can generate the HTTP 1.1 object"
+	author: "Michael Käser"
 	date: "$Date$"
 	revision: "$Revision$"
 

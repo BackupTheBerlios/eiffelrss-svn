@@ -1,5 +1,5 @@
 indexing
-	description: "Objects that ..."
+	description: "Implementation of HTTP 1.1"
 	author: ""
 	date: "$Date$"
 	revision: "$Revision$"

@@ -1,6 +1,6 @@
 indexing
-	description: "Objects that ..."
-	author: ""
+	description: "HTTP URL which supports special chars"
+	author: "Michael Käser"
 	date: "$Date$"
 	revision: "$Revision$"
 
