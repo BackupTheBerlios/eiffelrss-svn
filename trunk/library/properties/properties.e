@@ -131,9 +131,13 @@ feature -- Debug
 			-- Returns a string representation of the property list.
 		local
 			key, value: STRING
+			old_iteration_position: INTEGER
 		do
 			Result := "Listing properties:%N"
 			Result := Result + "-------------------%N"
+			
+			old_iteration_position := iteration_position
+			
 			from
 				start
 			until
@@ -150,6 +154,8 @@ feature -- Debug
 				Result := Result + key + "=" + value + "%N"
 				forth
 			end
+			
+			iteration_position := old_iteration_position
 			
 		end
 
