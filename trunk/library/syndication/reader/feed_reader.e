@@ -48,7 +48,7 @@ feature -- Initialization
 
 			xml_parser.parse_from_string (fetcher.data)
 			
-			if xml_parser.last_error = 0 then
+			if xml_parser.last_error_description = Void then
 				reader := Format_list.get_reader (Format_list.detect_format (tree_pipe.document))				
 
 				if reader.get_name.is_equal ("Error") then
