@@ -36,6 +36,8 @@ feature -- Initialization
 		do
 			make_with_size (10)
 			set_default_refresh_period (default_refresh_period)
+			compare_objects
+			create urls.make
 		end
 		
 feature -- Access
@@ -290,5 +292,6 @@ feature {NONE} -- Implementation
 		
 invariant
 	default_refresh_period_positive: default_refresh_period >= 0
+	non_void_urls: urls /= Void
 
 end -- class FEED_MANAGER
