@@ -10,6 +10,9 @@ class
 inherit
 	LOGGER
 
+create
+	load_properties
+
 feature -- Properties
 	
 	application_default_properties: PROPERTIES
@@ -215,4 +218,8 @@ feature -- Properties
 			end
 		end
 
+invariant
+	application_default_properties_not_void: application_default_properties /= void
+	application_properties_not_void: application_properties /= void
+	user_properties_not_void: user_properties /= void
 end -- class APPLICATION_PROPERTIES

@@ -6,7 +6,9 @@ indexing
 
 class
 	LOGGER
-
+	
+create
+	load_logfile
 
 feature -- Logging
 	
@@ -20,4 +22,6 @@ feature -- Logging
 			logfile.set_threshold (logfile.Developer)
 		end
 
+invariant
+	logfile_not_void: logfile /= void
 end -- class LOGGER

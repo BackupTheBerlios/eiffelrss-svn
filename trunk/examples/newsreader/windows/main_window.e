@@ -316,7 +316,5 @@ feature {NONE} -- Implementation
 				minimize
 			end
 		end
-		
-		
-	
+
 end -- class MAIN_WINDOW

@@ -64,5 +64,5 @@ feature -- Implementation
 		do
 			debug_window.show
 		end
-		
+
 end -- class APPLICATION

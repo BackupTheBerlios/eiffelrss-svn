@@ -104,6 +104,7 @@ feature -- Initialization
 			text_view.append_text (s)
 			logfile.log_message (s, 1)
 		end
-		
-			
+
+invariant
+	logfile_not_void: logfile /= void
 end -- class DEBUG_WINDOW
