@@ -142,7 +142,7 @@ feature -- Initialization
 			properties_box.disable_item_expand (refesh_button)
 			properties_box.hide
 			create properties_view
-			properties_view.set_minimum_height (350)
+			properties_view.set_minimum_height (200)
 			properties_view.disable_edit
 			properties_box.extend (properties_view)
 			main_vbox.extend (properties_box)

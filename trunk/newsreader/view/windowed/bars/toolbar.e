@@ -71,7 +71,7 @@ feature -- Initialization
 			toolbar_pixmap.set_with_named_file ("graphics/stock_edit.png")
 			toolbar_item.set_pixmap (toolbar_pixmap)
 			toolbar_item.select_actions.extend (agent on_info)
-			toolbar_item.set_tooltip (Toolbar_edit_tooltip)
+			toolbar_item.set_tooltip (Toolbar_info_tooltip)
 			toolbar.extend (toolbar_item)
 
 			create toolbar_item

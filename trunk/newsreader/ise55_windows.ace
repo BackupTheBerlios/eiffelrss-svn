@@ -11,8 +11,6 @@ default
 	assertion (ensure)
 	assertion (loop)
 	assertion (invariant)
-	arguments ("-cl")
-	arguments ("-no_debug_window")
 	disabled_debug (yes)
 	disabled_debug ("dlg_dispatcher")
 	disabled_debug ("vision2_windows")
@@ -34,11 +32,12 @@ default
 	exception_trace (no)
 	inlining (no)
 	multithreaded (no)
+	arguments ("-cl")
+	arguments ("-no_debug_window")
 
 
 cluster
 	newsreader:		"."
-
 
 	view (newsreader):		"$\view"
 

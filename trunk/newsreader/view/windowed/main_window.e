@@ -364,12 +364,6 @@ feature {NONE} -- Implementation
 			create accelerator.make_with_key_combination (key, true, true, false)
 			accelerator.actions.extend (agent application.on_debug_window)
 			accelerators.extend (accelerator)
---				-- CTRL-ALT-`: test things (test_routing in COMMON_EVENTS): TO BE REMOVED
---			create key.make_with_code (feature {EV_KEY_CONSTANTS}.key_backquote)
---			create accelerator.make_with_key_combination (key, true, true, false)
---			accelerator.actions.extend (agent test_routine)
---			accelerators.extend (accelerator)
---				-- :testing
 		end
 		
 

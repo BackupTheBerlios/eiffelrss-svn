@@ -115,13 +115,6 @@ feature -- Events
 			else
 				application.application_displayer.information_displayer.show_temporary_text (application.application_displayer.Preferences_browser_not_set_information)
 			end
-		end
-
---	test_routine is
---			-- routine the only purpose of which is to do testing :)
---		do
-			
---		end
-		
+		end		
 
 end -- class COMMON_EVENTS

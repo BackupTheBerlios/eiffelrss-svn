@@ -40,6 +40,7 @@ feature {NONE} -- Initialize
 			right_vertical_box: EV_VERTICAL_BOX
 			buttons_box: EV_HORIZONTAL_BOX
 			icon: EV_PIXMAP
+			label: EV_LABEL
 		do
 			make_app_ref
 			Precursor
@@ -53,7 +54,12 @@ feature {NONE} -- Initialize
 			buttons_box.disable_item_expand (ok_button)
 			create left_vertical_box
 			left_vertical_box.set_padding (7)
-			left_vertical_box.extend (create{EV_LABEL}.make_with_text (Application_name + " v" + Application_version_number))
+			create label.make_with_text (Application_name + " v" + Application_version_number)
+			left_vertical_box.extend (label)
+			left_vertical_box.disable_item_expand (label)
+			create label.make_with_text (Application_about)
+			left_vertical_box.extend (label)
+			left_vertical_box.disable_item_expand (label)
 			create right_vertical_box
 			right_vertical_box.set_padding (7)
 			right_vertical_box.extend (buttons_box)

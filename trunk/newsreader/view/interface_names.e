@@ -12,10 +12,10 @@ feature -- General
 	Application_name: STRING is "Newsreader"
 			-- String with application's name
 			
-	Application_version_number: STRING is "0.x"
+	Application_version_number: STRING is "0.1"
 			-- String representing application's version number
 			
-	Application_about: STRING is ""
+	Application_about: STRING is "by Martin Luder%N%NEiffelRSS by Michael Käser & Thomas Weibel%Nhttp://eiffelrss.berlios.de%N%NEiffel Forum V2 License%Nhttp://www.opensource.org/licenses/ver2_eiffel.php"
 			-- String representing information about this application
 	
 	Application_load_feeds: STRING is "Loading feeds..."

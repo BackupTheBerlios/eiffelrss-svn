@@ -42,17 +42,11 @@ feature -- Menus
 	Menu_channel_refresh_item: STRING is "&Refresh%TCtrl+T"
 			-- String for menu "Channel/Refresh"
 	
-	Menu_channel_info_item: STRING is "Feed information...%TAlt+2"
+	Menu_channel_feed_info_item: STRING is "Feed information...%TAlt+2"
 			-- String for menu "Channel/Feed Information"
 	
 	Menu_channel_item_info_item: STRING is "Item information...%TAlt+3"
 			-- String for menu "Channel/Item information"
-	
-	Menu_channel_feed_edit_item: STRING is "&Edit feed...%TCtrl+U"
-			-- String for menu "Channel/Edit feed"
-	
-	Menu_channel_item_edit_item: STRING is "Edit item...%TCtrl+Shift+U"
-			-- String for menu "Channel/Edit item"
 	
 	Menu_channel_feed_remove_item: STRING is "Re&move feed%TCtrl+D"
 			-- String for menu "Channel/Remove"
@@ -78,10 +72,10 @@ feature -- toolbar
 	Toolbar_refresh_tooltip: STRING is "Refresh all feeds"
 			-- String for toolbar item 'refresh' tooltip
 	
-	Toolbar_remove_tooltip: STRING is "Remove current feed"
+	Toolbar_remove_tooltip: STRING is "Remove selected feed/item"
 			-- String for toolbar item 'delete' tooltip
 	
-	Toolbar_edit_tooltip: STRING is "Edit current feed"
+	Toolbar_info_tooltip: STRING is "Information on selected feed/item"
 			-- String for toolbar item 'edit' tooltip
 	
 	Toolbar_preferences_tooltip: STRING is "Show preferences"
