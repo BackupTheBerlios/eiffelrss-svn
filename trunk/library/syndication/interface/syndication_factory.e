@@ -21,15 +21,15 @@ feature -- READER factory
 
 feature -- WRITER factory
 
---	new_writer_from_feed (a_feed: FEED): FEED_WRITER is
---			-- Create a writer object for the feed `a_feed'
---		require
---			valid_feed: a_feed /= Void
---		do
---			create Result.make_feed (a_feed)
---		ensure
---			non_void_result: Result /= Void
---		end
+	new_writer_from_feed (a_feed: FEED): FEED_WRITER is
+			-- Create a writer object for the feed `a_feed'
+		require
+			valid_feed: a_feed /= Void
+		do
+			create Result.make_feed (a_feed)
+		ensure
+			non_void_result: Result /= Void
+		end
 
 feature -- FEED_MANAGER factory
 
@@ -218,7 +218,7 @@ feature -- CATEGORY factory
 			non_void_result: Result /= Void
 		end
 		
-	new_category_wit_title (a_title: STRING): CATEGORY is
+	new_category_with_title (a_title: STRING): CATEGORY is
 			-- Create a category with title `a_title'
 		require
 			non_empty_title: a_title /= Void and then not a_title.is_empty
