@@ -22,10 +22,19 @@ feature -- Initialisation
 		do
 			Precursor {INFORMATION_PANEL}
 			
-			create list
+			create feed_url
+			feed_url.align_text_left
+			feed_url.set_font (create {EV_FONT}.make_with_values (feature {EV_FONT_CONSTANTS}.Family_screen, feature {EV_FONT_CONSTANTS}.Weight_regular, feature {EV_FONT_CONSTANTS}.Shape_italic, 11))
+			feed_url.pointer_button_press_actions.extend (agent on_feed_url_click)
+			label_left_box.extend (feed_url)
+			label_left_box.disable_item_expand (feed_url)
+			create feed_description
+			feed_description.align_text_left
+			label_left_box.extend (feed_description)
+			label_left_box.disable_item_expand (feed_description)
 			
-				-- test
-			set_label_text ("Feed Detail View")
+			create list
+
 			extend (list)
 			list.set_column_titles (<<Feed_detail_view_title_column,Feed_detail_view_description_column,Feed_detail_view_date_column >>)
 			
@@ -53,6 +62,9 @@ feature -- Basic operations
 			
 			set_label_text (feed.title)
 			application.logfile.log_message ("showing items of '" + feed.title + "'", feature{LOGFILE}.Developer)
+			
+			feed_url.set_text (feed.link.location)
+			feed_description.set_text (feed.description)
 			
 			from
 				feed.items.start
@@ -126,6 +138,12 @@ feature -- Events
 			list.wipe_out
 			display_feed (feed)
 		end
+	
+	on_feed_url_click (a,b,c: INTEGER; d,e,f: DOUBLE; g,h: INTEGER) is
+			-- 
+		do
+			open_url (application.current_feed.link, false)
+		end
 		
 
 feature {NONE} -- Implementation
@@ -133,6 +151,8 @@ feature {NONE} -- Implementation
 	list: EV_MULTI_COLUMN_LIST
 	
 	feed: FEED
+	
+	feed_url, feed_description: EV_LABEL
 	
 	no_sort, asc_sort, desc_sort: INTEGER is unique
 	

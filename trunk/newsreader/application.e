@@ -65,7 +65,13 @@ feature {NONE} -- Initialization
 			
 				-- Open properties files
 			load_properties
-
+			
+				---------------------------------
+				-- TEST
+--			load_feed (create {HTTP_URL}.make ("http://maser/pub/eiffelrss.rss"))
+				-- TEST
+				---------------------------------
+			
 			create_application_displayer
 			
 				-- create debug window and hide
@@ -114,6 +120,23 @@ feature -- Access
 	
 	current_feed: FEED
 	
+	feed_manager: FEED_MANAGER
+
+feature -- Basic Operations
+
+	load_feed (link: URL) is
+			-- load feed into feed manager
+		require
+			link_not_void: link /= void
+		local
+			reader: FEED_READER
+		do
+			logfile.log_message ("loading feed from '" + link.location + "'", feature{LOGFILE}.Info)
+			create reader.make_url (link.location)
+			feed_manager.put (reader.read, link)
+		end
+		
+		
 feature {NONE} -- Implementation
 
 	is_no_debug_window: BOOLEAN
@@ -123,7 +146,7 @@ feature {NONE} -- Implementation
 			-- run in command line
 			
 	application_displayer_initialized: BOOLEAN
-		
+	
 	create_log is
 			-- 
 		local
@@ -174,7 +197,7 @@ feature {NONE} -- Implementation
 				is_cl := true
 			end
 		end
-		
+
 invariant
 	application_displayer_not_void_after_initialization: (application_displayer = void) implies not application_displayer_initialized
 end -- class APPLICATION

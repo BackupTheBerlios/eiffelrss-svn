@@ -1,5 +1,5 @@
 indexing
-	description: "Objects that ..."
+	description: "Edit item dialog box"
 	author: ""
 	date: "$Date$"
 	revision: "$Revision$"

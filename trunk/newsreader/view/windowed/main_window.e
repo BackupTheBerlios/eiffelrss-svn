@@ -52,6 +52,7 @@ feature {NONE}
 	initialize is
 		local
 			sb: EV_STATUS_BAR
+			icon: EV_PIXMAP
 		do
 			Precursor {EV_TITLED_WINDOW}
 			application.logfile.log_message ("creating main window", feature{LOGFILE}.Info)
@@ -89,6 +90,17 @@ feature {NONE}
 			
 			show_actions.extend (agent restore_maximize_minimize)
 			restore_window_size_and_position
+			
+			create icon
+			icon.set_with_named_file ("graphics/newsreader_icon.png")
+			set_icon_pixmap (icon)
+			
+			
+				---------------------------------
+				-- TEST
+--			news_view.display_list
+				-- TEST
+				---------------------------------
 			
 			show_feed
 		end

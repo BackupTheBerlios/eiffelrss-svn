@@ -1,6 +1,6 @@
 indexing
-	description: "Objects that ..."
-	author: ""
+	description: "Objects that represent a row in FEED_DETAIL_VIEW and can show a feed item"
+	author: "Martin Luder"
 	date: "$Date$"
 	revision: "$Revision$"
 

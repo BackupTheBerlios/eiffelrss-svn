@@ -1,6 +1,6 @@
 indexing
-	description: "Objects that ..."
-	author: ""
+	description: "Implementation of INFORMATION_DISPLAYER as a status bar"
+	author: "Martin Luder"
 	date: "$Date$"
 	revision: "$Revision$"
 

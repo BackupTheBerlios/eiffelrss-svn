@@ -41,6 +41,7 @@ feature -- Initialisation
 		local
 			font: EV_FONT
 			cell: EV_CELL
+			hbox: EV_HORIZONTAL_BOX
 		do
 			default_create
 			make_app_ref
@@ -52,12 +53,17 @@ feature -- Initialisation
 			create font
 			font.set_weight (8)
 			label.set_font (font)
-			create label_box
+			create hbox
 			create cell
 			cell.set_minimum_width (20)
-			label_box.extend (cell)
-			label_box.disable_item_expand (cell)
-			label_box.extend (label)
+			hbox.extend (cell)
+			hbox.disable_item_expand (cell)
+			create label_left_box
+			label_left_box.extend (label)
+			label_left_box.disable_item_expand (label)
+			hbox.extend (label_left_box)
+			create label_box
+			label_box.extend (hbox)
 			extend (label_box)
 			disable_item_expand (label_box)
 		end
@@ -67,6 +73,7 @@ feature -- Initialisation
 feature {NONE} -- Implementation
 	
 	label_box: EV_HORIZONTAL_BOX
+	label_left_box: EV_VERTICAL_BOX
 	
 	label: EV_LABEL
 	

@@ -1,6 +1,6 @@
 indexing
-	description: "Objects that ..."
-	author: ""
+	description: "Container with the list of feeds and the list of current feed's items"
+	author: "Martin Luder"
 	date: "$Date$"
 	revision: "$Revision$"
 
@@ -48,7 +48,7 @@ feature -- Initialization
 	initialize is
 		do
 			Precursor
-			set_minimum_width (400)
+			set_minimum_width (500)
 			create feed_detail_view.make
 			create newsfeed_list.make_with_detail_view (feed_detail_view)
 			set_first (newsfeed_list)
@@ -57,6 +57,13 @@ feature -- Initialization
 
 feature --  Basic Operations
 
+	display_list is
+			-- display list of feeds
+		do
+			newsfeed_list.display_list
+		end
+		
+	
 	display_feed is
 			-- set feed to be shown in detail view
 		do

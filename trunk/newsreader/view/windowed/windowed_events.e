@@ -1,5 +1,5 @@
 indexing
-	description: "Objects that ..."
+	description: "Class that provides access to common events %Nthat have to be accessible to all windowed classes"
 	author: ""
 	date: "$Date$"
 	revision: "$Revision$"
