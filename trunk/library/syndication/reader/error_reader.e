@@ -10,6 +10,17 @@ class
 inherit
 	READER_DEF
 	
+create
+	make
+	
+feature -- Initialisation
+	make is
+			-- Create object
+	do
+		create errors.make
+	end
+		
+	
 feature -- Access
 
 	get_name: STRING is
@@ -21,10 +32,18 @@ feature -- Access
 	read (a_document: XM_DOCUMENT): FEED is
 			-- Create a feed with error message
 	do
+		create Result.make ("Error", create {HTTP_URL}.make ("http://"), "An error occured")
 		
+		from
+			errors.start
+		until
+			errors.after
+		loop
+			Result.new_item (errors.item, create {HTTP_URL}.make ("http://"), errors.item)
+			
+			errors.forth
+		end
 	end
-	
-	errors:	LIST [STRING]
 	
 	has_errors: BOOLEAN is
 			-- Has an error occured?
@@ -45,5 +64,8 @@ feature -- Basic operations
 		errors.count = old errors.count + 1
 	end
 		
+feature{NONE} -- Implementation
 
+	errors: LINKED_LIST [STRING]
+		
 end -- class ERROR_READER
