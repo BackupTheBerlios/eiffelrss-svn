@@ -93,12 +93,15 @@ feature -- Persistence
 		local
 			now: DATE_TIME
 			key, value: STRING
+			old_iteration_position: INTEGER
 		do
 			if comments /= Void then
 				writeln (output, "#" + comments)
 			end
 			create now.make_now
 			writeln (output, "#" + now.out)
+
+			old_iteration_position := iteration_position
 			
 			from
 				start
@@ -116,6 +119,8 @@ feature -- Persistence
 				writeln (output, key + "=" + value)
 				forth
 			end
+
+			iteration_position := old_iteration_position
 
 			output.flush
 		end
