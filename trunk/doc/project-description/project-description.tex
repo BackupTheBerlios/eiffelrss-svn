@@ -203,17 +203,20 @@
 \end{abstract}
 
 
-\section{Overview}
+\section{Library}
 \label{sec:overview}
 
-
-\subsection{Library}
-\label{sec:library}
-
-EiffelRSS consists of several different clusters.
+The library of EiffelRSS consists of several different clusters.
 
 
-\subsubsection{FETCH}
+\subsection{ADT}
+\label{sec:adt}
+
+[TODO]
+
+
+\subsection{FETCH}
+\label{sec:fetch}
 
 \texttt{FETCH} is a class which has features that can fetch data from
 a source address to a local \texttt{STRING} using varoius services.
@@ -225,17 +228,11 @@ A valid source address has the following format:
 
 Supported services are: file, http, ftp.
 
-See figure \ref{fig:fetch} for an overview of the class.
-
-\begin{figure}[htbp]
-  \centering
-  \includegraphics[width=0.7\textwidth]{./figures/fetch}
-  \caption{UML diagram of \texttt{FETCH}}
-  \label{fig:fetch}
-\end{figure}
+[TODO: BON diagram]
 
 
-\subsubsection{LOGFILE}
+\subsection{LOGFILE}
+\label{sec:logfile}
 
 \texttt{LOGFILE} represents a file which can be used for logging
 messages during the program execution.
@@ -245,17 +242,11 @@ logfile a certain user defined threshold. If the priority of the
 message is greater or equal than the threshold, it gets written to the
 log file together with a timestamp.
 
-See figure \ref{fig:logfile} for an overview of the class.
-
-\begin{figure}[htbp]
-  \centering
-  \includegraphics[width=0.7\textwidth]{./figures/logfile}
-  \caption{UML diagram of \texttt{LOGFILE}}
-  \label{fig:logfile}
-\end{figure}
+[TODO: BON diagram]
 
 
-\subsubsection{PROPERTIES}
+\subsection{PROPERTIES}
+\label{sec:properties}
 
 \texttt{PROPERTIES} represents a persistent set of properties. The
 properties can be saved to a file or loaded from a file.
@@ -268,50 +259,52 @@ the original property list.
 
 \texttt{PROPERTIES} is similar to the \texttt{java.util.Properties}
 class. The main difference is, that \texttt{PROPERTIES} doesn't
-support keys and values separated by whitespace. It always expects
-\texttt{:} or \texttt{=} as a separator between key and value.
+support keys and values separated by whitespace only. It always
+expects \texttt{:} or \texttt{=} as a separator between key and value.
 
-See figure \ref{fig:properties} for an overview of the class.
-
-\begin{figure}[htbp]
-  \centering
-  \includegraphics[width=0.7\textwidth]{./figures/properties}
-  \caption{UML diagram of \texttt{PROPERTIES}}
-  \label{fig:properties}
-\end{figure}
+[TODO: BON diagram]
 
 
-\subsubsection{SYNDICATION}
+\subsection{SYNDICATION}
+\label{sec:syndication}
 
 \texttt{SYNDICATION} is the main cluster of EiffelRSS. It contains
-several subclusters:
-
-\begin{itemize}
-\item \texttt{FEED} \\
-  Is the central datastructure, defines an abstract syndication feed.
-\item \texttt{READERS} \\
-  Defines readers for different syndication formats.
-\item \texttt{WRITERS} \\
-  Defines writers for different syndication formats.
-\item \texttt{UTILS} \\
-  Provides several utilities for parsing and writing, like encoders, decoders, etc. 
-\end{itemize}
+several subclusters.
 
 
-\subsection{Examples}
-\label{sec:examples}
+\subsubsection{FEED}
 
-The EiffelRSS distribution contains several examples demonstrating how
-to use its features. Among them is a simple newsfeed reader written
-with EiffelVision. See figure \ref{fig:reader} for a mockup of the
-user interface.
+\texttt{FEED} is the central datastructure. It defines an abstract
+syndication feed.
 
-\begin{figure}[htbp]
-  \centering
-  \includegraphics[width=0.7\textwidth]{./figures/main-window}
-  \caption{Mockup of the user interface of EiffelRSS Reader}
-  \label{fig:reader}
-\end{figure}
+[TODO: BON diagram]
+
+
+\subsubsection{FORMATS}
+
+\texttt{FORMATS} defines the different syndication formats.
+
+[TODO: BON diagram]
+
+
+\subsubsection{READERS}
+
+\texttt{READERS} defines readers for different syndication formats.
+
+[TODO: BON diagram]
+
+
+\subsubsection{WRITERS}
+
+\texttt{WRITERS} defines writers for different syndication formats.
+
+[TODO: BON diagram]
+
+
+\section{Newsreader}
+\label{sec:newsreader}
+
+[TODO: Description, screenshot, BON diagrams]
 
 
 \section{Extensibility}
@@ -327,10 +320,30 @@ syndication format (even non-XML). Because EiffelRSS uses an abstract
 intermediate representation of newsfeed data, one can also convert
 from one format to another.
 
-Another possibility of extension would be the sample newsfeed reader
-written with EiffelVision. This application could be extended to a
-full fledged newsfeed reader.
+Another possibility of extension would be the newsfeed reader written
+with EiffelVision. This application could be extended to a full
+fledged newsfeed reader.
 
-To sum up: EiffelRSS is extensible without limit.
+
+\section{Who does what?}
+\label{sec:who_does_what}
+
+
+\subsection{Michael Käser}
+\label{sec:michael}
+
+[TODO]
+
+
+\subsection{Martin Luder}
+\label{sec:martin}
+
+[TODO]
+
+
+\subsection{Thomas Weibel}
+\label{sec:thomas}
+
+[TODO]
 
 \end{document}
