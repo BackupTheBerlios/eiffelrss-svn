@@ -9,7 +9,7 @@ class
 	
 inherit
 	CATEGORIES
-	CHANNEL_OBSERVABLE
+	OBSERVABLE_CHANNEL
 	
 create
 	make
@@ -64,16 +64,16 @@ feature -- Access
 	docs: URL
 			-- Channel docs
 	
-	cloud: CLOUD
+	cloud: CHANNEL_CLOUD
 			-- Channel cloud
 	
 	ttl: INTEGER
 			-- Channel time to live
 	
-	image: IMAGE
+	image: CHANNEL_IMAGE
 			-- Channel image
 	
-	text_input: TEXT_INPUT
+	text_input: CHANNEL_TEXT_INPUT
 			-- Channel text input
 
 -- [TODO]	
@@ -227,7 +227,7 @@ feature -- Setter
 			docs_set: docs = url
 		end
 
-	set_cloud (a_cloud: CLOUD) is
+	set_cloud (a_cloud: CHANNEL_CLOUD) is
 			-- Channel cloud
 		require
 			non_void_cloud: a_cloud /= Void
@@ -245,7 +245,7 @@ feature -- Setter
 			ttl_set: ttl = a_ttl
 		end
 	
-	set_image (an_image: IMAGE) is
+	set_image (an_image: CHANNEL_IMAGE) is
 			-- Channel image
 		require
 			non_void_image: an_image /= Void
@@ -255,7 +255,7 @@ feature -- Setter
 			image_set: image = an_image
 		end
 	
-	set_text_input (a_text_input: TEXT_INPUT) is
+	set_text_input (a_text_input: CHANNEL_TEXT_INPUT) is
 			-- Channel text input
 		require
 			non_void_text_input: a_text_input /= Void
