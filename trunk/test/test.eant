@@ -181,7 +181,8 @@
 		<!--
 		<ise ace="compile_ise.ace" system="${system}" finalize="${finalize}" finish_freezing="true"/>
 		-->
-		<ise ace="ise55.ace" system="${system}" finalize="${finalize}" finish_freezing="true"/>
+		<ise ace="ise55_linux.ace" system="${system}" finalize="${finalize}" finish_freezing="true" if="${GOBO_OS}=unix"/>
+		<ise ace="ise55_windows.ace" system="${system}" finalize="${finalize}" finish_freezing="true" if="${GOBO_OS}=windows"/>
 		<set name="codedir" value="W_code" if="${finalize}=false"/>
 		<set name="codedir" value="F_code" if="${finalize}=true"/>
 		<move file="EIFGEN/${codedir}/${system}${exe}" to_directory="."/>
