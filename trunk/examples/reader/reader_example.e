@@ -1,8 +1,8 @@
 indexing
 	description: "Example class for feed reader."
 	author: "Michael Käser"
-	date: "$Date: 2005-01-04 09:56:13 +0100 (Tue, 04 Jan 2005) $"
-	revision: "$Rev: 14 $"
+	date: "$Date$"
+	revision: "$Rev$"
 
 class
 	READER_EXAMPLE

@@ -1,7 +1,7 @@
 indexing
 	description: "Main window for this application"
 	author: "Martin Luder"
-	date: "$Date: 2005/1/13 18:10:25 $"
+	date: "$Date$"
 	revision: "1.0.0"
 
 class 
