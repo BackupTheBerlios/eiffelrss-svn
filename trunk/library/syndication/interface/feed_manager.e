@@ -107,8 +107,6 @@ feature -- Element change
 			put (feed, feed.link.location)
 			urls.extend ([url, feed.link.location])
 			last_added_feed := feed
-		ensure
-			feed_added: item (url) /= Void
 		end
 
 feature -- Refresh
