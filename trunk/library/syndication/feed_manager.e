@@ -8,7 +8,7 @@ class
 	FEED_MANAGER
 
 inherit
-	HASH_TABLE[FEED,URL]
+	HASH_TABLE[FEED,STRING]
 	rename
 		make as make_with_size
 	export {NONE}
@@ -60,43 +60,47 @@ feature -- Element change
 		require
 			non_void_feed: feed /= Void
 		do
-			put (feed, feed.link)
+			put (feed, feed.link.location)
 		ensure
-			feed_added: item (feed.link) = feed
+			feed_added: item (feed.link.location) = feed
 		end
 		
-	add_from_url (url: URL) is
+	add_from_url (url: STRING) is
 			-- Add feed with URL `url'
 		require
-			non_void_url: url /= Void
+			non_empty_url: url /= Void and then not url.empty
 		do
-			put ((create {FEED_READER}.make_url (url.location)).read, url)
+			put ((create {FEED_READER}.make_url (url)).read, url)
 		ensure
 			feed_added: item (url) /= Void
 		end
 
 feature -- Refresh
 
-	refresh (url: URL) is
+	refresh (url: STRING) is
 			-- Refresh feed with URL `url', if the feed is outdated
+		require
+			non_empty_url: url /= Void and then not url.empty
 		local
 			feed: FEED
 		do
 			feed := item (url)
 			if feed /= Void and then feed.is_outdated_default (default_refresh_period) then
-				put ((create {FEED_READER}.make_url (url.location)).read, url)
+				put ((create {FEED_READER}.make_url (url)).read, url)
 				item (url).set_last_updated (create {DATE_TIME}.make_now)
 			end
 		end
 		
-	refresh_force (url: URL) is
+	refresh_force (url: STRING) is
 			-- Refresh feed with URL `url', even if the feed is not outdated
+		require
+			non_empty_url: url /= Void and then not url.empty
 		local
 			feed: FEED
 		do
 			feed := item (url)
 			if feed /= Void then
-				put ((create {FEED_READER}.make_url (url.location)).read, url)
+				put ((create {FEED_READER}.make_url (url)).read, url)
 				item (url).set_last_updated (create {DATE_TIME}.make_now)
 			end
 		end
@@ -104,7 +108,7 @@ feature -- Refresh
 	refresh_all is
 			-- Refresh all feeds, if they are outdated
 		local
-			url: URL
+			url: STRING
 			feed: FEED
 			old_iteration_position: INTEGER
 		do
@@ -119,7 +123,7 @@ feature -- Refresh
 				feed := item_for_iteration
 				
 				if feed.is_outdated_default (default_refresh_period) then
-					put ((create {FEED_READER}.make_url (url.location)).read, url)
+					put ((create {FEED_READER}.make_url (url)).read, url)
 					item (url).set_last_updated (create {DATE_TIME}.make_now)
 				end
 				
@@ -132,7 +136,7 @@ feature -- Refresh
 	refresh_all_force is
 			-- Refresh all feeds, even if they are not outdated
 		local
-			url: URL
+			url: STRING
 			feed: FEED
 			old_iteration_position: INTEGER
 		do
@@ -146,7 +150,7 @@ feature -- Refresh
 				url := key_for_iteration
 				feed := item_for_iteration
 				
-				put ((create {FEED_READER}.make_url (url.location)).read, url)
+				put ((create {FEED_READER}.make_url (url)).read, url)
 				item (url).set_last_updated (create {DATE_TIME}.make_now)
 				
 				forth

@@ -52,7 +52,7 @@ feature -- Initialization
 			create feed_manager.make
 			feed_manager.add (feed)
 			feed_manager.refresh_all
-			io.put_string (feed_manager.item (feed.link).to_string)
+			io.put_string (feed_manager.item (feed.link.location).to_string)
 		end
 		
 feature -- Arguments
