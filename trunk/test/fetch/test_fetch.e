@@ -28,7 +28,7 @@ feature -- Test
 			assert_equal ("make [5]", fetcher.None, fetcher.error)
 
 			create fetcher.make_source ("ftp://ftp.ethz.ch")
-			assert_equal ("make [6]", Void, fetcher.source_address)
+			assert_equal ("make [6]", "ftp://ftp.ethz.ch", fetcher.source_address)
 			assert_equal ("make [7]", fetcher.Invalid_address, fetcher.error)
 		end
 
@@ -49,7 +49,7 @@ feature -- Test
 			assert_equal ("set_address [5]", fetcher.None, fetcher.error)
 
 			fetcher.set_address ("ftp://ftp.ethz.ch")
-			assert_equal ("set_address [6]", Void, fetcher.source_address)
+			assert_equal ("set_address [6]", "ftp://ftp.ethz.ch", fetcher.source_address)
 			assert_equal ("set_address [7]", fetcher.Invalid_address, fetcher.error)
 		end
 
