@@ -68,7 +68,7 @@ feature -- Access
 			-- Channel cloud
 	
 	ttl: INTEGER
-			-- Channel time to live
+			-- Channel time to live in minutes
 	
 	image: CHANNEL_IMAGE
 			-- Channel image
@@ -241,7 +241,7 @@ feature -- Setter
 		end
 	
 	set_ttl (a_ttl: INTEGER) is
-			-- Channel time to live
+			-- Channel time to live in minutes
 		do
 			ttl := a_ttl
 		ensure
@@ -333,7 +333,7 @@ feature -- Setter (RSS 1.0)
 --		ensure
 --			
 --		end
-	
+
 feature -- Setter (metadata)
 
 -- [TODO]
@@ -434,8 +434,6 @@ feature -- Status (RSS 1.0)
 -- [TODO]
 
 feature -- Status (metadata)
-
--- [TODO]
 
 	has_last_added_item: BOOLEAN is
 			-- Is `last_added_item' set?

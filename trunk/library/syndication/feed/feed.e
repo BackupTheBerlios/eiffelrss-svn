@@ -22,6 +22,14 @@ feature -- Initialization
 		do
 			set_channel (a_channel)
 		end
+		
+feature -- Access
+
+	last_updated: DATE_TIME
+			-- Time the channel was last updated
+			
+	refresh_period: INTEGER
+			-- Refresh period in minutes
 			
 feature -- Setter
 
@@ -85,6 +93,66 @@ feature -- Setter
 			if rating /= Void then
 				set_rating (a_channel.rating)
 			end			
+		end
+		
+	set_refresh_period (a_refresh_period: INTEGER) is
+			-- Set refresh periode in minutes
+		require
+			refresh_period_positive: a_refresh_period >= 0
+		do
+			refresh_period := a_refresh_period
+		ensure
+			refresh_period_set: refresh_period = a_refresh_period
+		end
+
+	set_last_updated (date: DATE_TIME) is
+			-- Set time this channel was last updated
+		require
+			non_empty_date: date /= Void
+		do
+			last_updated := date
+		ensure
+			last_updated_set: last_updated = date
+		end
+		
+feature -- Status
+
+	has_refresh_period: BOOLEAN is
+			-- Is `refresh_period' set?
+		do
+			Result := refresh_period > 0
+		end
+		
+	has_last_updated: BOOLEAN is
+			-- Is `last_updated' set?
+		do
+			Result := last_updated /= Void
+		end
+		
+	is_out_of_date: BOOLEAN is
+			-- Is the feed out of date?
+		local
+			date_to_update: DATE_TIME
+			date_now: DATE_TIME
+		do
+			Result := False
+
+			if has_last_updated then
+				create date_to_update.make_by_date_time (last_updated.date, last_updated.time)
+				create date_now.make_now_utc
+				
+				if has_refresh_period then
+					date_to_update.minute_add (refresh_period)
+					Result := date_to_update < date_now
+				elseif has_ttl then
+					date_to_update.minute_add (ttl)
+					Result := date_to_update < date_now
+				else
+					Result := True
+				end
+			else
+				Result := True
+			end
 		end
 
 feature -- Basic operations
