@@ -5,67 +5,15 @@ root
 	APPLICATION: make_and_launch
 
 default
-	assertion (check)
+	assertion (invariant)
+	assertion (loop)
 	assertion (require)
 	assertion (ensure)
-	disabled_debug (yes)
-	disabled_debug ("dlg_dispatcher")
-	disabled_debug ("vision2_windows")
-	disabled_debug ("vision2_windows_gdi")
-	disabled_debug ("wel")
-	disabled_debug ("wel_gdi_count")
-	disabled_debug ("wel_gdi_references")
-	disabled_debug ("win_dispatcher")
-	debug (no)
-	line_generation (no)
-	trace (no)
-	check_vape (yes)
-	console_application (no)
-	syntax_warning (no)
-	address_expression (no)
-	array_optimization (no)
-	dead_code_removal (yes)
-	dynamic_runtime (no)
-	exception_trace (no)
-	inlining (no)
-	multithreaded (no)
-
-
--------------------------------------------------
--- This ace file has been generated for you by --
--- The New Vision2 Application Wizard.         --
--------------------------------------------------
--- The application
--- EiffelBase
--- WEL
--- EiffelVision2
+	assertion (check)
+	precompiled ("${ISE_EIFFEL}\precomp\spec\windows\vision2")
 
 cluster
-	all base:		"$ISE_EIFFEL\library\base"
-		exclude
-			"table_eiffel3"; "desc"; 
-		end
-
-	all wel:		"$ISE_EIFFEL\library\wel"
-
-	all vision2:		"$ISE_EIFFEL\library\vision2"
-		exclude
-			"gtk"; "EIFGEN"; "tmp"; "temp"; "release"; "obsolete"; "CVS"; 
-		end
-
-	all eiffelrss:		"E:\ETHRSS\eiffelrss\trunk\library"
-		exclude
-			"svn"; "doc"; svn; svn; svn; svn; svn; 
-		end
-
-	gobo:		"D:\Eiffel55\free_add_ons\gobo\library"
-
-	newsreader:		"E:\ETHRSS\eiffelrss\trunk\examples\newsreader"
-
-	all time:		"$ISE_EIFFEL\library\time"
-		exclude
-			french; german; 
-		end
+	newsreader:		"."
 
 	feed_representation (newsreader):		"$\feed_representation"
 
@@ -74,12 +22,52 @@ cluster
 
 	bars (windows):		"$\bars"
 
+	library eiffelrss:		"..\..\library"
+		exclude
+			".svn"
+		end
 
+	library base:		"$ISE_EIFFEL\library\base"
+		exclude
+			"table_eiffel3"; "desc"; 
+		default
+			assertion (no)
+			assertion (require)
+		end
+	
+	library time:		"$ISE_EIFFEL\library\time"
+		exclude
+			"french"; "german"; 
+		default
+			assertion (no)
+			assertion (require)
+		end
+
+	library gobo:		"$ISE_EIFFEL\free_add_ons\gobo\library"
+		exclude
+			"other"; "ve"; "se"; "hact"; "expat"; 
+		default
+			assertion (no)
+			assertion (require)
+		end
+
+	library wel:		"$ISE_EIFFEL\library\wel"
+		default
+			assertion (no)
+		end
+
+	library vision2:		"${ISE_EIFFEL}\library\vision2"
+		exclude
+			"gtk"; "EIFGEN"; "tmp"; "temp"; "release"; "obsolete"; "CVS"; 
+		default
+			assertion (no)
+			assertion (require)
+		end
 external
 
 	include_path:
-		"$(ISE_EIFFEL)\library\wel\spec\windows\include",
-		"$(ISE_EIFFEL)\library\vision2\spec\include"
+		"$(ISE_EIFFEL)\library\vision2\spec\include",
+		"$(ISE_EIFFEL)\library\wel\spec\windows\include"
 
 	object:
 		"$(ISE_EIFFEL)\library\wel\spec\$(ISE_C_COMPILER)\lib\wel.lib",
