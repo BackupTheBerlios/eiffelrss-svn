@@ -76,7 +76,7 @@ feature -- Initialization
 
 			create toolbar_item
 			create toolbar_pixmap.make_with_size (24, 24)
-			toolbar_pixmap.set_with_named_file ("graphics/stock_properties.png")
+			toolbar_pixmap.set_with_named_file ("graphics/stock_settings.png")
 			toolbar_item.set_pixmap (toolbar_pixmap)
 			toolbar_item.select_actions.extend (agent on_preferences)
 			toolbar_item.set_tooltip (Toolbar_preferences_tooltip)
