@@ -36,8 +36,6 @@ feature -- Initialization
 		do
 			make_with_size (10)
 			set_default_refresh_period (default_refresh_period)
-			compare_objects
-			create urls.make
 		end
 		
 feature -- Access
@@ -71,6 +69,29 @@ feature -- Access
 			good_count: Result.count = count
 		end
 
+	feed_links: LINKED_LIST[STRING] is
+			-- Returns a sortable list representation of the feeds saved in FEED_MANAGER
+		local
+			link: STRING
+		do
+			from
+				create Result.make
+				urls.start
+			until
+				urls.off
+			loop
+				link ?= urls.item.item (2)
+				if link /= void then
+					Result.extend (link)
+				end
+				urls.forth
+			end
+			
+		ensure then
+			Result_exists: Result /= Void
+			good_count: Result.count = count
+		end
+
 
 feature -- Setter
 
@@ -86,16 +107,16 @@ feature -- Setter
 		
 feature -- Element change
 
-	add (feed: FEED; url: STRING) is
+	add (feed: FEED) is
 			-- Add `feed'
 		require
 			non_void_feed: feed /= Void
 		do
-			put (feed, url)
-			urls.extend ([url,feed.link.location])
+			put (feed, feed.link.location)
+			urls.extend ([feed.link.location,feed.link.location])
 			last_added_feed := feed
 		ensure
-			feed_added: item (url) = feed
+			feed_added: item (feed.link.location) = feed
 		end
 		
 	add_from_url (url: STRING) is
@@ -292,6 +313,5 @@ feature {NONE} -- Implementation
 		
 invariant
 	default_refresh_period_positive: default_refresh_period >= 0
-	non_void_urls: urls /= Void
 
 end -- class FEED_MANAGER
