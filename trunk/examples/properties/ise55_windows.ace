@@ -1,8 +1,8 @@
 system
-	"properties"
+	"properties_example"
 
 root
-	PROPERTIES_TESTER: make
+	PROPERTIES_EXAMPLE: make
 
 default
 	assertion (check)
@@ -29,7 +29,7 @@ default
 -- EiffelBase
 
 cluster
-	properties:		"."
+	root_cluster:		"."
 
 
 	library base:		"$ISE_EIFFEL\library\base"
@@ -40,6 +40,11 @@ cluster
 	library time:		"$ISE_EIFFEL\library\time"
 		exclude
 			"german"; "french"; 
+		end
+
+	library properties:	"..\..\library\properties\"
+		exclude
+			".svn"; 
 		end
 
 

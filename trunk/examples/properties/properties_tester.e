@@ -5,7 +5,7 @@ indexing
 	revision: "$Rev$"
 
 class
-	PROPERTIES_TESTER
+	PROPERTIES_EXAMPLE
 
 create
 	make
@@ -86,4 +86,4 @@ feature -- Arguments
 	input_file, output_file, defaults_file: PLAIN_TEXT_FILE
 			-- Files for input, output and the defaults
 	
-end -- class PROPERTIES_TESTER
+end -- class PROPERTIES_EXAMPLE
