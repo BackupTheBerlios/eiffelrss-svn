@@ -120,7 +120,12 @@
   breaklines=true,
   breakindent=0pt,
   prebreak=\mbox{\tiny$\searrow$},
-  postbreak=\mbox{{\color{blue}\tiny$\rightarrow$}}}
+  postbreak=\mbox{{\color{blue}\tiny$\rightarrow$}},
+  frame=trBL,
+  framerule=0.75pt,
+  framesep=4pt,
+  rulesep=0.75pt  
+}
 
 
 %-------------------------------------------------------------------------------
@@ -339,7 +344,6 @@ list. If the key is not found, the default property list, and its
 defaults, recursively, are checked. It returns \texttt{Void} if the
 property is not found.
 
-\pagebreak
 
 \subsection{infix "\&"}
 \label{sec:infix_ampersand}
@@ -412,8 +416,6 @@ first non-white character and up to, but not including, the first
 unescaped \texttt{=} or \texttt{:}. Both key termination characters
 may be included in the key by escaping them with a preceding backslash
 character.
-
-\pagebreak
 
 For example,
 
