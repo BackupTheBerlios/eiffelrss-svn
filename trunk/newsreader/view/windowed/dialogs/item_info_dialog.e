@@ -89,7 +89,7 @@ feature -- Initialization
 
 			load
 			
-			set_title (Item_edit_title + ": '" + feed_item.title + "'")
+			set_title (Item_info_title + ": '" + feed_item.title + "'")
 		end
 
 feature {NONE} -- Implementation

@@ -139,7 +139,7 @@ feature -- Initialization
 			
 			load
 			
-			set_title (Edit_title + ": '" + feed.title + "'")
+			set_title (Info_title + ": '" + feed.title + "'")
 		end
 
 feature {NONE} -- Implementation
