@@ -30,7 +30,7 @@ feature -- Events
 	add_feed (url: STRING) is
 			-- add feed with URI 'address'
 		do
-			application.load_feed (url)
+			application.load_feed (create{STRING}.make_from_string (url))
 			application.feeds.extend (url)
 		end
 
