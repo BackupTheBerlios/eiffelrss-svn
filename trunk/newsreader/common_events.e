@@ -51,7 +51,7 @@ feature -- Events
 			
 		end
 	
-	open_url (link: URL) is
+	open_url (link: URL; asynchronous_request: BOOLEAN) is
 			-- open url
 		local
 			env: EXECUTION_ENVIRONMENT
@@ -61,18 +61,11 @@ feature -- Events
 				create env
 				command := "%"" + application.properties.get ("Browser_path") + "%" " + link.location
 				application.logfile.log_message ("open_url: launching command '" + command + "'", feature {LOGFILE}.developer)
-				env.launch (command)
+				env.system (command)
 			else
 				application.application_displayer.information_displayer.show_temporary_text (application.application_displayer.Preferences_browser_not_set_information)
 			end
 		end
-	
-	show_feed is
-			-- show current feed
-		do
-			application.application_displayer.show_feed
-		end
-		
-		
+
 
 end -- class COMMON_EVENTS

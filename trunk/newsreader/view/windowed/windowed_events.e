@@ -66,4 +66,15 @@ feature {NONE} -- Events
 			edit_dialog.show_modal_to_window (mw)
 		end	
 
+	show_feed is
+			-- show current feed
+		local
+			mw: MAIN_WINDOW
+		do
+			mw ?= application.application_displayer
+			if mw /= void then
+				mw.show_feed
+			end
+		end
+
 end -- class WINDOWED_EVENTS

@@ -31,13 +31,6 @@ feature -- Initialization
 feature -- Access
 
 	information_displayer: INFORMATION_DISPLAYER
-	
-feature -- Basic Operations
-
-	show_feed is
-			-- show current feed
-		deferred
-		end
 		
 
 invariant

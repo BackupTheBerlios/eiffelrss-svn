@@ -64,7 +64,7 @@ feature -- Events
 			-- called when double clicked on item
 		do
 			application.logfile.log_message ("FEED_ITEM_VIEW: item double clicked, opening '" + feed_item.link.location + "'", feature {LOGFILE}.developer)
-			open_url (feed_item.link)
+			open_url (feed_item.link, true)
 		end
 		
 

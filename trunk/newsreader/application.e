@@ -63,7 +63,6 @@ feature {NONE} -- Initialization
 			load_properties
 
 			create_application_displayer
-			application_displayer.show_feed
 			
 				-- create debug window and hide
 		end

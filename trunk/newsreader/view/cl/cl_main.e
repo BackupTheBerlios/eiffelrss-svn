@@ -112,7 +112,7 @@ feature -- Events
 		do
 			create command.make (words)
 		end
-		
+
 feature -- Status setting
 
 	request_exit is

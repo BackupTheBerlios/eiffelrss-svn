@@ -88,6 +88,8 @@ feature {NONE}
 			
 			show_actions.extend (agent restore_maximize_minimize)
 			restore_window_size_and_position
+			
+			show_feed
 		end
 
 	is_in_default_state: BOOLEAN is

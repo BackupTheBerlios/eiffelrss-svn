@@ -32,6 +32,7 @@ feature -- Initialization
 		do
 			Precursor (args)
 			make_parser
+			show_feed
 			parse
 			if is_exit_requested then
 				cl_main ?= application.application_displayer
@@ -51,26 +52,54 @@ feature -- Initialization
 			known_commands.put (agent on_refresh_command, "refresh")
 			known_commands.put (agent on_remove_command, "remove")
 			known_commands.put (agent on_back_command, "back")
+			known_commands.put (agent show_feed, "show")
 		end
 		
 feature -- Events
 
+	show_feed is
+			-- 
+		local
+			i: INTEGER
+		do
+			io.put_new_line
+			from
+				application.current_feed.items.start
+				i := 1
+			until
+				application.current_feed.items.after
+			loop
+				io.put_string (i.out + ": " + application.current_feed.items.item.title + "%N")
+				application.current_feed.items.forth
+				i := i+1
+			end
+			io.put_new_line
+		end
+		
+
 	on_edit_command is
 			-- 
+		local
+			command: CL_EDIT_COMMAND
 		do
-			
+			create command.make (words)
 		end
 	
 	on_info_commmand is
 			-- 
+		local
+			command: CL_INFO_COMMAND
 		do
-			
+			create command.make (words)
 		end
 	
 	on_open_command is
 			-- 
 		do
-			
+			words.start
+			if application.current_feed.items.valid_index (words.item.to_integer) then
+				open_url (application.current_feed.items.i_th (words.item.to_integer).link, false)
+			end
 		end
 	
 	on_refresh_command is
@@ -94,6 +123,6 @@ feature -- Events
 
 feature {NONE} -- Implementation
 
-	command_string: STRING is "show"
+	command_string: STRING is "feed"
 
 end -- class CL_SHOW_COMMAND
