@@ -193,6 +193,9 @@
   \includegraphics[width=\textwidth]{../figures/big_inf}
 \end{titlepage}
 
+% Use roman page numbering
+\pagenumbering{roman}
+
 \begin{abstract}
   EiffelRSS is an Eiffel library to read and write RSS. The goal is to provide
   the Eiffel development community with an easy to use and well
@@ -202,9 +205,22 @@
   EiffelVision and EiffelRSS.
 \end{abstract}
 
+\clearpage
+\tableofcontents
+
+\clearpage
+\listoffigures
+
+\newpage
 
 \section{Library}
 \label{sec:overview}
+
+% Set page counter to zero
+\setcounter{page}{0} 
+
+% Use arabic page numbering
+\pagenumbering{arabic}
 
 The library of EiffelRSS consists of several different clusters.
 
