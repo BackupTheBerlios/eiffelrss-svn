@@ -27,7 +27,7 @@ cluster
 			"german"; "french"; 
 		end
 
-	library properties:	"..\..\library\properties\"
+	library properties:	"..\..\library\properties"
 		exclude
 			".svn"
 		end

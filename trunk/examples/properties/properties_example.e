@@ -1,5 +1,5 @@
 indexing
-	description: "Test class for PROPERTIES"
+	description: "Example class for PROPERTIES"
 	author: "Thomas Weibel"
 	date: "$Date$"
 	revision: "$Rev$"
@@ -14,15 +14,11 @@ feature -- Initialization
 
 	make is
 			-- Creation procedure.
-		do
-			io.put_string ("%N===============================%N")
-			io.put_string ("| Test program for PROPERTIES |%N")
-			io.put_string ("===============================%N%N")
-			
+		do	
 			-- Open files
-			create input_file.make_open_read ("./test/input.properties")
-			create output_file.make_create_read_write ("./test/output.properties")
-			create defaults_file.make_open_read ("./test/defaults.properties")
+			create input_file.make_open_read ("./prop/input.properties")
+			create output_file.make_create_read_write ("./prop/output.properties")
+			create defaults_file.make_open_read ("./prop/defaults.properties")
 			
 			-- Create default properties
 			create defaults.make (10)
