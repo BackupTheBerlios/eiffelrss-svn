@@ -161,6 +161,8 @@ feature {NONE} -- Implementation
 			Result.prune_all_trailing (' ')
 			Result.prune_all_trailing ('%T')
 			Result.prune_all_trailing ('%F')
+			Result.prune_all_trailing ('%N')
+			Result.prune_all_trailing ('%R')
 			
 			-- Is it a comment?
 			if
