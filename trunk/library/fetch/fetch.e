@@ -6,9 +6,6 @@ indexing
 
 class
 	FETCH
-
-inherit
-	FETCH_RESOURCE_FACTORY
 	
 create
 	make, make_source
@@ -37,64 +34,64 @@ feature -- Access
 		-- The data fetched
 		
 	error: INTEGER
-		-- An error number
+		-- An error numbercla
 		
 	None, Invalid_address, Transfer_failed: INTEGER is unique
 	
-feature -- Status report
+feature{NONE} -- Implementation
+	
+	resource: FETCH_RESOURCE
 
 feature -- Basic operations
 	set_address (an_address: STRING) is
 			-- Set the source address
+	local
+		service: STRING
+		address: STRING
+		pos: INTEGER
 	do
 		source_address := an_address
-		data := Void
-		error := Invalid_address
 		
-		if (an_address /= Void) then
-			Resource_factory.set_address (an_address)
-			if (Resource_factory.is_address_correct) then
-				error := None
-			end
+		pos := an_address.substring_index ("://", 1)
+		if pos = 0 then
+			address := "http://" + an_address
+		else
+			address := an_address
+		end
+		
+		service := address.twin
+		service.keep_head (4)
+		address.remove_head (7)
+
+		error := None
+		
+		if not address.is_empty then
+			if service.is_equal ("http") then
+				create {FETCH_RESOURCE_HTTP} resource.make (address)
+			elseif service.is_equal ("file") then
+				create {FETCH_RESOURCE_FILE} resource.make (address)
+			else
+				error := Invalid_address
+			end			
+		else
+			error := Invalid_address
 		end
 	end
 
 	fetch is
 			-- Fetch the data from the given source address
-	local
-		resource: DATA_RESOURCE
 	do
-		if error = None then
-			create data.make_empty
+		if Error = None then
+			data := resource.fetch
 			
-			Resource_factory.create_resource
-			resource := Resource_factory.resource
-			
-			resource.set_read_mode
-			resource.open
-
-			if not resource.error then
-				resource.initiate_transfer
-
-				if not resource.error then
-					from until not resource.is_packet_pending loop
-						resource.read
-						data := data + resource.last_packet
-					end
-				end
-			end
-			
-			if resource.error then
-				error := Transfer_failed				
-			else
-				resource.close
-			end
+			if data.is_empty then
+				error := Transfer_failed
+			end			
 		end
 	end
 
 invariant
 	void_source: (source_address = Void) implies (Error = Invalid_address)
-	empty_source: source_address.is_empty implies (Error = Invalid_address)
-	valid_source: Resource_factory.is_address_set implies (not Resource_factory.is_address_correct implies Error = Invalid_address)
+	valid_resource: error = None implies resource /= Void
 
-end -- class FETCH
+end -- ss FETCH
