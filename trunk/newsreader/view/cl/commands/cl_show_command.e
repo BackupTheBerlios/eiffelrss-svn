@@ -69,7 +69,7 @@ feature -- Events
 			until
 				application.current_feed.items.after
 			loop
-				io.put_string (i.out + ": " + application.current_feed.items.item.title + "%N")
+				application.application_displayer.information_displayer.show_temporary_text (i.out + ": " + application.current_feed.items.item.title)
 				application.current_feed.items.forth
 				i := i+1
 			end
@@ -80,7 +80,7 @@ feature -- Events
 	on_edit_command is
 			-- 
 		local
-			command: CL_EDIT_COMMAND
+			command: CL_FEED_EDIT_COMMAND
 		do
 			create command.make (words)
 		end
@@ -88,7 +88,7 @@ feature -- Events
 	on_info_commmand is
 			-- 
 		local
-			command: CL_INFO_COMMAND
+			command: CL_FEED_INFO_COMMAND
 		do
 			create command.make (words)
 		end
