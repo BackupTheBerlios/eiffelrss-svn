@@ -65,14 +65,25 @@ feature -- Initialization
 			menu_item.select_actions.extend (agent remove_feed)
 			extend (menu_item)
 			create menu_item.make_with_text (menu_channel_item_remove_item)
-			mw ?= application.application_displayer
-			if mw /= void then
-				menu_item.select_actions.extend (agent remove_item (mw.selected_item))
-			end
+			menu_item.select_actions.extend (agent remove_selected_feed_item)
 			extend (menu_item)
 			create menu_item.make_with_text (menu_channel_refresh_all_item)
 			menu_item.select_actions.extend (agent refresh_all)
 			extend (menu_item)
 		end
+
+feature {NONE} -- Implementation
+
+	remove_selected_feed_item is
+			-- remove selected feed item
+		local
+			mw: MAIN_WINDOW
+		do
+			mw ?= application.application_displayer
+			if mw /= void then
+				mw.on_item_remove
+			end			
+		end
+		
 	
 end -- class CHANNEL_MENU

@@ -211,12 +211,6 @@ feature -- Events
 		
 
 feature -- Access
-	
---	selected_feed: FEED is
---			-- selected feed in news_view
---		do
---			Result := news_view.selected_feed
---		end
 		
 	selected_item: ITEM is
 			-- selected feed item in news_view
