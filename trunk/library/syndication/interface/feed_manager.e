@@ -46,7 +46,7 @@ feature -- Access
 	last_added_feed: FEED
 			-- feed that was last added
 
-	feed_addresses: SIMPLE_LIST_FILE is
+	feed_addresses: LINKED_LIST[STRING] is
 			-- Returns a sortable list representation of the feeds saved in FEED_MANAGER
 		local
 			url: STRING
