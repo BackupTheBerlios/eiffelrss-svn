@@ -42,39 +42,22 @@ feature {NONE} -- Initialization
 			
 				-- create logfile
 			create_log
+			if is_debug then
+				logfile.set_threshold (feature{LOGFILE}.Developer)
+			end
 			logfile.log_message ("Initialization: application started and logfile created", logfile.info)
-			
-				-- testing
-			create current_feed.make ("EiffelRSS", create {HTTP_URL}.make ("http://eiffelrss.berlios.de/Main/AllRecentChanges?action=rss"), "AllRecentChanges")
-			current_feed.new_item ("Version 23 released!", create {HTTP_URL}.make ("http://eiffelrss.berlios.de/Main/News"), 
-				"Version 23 of EiffelRSS got release today. Happy syndicating!")
-			current_feed.last_added_item.add_category (create {CATEGORY}.make_title_domain ("News", create {HTTP_URL}.make ("http://eiffelrss.berlios.de/Main/News/")))
-			current_feed.last_added_item.set_pub_date (create {DATE_TIME}.make (2005, 1, 18, 15, 23, 0))
-			
-			current_feed.new_item ("Microsoft uses EiffelRSS", create {HTTP_URL}.make ("http://eiffelrss.berlios.de/Main/WhoUsesEiffelRSS"), 
-				"Microsoft announced in a press release today that they will use EiffelRSS to syndicate news on their website.")
-			current_feed.last_added_item.set_source (create {ITEM_SOURCE}.make ("Microsoft", create {HTTP_URL}.make ("http://www.microsoft.com")))
-			current_feed.last_added_item.set_enclosure (create {ITEM_ENCLOSURE}.make (create {HTTP_URL}.make ("http://eiffelrss.berlios.de/files/ms-press-release.pdf"), 1000, "application/pdf"))
-			current_feed.last_added_item.set_pub_date (create {DATE_TIME}.make (2005, 1, 19, 01, 58, 0))
-				
-			current_feed.new_item ("EiffelRSS wins award", create {HTTP_URL}.make ("http://eiffelrss.berlios.de/Main/Awards"),
-				"EiffelRSS has been awarded by ISE as best syndication software written in Eiffel. For more info see award-winning pages: http://eiffelrss.berlios.de")
-			current_feed.last_added_item.set_guid (create {ITEM_GUID}.make_perma_link ("http://eiffelrss.berlios.de/newsItem42"))
-			current_feed.last_added_item.set_pub_date (create {DATE_TIME}.make (2005, 1, 21, 17, 34, 0))
-			logfile.log_message ("Initialization: added test feed which will HAVE TO BE REMOVED", feature{LOGFILE}.Warning)
 			
 				-- Open properties files
 			load_properties
 			
-				---------------------------------
-				-- TEST
---			load_feed (create {HTTP_URL}.make ("http://maser/pub/eiffelrss.rss"))
-				-- TEST
-				---------------------------------
+				-- load saved URIs from disk
+			load_feed_uris
+
+			create feed_manager.make
 			
 			create_application_displayer
 			
-				-- create debug window and hide
+			post_launch_actions.extend (agent application_displayer.load_and_initialize_feeds)
 		end
 	
 	launch is
@@ -83,14 +66,14 @@ feature {NONE} -- Initialization
 			clm: CL_MAIN
 		do
 			if is_cl then
-				logfile.log_message ("Loading command line interface...", feature{LOGFILE}.Info)
+				logfile.log_message ("Launching command line interface...", feature{LOGFILE}.Info)
 				clm ?= application_displayer
 				if clm /= void then
 					is_launched := True
 					clm.start
 				end
 			else
-				logfile.log_message ("Loading GUI...", feature{LOGFILE}.Info)
+				logfile.log_message ("Launching GUI...", feature{LOGFILE}.Info)
 				Precursor
 			end
 		end
@@ -124,16 +107,46 @@ feature -- Access
 
 feature -- Basic Operations
 
-	load_feed (link: URL) is
+	load_feed (link: STRING) is
 			-- load feed into feed manager
 		require
 			link_not_void: link /= void
 		local
-			reader: FEED_READER
+			rf: DATA_RESOURCE_FACTORY
 		do
-			logfile.log_message ("loading feed from '" + link.location + "'", feature{LOGFILE}.Info)
-			create reader.make_url (link.location)
-			feed_manager.put (reader.read, link)
+			create rf
+			rf.Resource_factory.set_address (link)
+			rf.Resource_factory.create_resource
+			logfile.log_message ("loading feed from '" + link + "'...", feature{LOGFILE}.Info)
+			feed_manager.add_from_url (rf.Resource_factory.url)
+			current_feed := feed_manager.item (rf.Resource_factory.url)
+			logfile.log_message ("done.", feature{LOGFILE}.Info)
+		end
+	
+	load_feeds is
+			-- load all feeds
+		do
+			logfile.log_message ("Loading all feeds...", feature{LOGFILE}.Info)
+			application_displayer.information_displayer.show_progress (feeds.count)
+			from
+				feeds.start
+			until
+				feeds.after
+			loop
+				load_feed (feeds.item)
+				feeds.forth
+				application_displayer.information_displayer.progress_forward
+			end
+			application_displayer.information_displayer.progress_done
+			logfile.log_message (feed_manager.count.out + " feeds loaded", feature{LOGFILE}.Info)
+		end
+		
+	set_current_feed (a_feed: FEED) is
+			-- set current_feed to a_feed
+		require
+			a_feed_not_void: a_feed /= void
+		do
+			current_feed := a_feed
 		end
 		
 		
@@ -141,6 +154,9 @@ feature {NONE} -- Implementation
 
 	is_no_debug_window: BOOLEAN
 			-- if true, no debug window will be created, just plain logfile
+	
+	is_debug: BOOLEAN
+			-- if true, output developer information
 	
 	is_cl: BOOLEAN
 			-- run in command line
@@ -196,8 +212,12 @@ feature {NONE} -- Implementation
 			if env.command_line.index_of_word_option ("cl") /= 0 then
 				is_cl := true
 			end
+			if env.Command_line.index_of_word_option ("debug") /= 0 then
+				is_debug := true
+			end
 		end
 
 invariant
 	application_displayer_not_void_after_initialization: (application_displayer = void) implies not application_displayer_initialized
+	feed_selected_if_feeds_loaded: (feed_manager.count > 0) implies (current_feed /= void)
 end -- class APPLICATION

@@ -10,6 +10,50 @@ deferred class
 inherit
 	LOGGER
 
+feature -- Feeds
+
+	feeds: SIMPLE_LIST_FILE
+			-- feeds
+
+	load_feed_uris is
+			-- load feeds
+		local
+			file: PLAIN_TEXT_FILE
+			path: STRING
+		do
+			create feeds.make
+			
+			if (not properties.get ("User_specific").is_equal ("yes")) or properties.get ("Share_feeds").is_equal ("yes") then
+				path := "settings"
+			else
+				path := user_properties_path
+			end
+			create file.make (path + operating_environment.directory_separator.out + application_default_properties.get ("Feed_file"))
+			
+			if file.exists then
+				file.open_read_write
+				feeds.load (file)
+			end
+			
+			
+		end
+	
+	save_feed_uris is
+			-- save feeds
+		local
+			file: PLAIN_TEXT_FILE
+			path: STRING
+		do
+			if (not properties.get ("User_specific").is_equal ("yes")) or properties.get ("Share_feeds").is_equal ("yes") then
+				path := "settings"
+			else
+				path := user_properties_path
+			end
+			create file.make_create_read_write (path + operating_environment.directory_separator.out + application_default_properties.get ("Feed_file"))
+			
+			feeds.store (file)
+		end
+
 feature -- Properties
 	
 	application_default_properties: PROPERTIES
@@ -139,6 +183,7 @@ feature {NONE} -- Implementation
 			application_default_properties.put ("no", "Share_feeds")
 			application_default_properties.put ("yes", "Show_toolbar")
 			application_default_properties.put ("[0]mm/[0]dd/yyyy [0]hh:[0]mi", "Date_format")
+			application_default_properties.put ("feeds", "Feed_file")
 			
 			
 				-- properties that cannot be changed 
@@ -222,14 +267,16 @@ feature {NONE} -- Implementation
 			
 				-- create directory if not exists
 			create dir.make (Result)
-			logfile.log_message ("User properties path: '" + Result + "'" ,logfile.Developer)
 			if not dir.exists then
 				dir.create_dir
 			end
 		end
 
+
 invariant
 	application_default_properties_not_void: application_default_properties /= void
 	application_properties_not_void: application_properties /= void
 	user_properties_not_void: user_properties /= void
+	feeds_not_void: feeds /= void
+	
 end -- class APPLICATION_PROPERTIES

@@ -30,7 +30,8 @@ feature -- Events
 	add_feed (url: STRING) is
 			-- add feed with URI 'address'
 		do
-			
+			application.load_feed (url)
+			application.feeds.extend (url)
 		end
 		
 	on_refresh is
@@ -55,7 +56,11 @@ feature -- Events
 				create env
 				command := "%"" + application.properties.get ("Browser_path") + "%" " + link.location
 				application.logfile.log_message ("open_url: launching command '" + command + "'", feature {LOGFILE}.developer)
-				env.system (command)
+				if asynchronous_request then
+					env.launch (command)
+				else
+					env.system (command)
+				end
 			else
 				application.application_displayer.information_displayer.show_temporary_text (application.application_displayer.Preferences_browser_not_set_information)
 			end

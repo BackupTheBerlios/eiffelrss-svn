@@ -9,28 +9,23 @@ class
 
 inherit
 	INFORMATION_PANEL
+		redefine
+			make
+		end
 
 create
-	make_with_detail_view
+	make
 	
 feature -- Initialisation
 
-	make_with_detail_view (detail_view: FEED_DETAIL_VIEW) is
+	make is
 			-- creation procedure
-		local
-			i: EV_LIST_ITEM
 		do
-			make
+			Precursor
 			create list
 			
 				-- test
 			set_label_text ("Newsfeed List")
---			create i.make_with_text ("feed1")
---			list.extend (i)
---			create i.make_with_text ("feed2")
---			list.extend (i)
---			create i.make_with_text ("feed3")
---			list.extend (i)
 			
 			extend (list)
 			set_minimum_width (150)
@@ -48,15 +43,18 @@ feature -- Basic Operations
 	display_list is
 			-- display list of feeds
 		local
-			l_item: EV_LIST_ITEM
+			l_item: FEED_VIEW
 		do
+			application.logfile.log_message ("displaying list of feeds", feature{LOGFILE}.Developer)
+			list.wipe_out
 			from
 				application.feed_manager.start
 			until
 				application.feed_manager.after
 			loop
-				create l_item.make_with_text (application.feed_manager.item_for_iteration.title)
+				create l_item.make_with_feed (application.feed_manager.item_for_iteration)
 				list.extend (l_item)
+				application.feed_manager.forth
 			end
 		end
 		

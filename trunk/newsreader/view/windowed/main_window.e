@@ -41,7 +41,7 @@ inherit
 create 
 	make
 
-feature {NONE} 
+feature 
 
 	make is
 		do
@@ -94,23 +94,12 @@ feature {NONE}
 			create icon
 			icon.set_with_named_file ("graphics/newsreader_icon.png")
 			set_icon_pixmap (icon)
-			
-			
-				---------------------------------
-				-- TEST
---			news_view.display_list
-				-- TEST
-				---------------------------------
-			
-			show_feed
 		end
 
 	is_in_default_state: BOOLEAN is
 		do
 			Result := true
 		end
-	
-
 	
 feature -- Window elements
 
@@ -148,24 +137,28 @@ feature -- Events
 		local
 			question_dialog: EV_CONFIRMATION_DIALOG
 		do			
-			application.logfile.log_message ("Exit requested", application.logfile.Info)
+			application.logfile.log_message ("Exit requested", feature{LOGFILE}.Info)
 			if application.properties.get ("Ask_on_exit").is_equal ("yes") then
 				create question_dialog.make_with_text (label_confirm_close_window)
 				question_dialog.show_modal_to_window (Current)
 				if question_dialog.selected_button.is_equal ((create {EV_DIALOG_CONSTANTS}).ev_ok) then
-					application.logfile.log_message ("destroying window...", application.logfile.Info)
-					destroy
-					application.logfile.log_message ("saving preferences", application.logfile.Info)
+					application.logfile.log_message ("saving preferences", feature{LOGFILE}.Info)
 					application.save_properties
-					application.logfile.log_message ("destroying application", application.logfile.Info)
+					application.logfile.log_message ("saving feed uris", feature{LOGFILE}.Info)
+					application.save_feed_uris
+					application.logfile.log_message ("destroying window...", feature{LOGFILE}.Info)
+					destroy
+					application.logfile.log_message ("destroying application", feature{LOGFILE}.Info)
 					application.destroy
 				end
 			elseif application.properties.get ("Ask_on_exit").is_equal ("no") then
-				application.logfile.log_message ("destroying window...", application.logfile.Info)
-				destroy
-				application.logfile.log_message ("saving preferences", application.logfile.Info)
+				application.logfile.log_message ("saving preferences", feature{LOGFILE}.Info)
 				application.save_properties
-				application.logfile.log_message ("destroying application", application.logfile.Info)
+				application.logfile.log_message ("saving feed uris", feature{LOGFILE}.Info)
+				application.save_feed_uris
+				application.logfile.log_message ("destroying window...", feature{LOGFILE}.Info)
+				destroy
+				application.logfile.log_message ("destroying application", feature{LOGFILE}.Info)
 				application.destroy
 			end
 		end
@@ -239,11 +232,30 @@ feature -- Access
 
 feature -- Basic Operations
 
+	show_feed_list is
+			-- show list of feeds
+		do
+			news_view.display_list			
+		end
+		
+	
 	show_feed is
 			-- show current feed in feed detail view
 		do
 			news_view.display_feed
 		end
+	
+	load_and_initialize_feeds is
+			-- load feeds and show them in window
+		do
+			application.application_displayer.information_displayer.show_temporary_text (Application_load_feeds)
+			application.load_feeds
+			application.application_displayer.information_displayer.revert
+			show_feed_list
+			show_feed
+
+		end
+		
 		
 feature {NONE} -- Implementation
 
@@ -267,11 +279,10 @@ feature {NONE} -- Implementation
 	restore_window_size_and_position is
 			-- restore window size and position from last session if stored
 		do
-			if 
-				application.properties.has ("Window_x_position") 
-				and application.properties.has ("Window_y_position")
-			then
+			if application.properties.has ("Window_x_position") then
 				set_x_position (application.properties.get ("Window_x_position").to_integer)
+			end
+			if application.properties.has ("Window_y_position") then
 				set_y_position (application.properties.get ("Window_y_position").to_integer)
 			end
 			set_size (application.properties.get ("Window_width").to_integer, application.properties.get ("Window_height").to_integer)

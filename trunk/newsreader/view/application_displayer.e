@@ -31,7 +31,13 @@ feature -- Initialization
 feature -- Access
 
 	information_displayer: INFORMATION_DISPLAYER
-		
+
+feature -- Basic Operations
+
+	load_and_initialize_feeds is
+			-- load and initialize display of feeds
+		deferred
+		end
 
 invariant
 	information_displayer_not_void: information_displayer /= void

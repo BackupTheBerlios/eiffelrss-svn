@@ -17,6 +17,9 @@ feature -- General
 			
 	Application_about: STRING is ""
 			-- String representing information about this application
+	
+	Application_load_feeds: STRING is "Loading feeds..."
+			-- String to be shown when loading feeds
 
 feature -- preferences
 

@@ -121,6 +121,15 @@ feature -- Status setting
 		do
 			is_exit_requested := true
 		end
+
+
+feature -- Basic Operations
+
+	load_and_initialize_feeds is
+			-- load feeds and then show list of feeds
+		do
+			
+		end
 		
 		
 		

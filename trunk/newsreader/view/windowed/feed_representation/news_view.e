@@ -50,7 +50,7 @@ feature -- Initialization
 			Precursor
 			set_minimum_width (500)
 			create feed_detail_view.make
-			create newsfeed_list.make_with_detail_view (feed_detail_view)
+			create newsfeed_list.make
 			set_first (newsfeed_list)
 			set_second (feed_detail_view)
 		end
@@ -67,7 +67,9 @@ feature --  Basic Operations
 	display_feed is
 			-- set feed to be shown in detail view
 		do
-			feed_detail_view.display_feed (application.current_feed)
+			if not application.feed_manager.is_empty then
+				feed_detail_view.display_feed (application.current_feed)
+			end
 		end
 
 feature -- Access

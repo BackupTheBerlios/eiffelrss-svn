@@ -11,14 +11,20 @@ default
 	assertion (ensure)
 	assertion (loop)
 	assertion (invariant)
+	arguments ("-cl")
+	arguments ("-no_debug_window")
 	disabled_debug (yes)
 	disabled_debug ("dlg_dispatcher")
+	disabled_debug ("gelex")
+	disabled_debug ("geyacc")
 	disabled_debug ("vision2_windows")
 	disabled_debug ("vision2_windows_gdi")
 	disabled_debug ("wel")
 	disabled_debug ("wel_gdi_count")
 	disabled_debug ("wel_gdi_references")
 	disabled_debug ("win_dispatcher")
+	disabled_debug ("xml_input_stream")
+	disabled_debug ("xml_parser")
 	debug (no)
 	line_generation (no)
 	trace (no)
@@ -32,12 +38,11 @@ default
 	exception_trace (no)
 	inlining (no)
 	multithreaded (no)
-	arguments ("-cl")
-	arguments ("-no_debug_window")
 
 
 cluster
 	newsreader:		"."
+
 
 	view (newsreader):		"$\view"
 
@@ -71,10 +76,17 @@ cluster
 		end
 
 	library net:		"$ISE_EIFFEL\library\net"
+		default
+			assertion (no)
+			trace (no)
+		end
 
 	library gobo:		"$ISE_EIFFEL\free_add_ons\gobo\library"
 		exclude
 			"other"; "ve"; "se"; "hact"; "expat"; 
+		default
+			assertion (no)
+			trace (no)
 		end
 
 	library wel:		"$ISE_EIFFEL\library\wel"

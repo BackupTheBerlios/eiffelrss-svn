@@ -153,6 +153,9 @@ feature -- feed representation
 			-- String for the confirmation dialog box that appears
 			-- when the user try to close the first window.
 	
+	Newsfeed_list_label_item: STRING is "Feeds"
+			-- String for the newsfeed list label
+	
 	Feed_detail_view_title_column: STRING is "Title"
 			-- String for the title column in the feed detail view
 	

@@ -42,8 +42,8 @@ feature -- Initialization
 			
 				-- set dialog options
 			set_title (Add_title)
-
 		end
+
 
 feature {NONE} -- Implementation
 
@@ -51,11 +51,18 @@ feature {NONE} -- Implementation
 	
 	on_add_feed is
 			-- called when ok is clicked
+		local
+			mw: MAIN_WINDOW
 		do
 			if address.text_length > 0 then
-				add_feed (address.text)
 				application.application_displayer.information_displayer.revert
 				destroy
+				add_feed (address.text)
+				mw ?= application.application_displayer
+				if mw /= void then
+					mw.show_feed_list
+					mw.show_feed
+				end
 			else
 				application.application_displayer.information_displayer.show_temporary_text (Add_empty_address_information)
 			end

@@ -76,9 +76,11 @@ feature {NONE} -- Events
 			edit_dialog: EDIT_DIALOG
 			mw: MAIN_WINDOW
 		do
-			create edit_dialog.make
-			mw ?= application.application_displayer
-			if mw /= void then edit_dialog.show_modal_to_window (mw) end
+			if application.feed_manager.count > 0 then
+				create edit_dialog.make
+				mw ?= application.application_displayer
+				if mw /= void then edit_dialog.show_modal_to_window (mw) end
+			end
 		end
 		
 	
@@ -88,9 +90,11 @@ feature {NONE} -- Events
 			edit_dialog: ITEM_EDIT_DIALOG
 			mw: MAIN_WINDOW
 		do
-			create edit_dialog.make
-			mw ?= application.application_displayer
-			if mw /= void then edit_dialog.show_modal_to_window (mw) end
+			if application.current_feed.items.count > 0 then
+				create edit_dialog.make
+				mw ?= application.application_displayer
+				if mw /= void then edit_dialog.show_modal_to_window (mw) end
+			end
 		end
 
 	on_remove is

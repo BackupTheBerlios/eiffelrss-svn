@@ -57,15 +57,24 @@ feature -- Basic operations
 			-- display feed in widget
 		require
 			f_not_void: f /= void
+		local
+			desc_string: STRING
 		do
 			feed := f
 			
 			set_label_text (feed.title)
-			application.logfile.log_message ("showing items of '" + feed.title + "'", feature{LOGFILE}.Developer)
+			application.logfile.log_message ("showing items of feed '" + feed.title + "'", feature{LOGFILE}.Developer)
 			
 			feed_url.set_text (feed.link.location)
-			feed_description.set_text (feed.description)
 			
+			desc_string := feed.description
+			if feed.description.count > 100 then
+				desc_string := feed.description.substring (1, 100) + "..."
+			end
+			feed_description.set_text (desc_string)
+			feed_description.set_tooltip (feed.description)
+			
+			list.wipe_out
 			from
 				feed.items.start
 			until
@@ -142,7 +151,7 @@ feature -- Events
 	on_feed_url_click (a,b,c: INTEGER; d,e,f: DOUBLE; g,h: INTEGER) is
 			-- 
 		do
-			open_url (application.current_feed.link, false)
+			open_url (application.current_feed.link, true)
 		end
 		
 
