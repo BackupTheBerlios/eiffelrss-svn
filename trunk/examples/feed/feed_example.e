@@ -25,7 +25,7 @@ feature -- Initialization
 			feed.new_item ("Version 23 released!", create {HTTP_URL}.make ("http://eiffelrss.berlios.de/Main/News"), 
 				"Version 23 of EiffelRSS got release today. Happy syndicating!")
 			feed.new_item ("Microsoft uses EiffelRSS", create {HTTP_URL}.make ("http://eiffelrss.berlios.de/Main/WhoUsesEiffelRSS"), 
-				"Microsoft confirmed in a press release today that they use EiffelRSS to syndicate news on their website.")
+				"Microsoft announced in a press release today that they will use EiffelRSS to syndicate news on their website.")
 			feed.new_item ("EiffelRSS wins award", create {HTTP_URL}.make ("http://eiffelrss.berlios.de/Main/Awards"),
 				"EiffelRSS has been awarded by ISE as best syndication software written in Eiffel. For more info see award-winning pages: http://eiffelrss.berlios.de")
 				
