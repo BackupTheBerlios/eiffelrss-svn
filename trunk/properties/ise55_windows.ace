@@ -1,0 +1,46 @@
+system
+	"properties"
+
+root
+	PROPERTIES_TESTER: make
+
+default
+	assertion (check)
+	assertion (require)
+	assertion (ensure)
+	assertion (loop)
+	assertion (invariant)
+	disabled_debug (yes)
+	debug (no)
+	line_generation (no)
+	trace (no)
+	check_vape (yes)
+	console_application (no)
+	syntax_warning (no)
+	address_expression (no)
+	array_optimization (no)
+	dead_code_removal (yes)
+	dynamic_runtime (no)
+	exception_trace (no)
+	inlining (no)
+	multithreaded (no)
+
+
+-- EiffelBase
+
+cluster
+	properties:		"."
+
+
+	library base:		"$ISE_EIFFEL\library\base"
+		exclude
+			"table_eiffel3"; "desc"; 
+		end
+
+	library time:		"$ISE_EIFFEL\library\time"
+		exclude
+			"german"; "french"; 
+		end
+
+
+end
