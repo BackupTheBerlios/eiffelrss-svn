@@ -1,6 +1,6 @@
 indexing
-	description: "Objects that ..."
-	author: ""
+	description: "'Edit' menu"
+	author: "Martin Luder"
 	date: "$Date$"
 	revision: "$Revision$"
 
@@ -18,35 +18,44 @@ inherit
 			copy,
 			is_equal
 		end
+		
+	APP_REF
+		undefine
+			default_create,
+			copy,
+			is_equal
+		redefine
+			make
+		end
+
+	COMMON_EVENTS
+		undefine
+			default_create,
+			copy,
+			is_equal
+		end
 
 create 
 	make
 
 feature 
 
-	make (a: APPLICATION) is
-		require
-			a_not_void: a /= Void
+	make is
 		local
 			menu_item: EV_MENU_ITEM
-		do
-			application := a
+		do			
+			Precursor {APP_REF}
+
+				-- set menu text
 			make_with_text (menu_edit_item)
+			
+				-- create menu items
 			create menu_item.make_with_text (menu_edit_preferences_item)
 			menu_item.select_actions.extend (agent on_preferences)
 			extend (menu_item)
 		end
 	
-feature {NONE} 
+feature {NONE} -- Events
 
-	on_preferences is
-		local
-			preferences_dialog: PREFERENCES_DIALOG
-		do
-			create preferences_dialog.make (application)
-			preferences_dialog.show_modal_to_window (application.main_window)
-		end
-
-	application: APPLICATION
 	
 end -- class EDIT_MENU

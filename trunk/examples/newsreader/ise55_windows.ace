@@ -21,7 +21,9 @@ cluster
 
 
 	bars (windows):		"$\bars"
-
+	
+	dialogs (windows):		"$\dialogs"
+	
 	library eiffelrss:		"..\..\library"
 		exclude
 			".svn"
@@ -63,6 +65,7 @@ cluster
 			assertion (no)
 			assertion (require)
 		end
+		
 external
 
 	include_path:

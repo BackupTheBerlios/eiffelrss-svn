@@ -22,6 +22,8 @@ cluster
 
 	bars (windows):		"$/bars"
 
+	dialogs (windows):		"$/dialogs"
+
 	library eiffelrss:		"../../library"
 		exclude
 			".svn"

@@ -1,5 +1,5 @@
 indexing
-	description: "Objects that ..."
+	description: "Objects that show a list of FEEDs in an EV_LIST"
 	author: ""
 	date: "$Date$"
 	revision: "$Revision$"
@@ -38,9 +38,13 @@ feature -- Initialisation
 			
 			extend (list)
 			set_minimum_width (150)
+			set_minimum_height (200)
 		end
 
 feature {NONE}
 	
 	list: EV_LIST
+	
+	detail_window: FEED_DETAIL_VIEW
+			-- Reference to detail view
 end -- class NEWSFEED_LIST

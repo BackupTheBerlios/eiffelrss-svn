@@ -1,6 +1,6 @@
 indexing
-	description: "Objects that ..."
-	author: ""
+	description: "'Help' menu"
+	author: "Martin Luder"
 	date: "$Date$"
 	revision: "$Revision$"
 
@@ -19,34 +19,40 @@ inherit
 			is_equal
 		end
 
+	APP_REF
+		undefine
+			default_create,
+			copy,
+			is_equal
+		redefine
+			make
+		end
+
+	COMMON_EVENTS
+		undefine
+			default_create,
+			copy,
+			is_equal
+		end
+	
 create 
 	make
 
 feature 
 
-	make (a: APPLICATION) is
-		require
-			a_not_void: a /= Void
+	make is
 		local
 			menu_item: EV_MENU_ITEM
 		do
-			application := a
+			Precursor {APP_REF}
+			
+				-- set menu text
 			make_with_text (menu_help_item)
+			
+				-- create menu items
 			create menu_item.make_with_text (menu_help_about_item)
 			menu_item.select_actions.extend (agent on_about)
 			extend (menu_item)
 		end
-	
-feature {NONE} 
-
-	on_about is
-		local
-			about_dialog: ABOUT_DIALOG
-		do
-			create about_dialog
-			about_dialog.show_modal_to_window (application.main_window)
-		end
-
-	application: APPLICATION
 	
 end -- class HELP_MENU
