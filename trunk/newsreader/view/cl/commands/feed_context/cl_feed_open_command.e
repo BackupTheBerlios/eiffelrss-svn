@@ -5,25 +5,24 @@ indexing
 	revision: "$Revision$"
 
 class
-	COMMAND
+	CL_FEED_OPEN_COMMAND
 
+inherit
+	CL_COMMAND
+		redefine
+			make
+		end
 
 create
 	make
-	
+
 feature -- Initialization
 
-	make (n: STRING; a: PROCEDURE [ANY, TUPLE]) is
+	make (args: LIST [STRING]) is
 			-- 
 		do
+			Precursor (args)
 			
 		end
 		
-feature -- access
-	
-	name: STRING
-	
-	command: PROCEDURE [ANY,TUPLE]
-		
-
-end -- class COMMAND
+end -- class CL_FEED_OPEN_COMMAND

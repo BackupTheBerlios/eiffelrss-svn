@@ -47,7 +47,7 @@ feature -- Initialisation
 			list.resize_actions.extend (agent on_resize)
 		end
 
-feature
+feature -- Basic operations
 	
 	show_feed (f: ANY) is
 			-- 

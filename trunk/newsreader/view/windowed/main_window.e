@@ -94,8 +94,9 @@ feature {NONE}
 	
 
 	
-feature {APP_REF} -- Menu bar
+feature -- Window elements
 
+	toolbar: TOOLBAR
 	standard_menu_bar: EV_MENU_BAR
 
 	file_menu: FILE_MENU
@@ -120,12 +121,7 @@ feature {APP_REF} -- Menu bar
 		ensure
 			menu_bar_created: standard_menu_bar /= Void and then not standard_menu_bar.is_empty
 		end
-	
-feature {APP_REF} -- Toolbar
 
-	toolbar: TOOLBAR
-	
-feature {APP_REF} -- Status bar
 	
 feature -- Events
 

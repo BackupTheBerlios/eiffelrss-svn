@@ -9,6 +9,8 @@ deferred class
 
 inherit
 	CL_EVENTS
+	
+	CL_INTERFACE_NAMES
 
 feature -- Initialization
 	make is
@@ -16,42 +18,51 @@ feature -- Initialization
 		do
 			create known_commands.make (10)
 			
-			known_commands.put (agent on_exit, "exit")
-			known_commands.put (agent on_about, "about")
-			known_commands.put (agent on_help, "help")
+			known_commands.put (agent on_exit_command, "exit")
+			known_commands.put (agent on_about_command, "about")
+			known_commands.put (agent on_help_command, "help")
 		end
-	
-	words: LIST[STRING]
-	known_commands: COMMAND_LIST
-	command_string: STRING is deferred end
-	entered_command: STRING
-	
+
+feature -- Basic operations
+
 	parse is
 			-- parse command line
-		local
-			line: STRING
 		do
 			from
 				
 			until
-				is_exit_requested
+				is_stop_requested or is_exit_requested
 			loop
-				io.put_string (command_string + ">> ")
+				io.put_string (command_string + cl)
 				io.read_line
 
-				line := io.last_string			
-				words := line.split (' ')
+				read_line := io.last_string
+				words := read_line.split (' ')
 				clean_list
-				words.start
-				entered_command := words.item
-				if is_known_command then
-					known_commands.item (entered_command).apply
+				if not words.is_empty then
+					words.start
+					entered_command := words.item
+					words.remove
+					if is_known_command then
+						known_commands.item (entered_command).apply
+					else
+						application.application_displayer.information_displayer.show_temporary_text (Parser_unknown_command)
+					end
 				end
 			end
-			application.destroy
 		end
 		
-	
+
+feature {NONE} -- Implementation
+
+	read_line: STRING
+	words: LIST[STRING]
+	known_commands: COMMAND_LIST
+	command_string: STRING is deferred end
+	entered_command: STRING
+	cl: STRING is ">> "
+	is_stop_requested: BOOLEAN
+
 	show_list is
 		do
 			from

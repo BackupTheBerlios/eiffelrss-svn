@@ -32,4 +32,7 @@ feature -- Output
 
 	information_displayer: INFORMATION_DISPLAYER
 
+invariant
+	information_displayer_not_void: information_displayer /= void
+
 end -- class APPLICATION_DISPLAYER

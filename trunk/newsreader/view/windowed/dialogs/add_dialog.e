@@ -52,7 +52,7 @@ feature {NONE} -- Implementation
 			-- called when ok is clicked
 		do
 			if address.text_length > 0 then
-				on_add_feed_from_string (address.text)
+				add_feed (address.text)
 				application.application_displayer.information_displayer.revert
 				destroy
 			else

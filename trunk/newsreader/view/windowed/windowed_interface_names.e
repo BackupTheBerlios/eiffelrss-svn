@@ -11,7 +11,7 @@ inherit
 	INTERFACE_NAMES
 
 
-feature -- Access / Buttons
+feature -- Buttons
 
 	Button_ok_item: STRING is "OK"
 			-- String for "OK" buttons.
@@ -19,7 +19,7 @@ feature -- Access / Buttons
 	Button_cancel_item: STRING is "Cancel"
 			-- String for "Cancel" buttons
 
-feature -- Access / Menus
+feature -- Menus
 
 	Menu_file_item: STRING is "&File"
 			-- String for menu "File"
@@ -61,7 +61,7 @@ feature -- Access / Menus
 			-- String for menu "Help/About"
 
 
-feature -- Access / toolbar
+feature -- toolbar
 
 	Toolbar_refresh_tooltip: STRING is "Refresh all feeds"
 			-- String for toolbar item 'refresh' tooltip
@@ -75,7 +75,7 @@ feature -- Access / toolbar
 	Toolbar_preferences_tooltip: STRING is "Show preferences"
 			-- String for toolbar item 'preferences' tooltip
 
-feature -- Access / preferences
+feature -- preferences
 
 	Preferences_title: STRING is "Preferences"
 			-- String for preferences dialog title bar
@@ -105,7 +105,7 @@ feature -- Access / preferences
 	Preferences_browser_path_tooltip: STRING is "Enter path to browser executable %Nthat you want to use"
 			-- String for 'Browser path' item tooltip in preferences
 
-feature -- Access / feed representation
+feature -- feed representation
 	Label_confirm_close_window: STRING is "Are you sure you want to close .%NClick OK to proceed."
 			-- String for the confirmation dialog box that appears
 			-- when the user try to close the first window.
@@ -118,4 +118,5 @@ feature -- Access / feed representation
 	
 	Feed_detail_view_date_column: STRING is "Date"
 			-- String for the date column in the feed detail view
+
 end -- class INTERFACE_NAMES

@@ -9,6 +9,8 @@ class
 
 inherit
 	APPLICATION_DISPLAYER
+		rename
+			information_displayer as output
 		redefine
 			make
 		end
@@ -19,6 +21,8 @@ inherit
 			copy,
 			is_equal
 		end
+		
+	CL_INTERFACE_NAMES
 	
 	CL_PARSER
 		rename
@@ -34,21 +38,90 @@ feature -- Initialization
 
 	make is
 		do
+			make_app_ref
 			make_parser
-			make_app_ref	
+			
+			create {CL_OUTPUT}output.make_with_text ("Welcome to " + Application_name)
 		end
 	
 	make_parser is
 		do
 			Precursor {CL_PARSER}
+			known_commands.put (agent on_list_command, "list")
+			known_commands.put (agent on_show_command, "show")
+			known_commands.put (agent on_edit_command, "edit")
+			known_commands.put (agent on_add_command, "add")
+			known_commands.put (agent on_remove_command, "remove")
+			known_commands.put (agent on_refresh_command, "refresh")
 		end
 		
 	start is
 			-- start
 		do
-			io.put_string ("Welcome to " + Application_name + "%N")
 			parse
+			application.destroy
 		end
+
+
+feature -- Events
+
+	on_list_command is
+			-- 
+		local
+			command: CL_LIST_COMMAND
+		do
+			create command.make (words)
+		end
+		
+	on_show_command is
+			--
+		local
+			command: CL_SHOW_COMMAND
+		do
+			create command.make (words)
+		end
+	
+	on_edit_command is
+			-- 
+		local
+			command: CL_EDIT_COMMAND
+		do
+			create command.make (words)
+		end
+		
+	on_add_command is
+			-- 
+		local
+			command: CL_ADD_COMMAND
+		do
+			create command.make (words)
+		end
+
+	on_remove_command is
+			-- 
+		local
+			command: CL_REMOVE_COMMAND
+		do
+			create command.make (words)
+		end
+	
+	on_refresh_command is
+			-- 
+		local
+			command: CL_REFRESH_COMMAND
+		do
+			create command.make (words)
+		end
+		
+feature -- Status setting
+
+	request_exit is
+			-- 
+		do
+			is_exit_requested := true
+		end
+		
+		
 		
 feature {NONE} -- Implementation
 	

@@ -38,7 +38,7 @@ feature -- Initialisation
 			set_minimum_height (200)
 		end
 
-feature {NONE}
+feature {NONE} -- Implementation
 	
 	list: EV_LIST
 	

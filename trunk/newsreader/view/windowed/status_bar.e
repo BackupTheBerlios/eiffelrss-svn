@@ -31,7 +31,6 @@ feature -- Initialization
 	make is
 			-- creation procedure
 		do
-			make_app_ref
 			Precursor {INFORMATION_DISPLAYER}
 			default_create
 		end
@@ -46,9 +45,6 @@ feature -- Initialization
 			extend (main_label)
 		end
 		
-
-feature -- Status change
-
 
 feature {NONE} -- Implementation
 

@@ -15,12 +15,12 @@ feature -- General
 	Application_version_number: STRING is ""
 			-- String representing application's version number
 
-feature -- Access / preferences
+feature -- preferences
 
 	Preferences_browser_not_set_information: STRING is "Path to browser executable not set"
 			-- String for information, that is shown when trying to open an URI while Browser_path is not set
 
-feature -- Access / add
+feature -- add
 
 	Add_title: STRING is "Add"
 			-- String for add dialog title bar
@@ -31,7 +31,7 @@ feature -- Access / add
 	Add_empty_address_information: STRING is "Please enter an address"
 			-- String for status bar when no address is entered in add dialog
 
-feature -- Access / edit
+feature -- edit
 
 	Edit_title: STRING is "Edit"
 			-- String for edit dialog title bar

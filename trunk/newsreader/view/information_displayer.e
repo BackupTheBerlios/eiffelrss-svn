@@ -15,6 +15,7 @@ feature -- Initialization
 	make is
 			-- creation procedure
 		do
+			make_app_ref
 			create initial_text.make_empty
 			create text.make_empty
 			create temporary_text.make_empty			
@@ -82,7 +83,10 @@ feature {NONE} -- Implementation
 			-- show current text message
 		deferred
 		end
-		
-		
+
+invariant
+	initial_text_not_void: initial_text /= void
+	text_not_void: text /= void
+	temporary_text_not_void: temporary_text /= void
 
 end -- class INFORMATION_AREA

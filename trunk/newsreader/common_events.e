@@ -10,7 +10,7 @@ deferred class
 inherit
 	APP_REF
 
-feature {NONE} -- Events
+feature -- Events
 
 	on_preferences is
 			-- preferences setting access
@@ -26,13 +26,8 @@ feature {NONE} -- Events
 			-- show about information
 		deferred
 		end
-	
-	on_add is
-			-- add new feed
-		deferred
-		end
 		
-	on_add_feed_from_string (address: STRING) is
+	add_feed (url: STRING) is
 			-- add feed with URI 'address'
 		do
 			
@@ -54,11 +49,6 @@ feature {NONE} -- Events
 			-- remove current feed
 		do
 			
-		end
-	
-	on_edit is
-			-- edit feed information
-		deferred
 		end
 	
 	open_url is

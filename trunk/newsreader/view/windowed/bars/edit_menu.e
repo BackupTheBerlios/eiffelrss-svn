@@ -36,7 +36,7 @@ inherit
 create 
 	make
 
-feature 
+feature -- Initialization
 
 	make is
 		local
@@ -52,8 +52,5 @@ feature
 			menu_item.select_actions.extend (agent on_preferences)
 			extend (menu_item)
 		end
-	
-feature {NONE} -- Events
-
 	
 end -- class EDIT_MENU

@@ -69,10 +69,28 @@ feature {NONE} -- Initialization
 		end
 		
 
-feature -- Implementation
+feature -- Events
+
+	on_debug_window is
+		local
+			dw: DEBUG_WINDOW
+		do
+			dw ?= logfile
+			if dw /= void then
+				if dw.is_show_requested then
+					dw.hide
+				else
+					dw.show
+				end
+			end
+		end
+
+feature -- Access
 
 	application_displayer: APPLICATION_DISPLAYER
 	
+feature {NONE} -- Implementation
+
 	is_no_debug_window: BOOLEAN
 			-- if true, no debug window will be created, just plain logfile
 	
@@ -113,22 +131,6 @@ feature -- Implementation
 				end
 			end
 		end
-		
-		
-	
-	on_debug_window is
-		local
-			dw: DEBUG_WINDOW
-		do
-			dw ?= logfile
-			if dw /= void then
-				if dw.is_show_requested then
-					dw.hide
-				else
-					dw.show
-				end
-			end
-		end
 
 	parse_command_line is
 			-- parse command line options
@@ -144,5 +146,6 @@ feature -- Implementation
 			end
 		end
 		
-
+invariant
+	application_displayer_not_void: application_displayer /= void
 end -- class APPLICATION

@@ -36,7 +36,7 @@ inherit
 create 
 	make
 
-feature 
+feature -- Initialization
 
 	make is
 		local

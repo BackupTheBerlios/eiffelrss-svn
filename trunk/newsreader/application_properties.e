@@ -39,30 +39,30 @@ feature -- Properties
 			properties_not_void: properties /= void
 		end
 		
-	
-	load_application_default_properties is
-			-- load default properties into default_properties
+	save_properties is
+			-- save properties
+		local
+			path: STRING
+			filename: STRING
+			file: PLAIN_TEXT_FILE
 		do
-				-- create application_default_properties and put values in it
-			create application_default_properties.make (10)
-			application_default_properties.put ("newsreader","Window_title")
-			application_default_properties.put ("800","Window_width")
-			application_default_properties.put ("600","Window_height")
-			application_default_properties.put ("yes","Ask_on_exit")
-			application_default_properties.put ("no", "User_specific")
-			application_default_properties.put ("yes", "Show_toolbar")
+				-- save application_properties
+			create file.make_open_write ("settings" + operating_environment.directory_separator.out + application_default_properties.get ("application_properties_file"))
+			application_properties.store (file, "newsreader preferences")
 			
-			
-				-- properties that cannot be changed 
-			application_default_properties.put ("user.properties","user_properties_file")
-			application_default_properties.put ("default.properties","application_properties_file")
+				-- save user properties, overwrite application_properties file if User_specific is 'no'
+			if properties.get ("User_specific").is_equal ("yes") then
+				path := user_properties_path
+				filename := application_default_properties.get ("user_properties_file")
+			else
+				path := "settings"
+				filename := application_default_properties.get ("user_properties_file")
+			end
 
-			logfile.log_message ("Application default properties loaded",logfile.Developer)
-			check_and_correct_properties (application_default_properties)
-		ensure
-			application_default_properties_loaded: application_default_properties /= void
+			create file.make_open_write (path + operating_environment.directory_separator.out + filename)
+			properties.store (file, "newsreader user preferences")
 		end
-	
+
 	load_application_properties is
 			-- load custom properties from file
 		require
@@ -125,6 +125,31 @@ feature -- Properties
 			end
 			check_and_correct_properties (user_properties)
 		end
+		
+feature {NONE} -- Implementation
+
+	load_application_default_properties is
+			-- load default properties into default_properties
+		do
+				-- create application_default_properties and put values in it
+			create application_default_properties.make (10)
+			application_default_properties.put ("newsreader","Window_title")
+			application_default_properties.put ("800","Window_width")
+			application_default_properties.put ("600","Window_height")
+			application_default_properties.put ("yes","Ask_on_exit")
+			application_default_properties.put ("no", "User_specific")
+			application_default_properties.put ("yes", "Show_toolbar")
+			
+			
+				-- properties that cannot be changed 
+			application_default_properties.put ("user.properties","user_properties_file")
+			application_default_properties.put ("default.properties","application_properties_file")
+
+			logfile.log_message ("Application default properties loaded",logfile.Developer)
+			check_and_correct_properties (application_default_properties)
+		ensure
+			application_default_properties_loaded: application_default_properties /= void
+		end
 	
 	check_and_correct_properties (p: PROPERTIES) is
 			-- check p for validity and remove incorrect entries
@@ -149,30 +174,6 @@ feature -- Properties
 			end
 		end
 	
-	save_properties is
-			-- save properties
-		local
-			path: STRING
-			filename: STRING
-			file: PLAIN_TEXT_FILE
-		do
-				-- save application_properties
-			create file.make_open_write ("settings" + operating_environment.directory_separator.out + application_default_properties.get ("application_properties_file"))
-			application_properties.store (file, "newsreader preferences")
-			
-				-- save user properties, overwrite application_properties file if User_specific is 'no'
-			if properties.get ("User_specific").is_equal ("yes") then
-				path := user_properties_path
-				filename := application_default_properties.get ("user_properties_file")
-			else
-				path := "settings"
-				filename := application_default_properties.get ("user_properties_file")
-			end
-
-			create file.make_open_write (path + operating_environment.directory_separator.out + filename)
-			properties.store (file, "newsreader user preferences")
-		end
-		
 	user_properties_path: STRING is
 			-- path to custom properties file
 			-- will create path if not exists

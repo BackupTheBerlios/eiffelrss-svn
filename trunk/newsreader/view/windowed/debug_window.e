@@ -195,7 +195,7 @@ feature -- Events
 		end
 		
 
-feature
+feature -- Basic operations
 	
 	log_message (a_message: STRING; a_priority: INTEGER) is
 			-- Log the message to the logfile if a_priority is equal or greater than the threshold
