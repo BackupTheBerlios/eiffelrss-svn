@@ -66,7 +66,7 @@ feature -- Initialization
 			io.put_string (output.list)
 			-- Store properties
 			io.put_string ("%NSaving properties%N")
-			output.store (output_file, "PROPERTIES test")
+			output.store (output_file, "PROPERTIES example")
 			-- Load properties
 			io.put_string ("Loading properties%N%N")
 			output.load (output_file)
