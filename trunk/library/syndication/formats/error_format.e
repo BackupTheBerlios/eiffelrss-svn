@@ -14,7 +14,7 @@ feature -- Access
 
 	get_reader: READER_DEF is
 	do
-		create {ERROR_READER} Result
+		create {ERROR_READER} Result.make
 	end
 	
 	get_writer: WRITER_DEF is
