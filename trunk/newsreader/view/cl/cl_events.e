@@ -43,12 +43,6 @@ feature -- Events / new
 			disp.show_temporary_text ("exit%T%T" + Help_exit_command)
 			io.put_new_line
 		end
-	
-	on_info_command is
-			-- show information about feed
-		do
-			
-		end
 		
 
 feature -- Events / redefined

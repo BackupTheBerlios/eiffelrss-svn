@@ -52,7 +52,17 @@ feature -- Basic operations
 				end
 			end
 		end
-		
+
+feature -- Events
+
+	on_info_command is
+			-- show information about feed
+		local
+			command: CL_INFO_COMMAND
+		do
+			create command.make (words)
+		end
+
 
 feature {NONE} -- Implementation
 
