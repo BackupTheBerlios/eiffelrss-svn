@@ -165,6 +165,7 @@ feature {NONE}
 			if application.properties.get ("Show_toolbar").is_equal ("yes") then
 				show_toolbar.enable_select
 			end
+			browser_path.set_text (application.properties.get ("Browser_path")) 
 		end
 
 feature {NONE} -- Events

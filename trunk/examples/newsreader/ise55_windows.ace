@@ -5,18 +5,41 @@ root
 	APPLICATION: make_and_launch
 
 default
-	assertion (invariant)
-	assertion (loop)
+	precompiled ("${ISE_EIFFEL}\precomp\spec\windows\vision2")
+	assertion (check)
 	assertion (require)
 	assertion (ensure)
-	assertion (check)
-	precompiled ("${ISE_EIFFEL}\precomp\spec\windows\vision2")
+	assertion (loop)
+	assertion (invariant)
+	disabled_debug (yes)
+	disabled_debug ("dlg_dispatcher")
+	disabled_debug ("vision2_windows")
+	disabled_debug ("vision2_windows_gdi")
+	disabled_debug ("wel")
+	disabled_debug ("wel_gdi_count")
+	disabled_debug ("wel_gdi_references")
+	disabled_debug ("win_dispatcher")
+	debug (no)
+	line_generation (no)
+	trace (no)
+	check_vape (yes)
+	console_application (no)
+	syntax_warning (no)
+	address_expression (no)
+	array_optimization (no)
+	dead_code_removal (yes)
+	dynamic_runtime (no)
+	exception_trace (no)
+	inlining (no)
+	multithreaded (no)
 
 
 cluster
 	newsreader:		"."
 
-	view (newsreader):			"$\view"
+
+	view (newsreader):		"$\view"
+
 
 	windowed (view):		"$\windowed"
 
@@ -34,39 +57,27 @@ cluster
 	library base:		"$ISE_EIFFEL\library\base"
 		exclude
 			"table_eiffel3"; "desc"; 
-		default
-			assertion (no)
-			assertion (require)
 		end
 
 	library time:		"$ISE_EIFFEL\library\time"
 		exclude
 			"french"; "german"; 
-		default
-			assertion (no)
-			assertion (require)
 		end
 
 	library gobo:		"$ISE_EIFFEL\free_add_ons\gobo\library"
 		exclude
 			"other"; "ve"; "se"; "hact"; "expat"; 
-		default
-			assertion (no)
-			assertion (require)
 		end
 
 	library wel:		"$ISE_EIFFEL\library\wel"
-		default
-			assertion (no)
-		end
+
 
 	library vision2:		"${ISE_EIFFEL}\library\vision2"
 		exclude
 			"gtk"; "EIFGEN"; "tmp"; "temp"; "release"; "obsolete"; "CVS"; 
-		default
-			assertion (no)
-			assertion (require)
 		end
+
+	cl (view):		"$\cl"
 
 external
 

@@ -9,6 +9,8 @@ class
 	
 inherit
 	EV_TITLED_WINDOW
+		rename
+			is_empty as window_is_empty
 		redefine
 			initialize,
 			is_in_default_state
@@ -27,7 +29,6 @@ inherit
 			is_inserted,
 			prune_all,
 			has,
-			is_empty,
 			empty,
 			object_comparison,
 			changeable_comparison_criterion,
@@ -81,7 +82,6 @@ inherit
 			prune_all as logfile_prune_all,
 			has as logfile_has,
 			replace as logfile_replace,
-			is_empty as logfile_is_empty,
 			empty as logfile_empty,
 			object_comparison as logfile_object_comparison,
 			changeable_comparison_criterion as logfile_changeable_comparison_criterion,
@@ -92,6 +92,8 @@ inherit
 			make_filename_threshold,
 			make_filename,
 			log_message
+		select
+			is_empty
 		end
 		
 create 
