@@ -52,7 +52,7 @@ feature -- Basic Operations
 			until
 				application.feed_manager.after
 			loop
-				create l_item.make_with_feed (application.feed_manager.item_for_iteration)
+				create l_item.make_with_feed (application.feed_manager.key_for_iteration)
 				list.extend (l_item)
 				application.feed_manager.forth
 			end

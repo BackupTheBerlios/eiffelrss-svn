@@ -101,7 +101,14 @@ feature -- Access
 
 	application_displayer: APPLICATION_DISPLAYER
 	
-	current_feed: FEED
+	current_feed: FEED is
+			-- current feed
+		do
+			Result := feed_manager.item (current_feed_url)
+		end
+		
+	
+	current_feed_url: STRING
 	
 	feed_manager: FEED_MANAGER
 
@@ -111,42 +118,41 @@ feature -- Basic Operations
 			-- load feed into feed manager
 		require
 			link_not_void: link /= void
-		local
-			rf: DATA_RESOURCE_FACTORY
 		do
-			create rf
-			rf.Resource_factory.set_address (link)
-			rf.Resource_factory.create_resource
 			logfile.log_message ("loading feed from '" + link + "'...", feature{LOGFILE}.Info)
-			feed_manager.add_from_url (rf.Resource_factory.url)
-			current_feed := feed_manager.item (rf.Resource_factory.url)
+			feed_manager.add_from_url (link)
+			current_feed_url := link
 			logfile.log_message ("done.", feature{LOGFILE}.Info)
 		end
 	
 	load_feeds is
 			-- load all feeds
 		do
-			logfile.log_message ("Loading all feeds...", feature{LOGFILE}.Info)
-			application_displayer.information_displayer.show_progress (feeds.count)
-			from
-				feeds.start
-			until
-				feeds.after
-			loop
-				load_feed (feeds.item)
-				feeds.forth
-				application_displayer.information_displayer.progress_forward
+			if feeds.count > 0 then
+				logfile.log_message ("Loading all feeds...", feature{LOGFILE}.Info)
+				application_displayer.information_displayer.show_progress (feeds.count)
+				from
+					feeds.start
+				until
+					feeds.after
+				loop
+					load_feed (feeds.item)
+					feeds.forth
+					application_displayer.information_displayer.progress_forward
+				end
+				application_displayer.information_displayer.progress_done
+				logfile.log_message (feed_manager.count.out + " feeds loaded", feature{LOGFILE}.Info)
+			else
+				logfile.log_message ("No feeds to load!", feature{LOGFILE}.Info)
 			end
-			application_displayer.information_displayer.progress_done
-			logfile.log_message (feed_manager.count.out + " feeds loaded", feature{LOGFILE}.Info)
 		end
 		
-	set_current_feed (a_feed: FEED) is
+	set_current_feed_url (a_feed_url: STRING) is
 			-- set current_feed to a_feed
 		require
-			a_feed_not_void: a_feed /= void
+			a_feed_url_not_void: a_feed_url /= void
 		do
-			current_feed := a_feed
+			current_feed_url := a_feed_url
 		end
 		
 		
@@ -219,5 +225,5 @@ feature {NONE} -- Implementation
 
 invariant
 	application_displayer_not_void_after_initialization: (application_displayer = void) implies not application_displayer_initialized
-	feed_selected_if_feeds_loaded: (feed_manager.count > 0) implies (current_feed /= void)
+	feed_selected_if_feeds_loaded: (feed_manager.count > 0) implies (current_feed_url /= void)
 end -- class APPLICATION

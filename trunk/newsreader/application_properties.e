@@ -22,6 +22,7 @@ feature -- Feeds
 			path: STRING
 		do
 			create feeds.make
+			feeds.compare_objects
 			
 			if (not properties.get ("User_specific").is_equal ("yes")) or properties.get ("Share_feeds").is_equal ("yes") then
 				path := "settings"

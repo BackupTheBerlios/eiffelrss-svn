@@ -33,6 +33,34 @@ feature -- Events
 			application.load_feed (url)
 			application.feeds.extend (url)
 		end
+
+	on_feed_remove is
+			-- remove current feed
+		do
+			application.logfile.log_message ("Removing feed '" + application.current_feed.title + "'", feature{LOGFILE}.Info)
+			application.feed_manager.remove (application.current_feed_url)
+			application.logfile.log_message ("Removing feed url '" + application.current_feed_url + "'", feature{LOGFILE}.Info)
+			application.feeds.search (application.current_feed_url)
+			if not application.feeds.exhausted then
+				application.feeds.remove
+			end
+			if not application.feed_manager.is_empty then
+				application.feed_manager.start
+				application.set_current_feed_url (application.feed_manager.key_for_iteration)
+			end
+		end
+	
+	on_item_remove (an_item: ITEM) is
+			-- remove an_item from current feed
+		require
+			an_item_not_void: an_item /= void
+		do
+			application.logfile.log_message ("Removing item '" + an_item.title + "' from feed '" + application.current_feed.title + "'", feature{LOGFILE}.Info)
+			if application.current_feed.items.has (an_item) then
+				application.logfile.log_message ("'" + an_item.title + "' found, removing... ", feature{LOGFILE}.Developer)
+				application.current_feed.remove_item (an_item)
+			end
+		end
 		
 	on_refresh is
 			-- refresh current feed

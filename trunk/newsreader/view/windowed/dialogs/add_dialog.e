@@ -33,6 +33,7 @@ feature -- Initialization
 			hbox.extend (label)
 			hbox.disable_item_expand (label)
 			create address
+			address.set_minimum_width (200)
 			hbox.extend (address)
 			content.extend (hbox)
 			content.extend (create {EV_CELL})

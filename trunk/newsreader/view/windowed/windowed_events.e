@@ -106,22 +106,12 @@ feature {NONE} -- Events
 			if mw /= void then 
 				if mw.has_feed_focus then
 					on_feed_remove
+					mw.show_feed_list
 				elseif mw.has_item_focus then
-					on_item_remove
+					on_item_remove (mw.selected_item)
+					mw.show_feed
 				end
 			end
-		end
-		
-	on_feed_remove is
-			-- remove current feed
-		do
-			
-		end
-	
-	on_item_remove is
-			-- remove current item
-		do
-			
 		end
 
 	show_feed is

@@ -26,7 +26,7 @@ feature -- Initialization
 		do
 			Precursor (args)
 			args.start
-			if args.count > 0 and then  application.current_feed.items.valid_index (args.item.to_integer) then
+			if args.count > 0 and then application.current_feed.items.valid_index (args.item.to_integer) then
 				feed_item := application.current_feed.items.i_th (args.item.to_integer)
 				disp := application.application_displayer.information_displayer
 				
