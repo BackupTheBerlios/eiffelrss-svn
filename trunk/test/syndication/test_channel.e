@@ -17,7 +17,7 @@ feature -- Test
 			url: HTTP_URL
 			channel: CHANNEL
 		do
-			create url.make ("http://eiffelrss.berlios.de/Main/AllRecentChanges?action=rss")
+			create url.make ("http://eiffelrss.berlios.de/")
 			create channel.make ("Just a test", url, "This is just a test item")
 			assert ("make [1]", channel /= Void)
 		end
@@ -40,7 +40,7 @@ feature -- Test
 			observers: TWO_WAY_LIST[SIMPLE_CHANNEL_OBSERVER]
 			channel: CHANNEL
 		do
-			create url.make ("http://eiffelrss.berlios.de/Main/AllRecentChanges?action=rss")
+			create url.make ("http://eiffelrss.berlios.de/")
 			create channel.make ("EiffelRSS", url, "EiffelRSS news")
 			
 			create categories.make
@@ -155,21 +155,53 @@ feature -- Test
 			channel.set_web_master ("Ford Prefect")
 			assert_equal ("set [42]", "Ford Prefect", channel.web_master)
 			assert ("set [43]", channel.has_web_master)
-			
-			channel.add_category (create {CATEGORY}.make)
-			channel.add_item_toc (create {HTTP_URL}.make ("http://www.asdf.com"))
-			channel.add_observer (create {SIMPLE_CHANNEL_OBSERVER})
-			channel.add_skip_day ("SatURDAY")
-			channel.add_skip_hour (0)
 		end
+		
+	test_add_remove is
+			-- Test `add_*' and `remove_*' features
+		local
+			channel: CHANNEL
+			url: HTTP_URL
+			channel_observer: SIMPLE_CHANNEL_OBSERVER
+		do
+			create url.make ("http://eiffelrss.berlios.de/")
+			create channel.make ("Just a test", url, "This is just a test item")
+			
+			channel.add_item_toc (url)
+			assert ("add_remove [1]", channel.items_toc.has (url))
+			
+			channel.remove_item_toc (url)
+			assert ("add_remove [2]", not channel.items_toc.has (url))
+			
+			create channel_observer
+			channel.add_observer (channel_observer)
+			assert ("add_remove [3]", channel.observers.has (channel_observer))
+			
+			channel.remove_observer (channel_observer)
+			assert ("add_remove [4]", not channel.observers.has (channel_observer))
+			
+			channel.add_skip_day ("SatURDAY")
+			assert ("add_remove [5]", channel.skip_days.has ("Saturday"))
+			
+			channel.remove_skip_day ("Saturday")
+			assert ("add_remove [6]", not channel.skip_days.has ("Saturday"))
+
+			channel.add_skip_hour (0)
+			assert ("add_remove [7]", channel.skip_hours.has (0))
+			
+			channel.remove_skip_hour (0)
+			assert ("add_remove [8]", not channel.skip_hours.has (0))
+		end
+		
 		
 	test_items is
 			-- Test item related features
 		local
 			url: HTTP_URL
 			channel: CHANNEL
+			item: ITEM
 		do
-			create url.make ("http://eiffelrss.berlios.de/Main/AllRecentChanges?action=rss")
+			create url.make ("http://eiffelrss.berlios.de/")
 			create channel.make ("Just a test", url, "This is just a test item")
 			assert ("items [1]", not channel.has_items)
 			
@@ -204,6 +236,13 @@ feature -- Test
 			
 			channel.reverse_sort_items_by_title
 			assert ("items [9]", channel.items.sorted)
+			
+			create item.make_title (channel, "Just a test!")
+			channel.add_item (item)
+			assert ("items [10]", channel.items.has (item))
+			
+			channel.remove_item (item)
+			assert ("items [11]", not channel.items.has (item))
 		end
 		
 	test_categories is
@@ -211,8 +250,9 @@ feature -- Test
 		local
 			url: HTTP_URL
 			channel: CHANNEL
+			category: CATEGORY
 		do
-			create url.make ("http://eiffelrss.berlios.de/Main/AllRecentChanges?action=rss")
+			create url.make ("http://eiffelrss.berlios.de/")
 			create channel.make ("Just a test", url, "This is just a test item")
 			assert ("categories [1]", not channel.has_categories)
 			
@@ -235,6 +275,13 @@ feature -- Test
 			
 			channel.reverse_sort_categories_by_domain
 			assert ("categories [7]", channel.categories.sorted)
+			
+			create category.make_title ("FooBar")
+			channel.add_category (category)
+			assert ("categories [8]", channel.categories.has (category))
+			
+			channel.remove_category (category)
+			assert ("categories [9]", not channel.categories.has (category))
 		end
 
 end -- class TEST_CHANNEL

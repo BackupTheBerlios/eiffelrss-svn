@@ -18,7 +18,7 @@ feature -- Test
 			feed: FEED
 			channel: CHANNEL
 		do
-			create feed.make ("EiffelRSS", create {HTTP_URL}.make ("http://eiffelrss.berlios.de/Main/AllRecentChanges?action=rss"), "EiffelRSS news")
+			create feed.make ("EiffelRSS", create {HTTP_URL}.make ("http://eiffelrss.berlios.de/"), "EiffelRSS news")
 			assert ("make [1]", feed /= Void)
 			
 			create url.make ("http://eiffelrss.berlios.de/Main/AllRecentChanges?action=rss")
@@ -35,7 +35,7 @@ feature -- Test
 			url: HTTP_URL
 			date: DATE_TIME
 		do
-			create feed.make ("EiffelRSS", create {HTTP_URL}.make ("http://eiffelrss.berlios.de/Main/AllRecentChanges?action=rss"), "EiffelRSS news")
+			create feed.make ("EiffelRSS", create {HTTP_URL}.make ("http://eiffelrss.berlios.de/"), "EiffelRSS news")
 		
 			feed.set_refresh_period (10)
 			assert_equal ("set [1]", 10, feed.refresh_period)
@@ -60,7 +60,7 @@ feature -- Test
 			feed: FEED
 		do
 			-- Create a simple feed with some categories
-			create feed.make ("EiffelRSS", create {HTTP_URL}.make ("http://eiffelrss.berlios.de/Main/AllRecentChanges?action=rss"), "EiffelRSS news")
+			create feed.make ("EiffelRSS", create {HTTP_URL}.make ("http://eiffelrss.berlios.de/"), "EiffelRSS news")
 			feed.add_category (create {CATEGORY}.make_title ("RSS"))
 			feed.add_category (create {CATEGORY}.make_title ("Programming"))
 			feed.add_category (create {CATEGORY}.make_title ("Eiffel"))

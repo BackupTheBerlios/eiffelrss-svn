@@ -37,10 +37,10 @@ feature -- Test
 			category := syndication.new_category_wit_title ("My title")
 			assert ("new [3]", category /= Void)
 			
-			category := syndication.new_category_with_title_domain ("My title", create {HTTP_URL}.make ("http://mydomain.com"))
+			category := syndication.new_category_with_title_domain ("My title", create {HTTP_URL}.make ("http://mydomain.com/"))
 			assert ("new [4]", category /= Void)
 			
-			channel := syndication.new_channel ("My channel", create {HTTP_URL}.make ("http://mydomain.com"), "This is my little channel")
+			channel := syndication.new_channel ("My channel", create {HTTP_URL}.make ("http://mydomain.com/"), "This is my little channel")
 			assert ("new [5]", channel /= Void)
 			
 			channel_cloud := syndication.new_channel_cloud ("eiffelrss.berlios.de", 80, "/RPC2", "xmlStorageSystem.rssPleaseNotify", "xml-rpc")
@@ -52,7 +52,7 @@ feature -- Test
 			channel_text_input := syndication.new_channel_text_input ("Search", "Search award-winning pages", "search", create {HTTP_URL}.make ("http://eiffelrss.berlios.de/Main/SearchWiki/"))
 			assert ("new [8]", channel_text_input /= Void)
 			
-			feed := syndication.new_feed ("EiffelRSS", create {HTTP_URL}.make ("http://eiffelrss.berlios.de/Main/AllRecentChanges?action=rss"), "EiffelRSS news")
+			feed := syndication.new_feed ("EiffelRSS", create {HTTP_URL}.make ("http://eiffelrss.berlios.de/"), "EiffelRSS news")
 			assert ("new [9]", feed /= Void)
 			
 			feed := syndication.new_feed_from_channel (channel)
@@ -86,7 +86,7 @@ feature -- Test
 			item := syndication.new_item_with_title (channel, "Simple item")
 			assert ("new [19]", item /= Void)
 			
-			feed_reader := syndication.new_reader_from_url ("http://eiffelrss.berlios.de/Main/AllRecentChanges?action=rss")
+			feed_reader := syndication.new_reader_from_url ("http://eiffelrss.berlios.de/")
 			assert ("new [20]", feed_reader /= Void)
 		end
 

@@ -115,6 +115,7 @@ feature -- Test
 		local
 			url: HTTP_URL
 			item: ITEM
+			category: CATEGORY
 		do
 			create url.make ("http://eiffelrss.berlios.de/Main/News")
 			create item.make (channel, "Just a test", url, "This is just a test item")
@@ -139,6 +140,13 @@ feature -- Test
 			
 			item.reverse_sort_categories_by_domain
 			assert ("categories [7]", item.categories.sorted)
+			
+			create category.make_title ("FooBar")
+			item.add_category (category)
+			assert ("categories [8]", item.categories.has (category))
+			
+			item.remove_category (category)
+			assert ("categories [9]", not item.categories.has (category))
 		end
 
 feature -- Access
