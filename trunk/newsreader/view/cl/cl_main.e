@@ -41,7 +41,7 @@ feature -- Initialization
 			make_app_ref
 			make_parser
 			
-			create {CL_OUTPUT}output.make_with_text ("Welcome to " + Application_name)
+			create {CL_OUTPUT}output.make_with_text ("Welcome to " + Application_name + "%N")
 		end
 	
 	make_parser is

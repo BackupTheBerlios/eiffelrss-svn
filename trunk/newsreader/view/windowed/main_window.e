@@ -53,6 +53,11 @@ feature {NONE}
 		do
 			Precursor {EV_TITLED_WINDOW}
 			
+				-- build status bar
+			create {STATUS_BAR}status_bar.make_with_text ("Welcome to " + Application_name)
+			sb ?= status_bar
+			if sb /= void then lower_bar.extend (sb) end
+			
 				-- build menus
 			build_standard_menu_bar
 			set_menu_bar (standard_menu_bar)
@@ -65,10 +70,6 @@ feature {NONE}
 				toolbar.hide
 			end
 			
-				-- build status bar
-			create {STATUS_BAR}status_bar.make_with_text ("Welcome to " + Application_name)
-			sb ?= status_bar
-			if sb /= void then lower_bar.extend (sb) end
 			
 				-- build main area
 			build_main_view

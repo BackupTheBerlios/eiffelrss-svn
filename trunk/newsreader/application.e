@@ -96,6 +96,8 @@ feature {NONE} -- Implementation
 	
 	is_cl: BOOLEAN
 			-- run in command line
+			
+	application_displayer_initialized: BOOLEAN
 		
 	create_log is
 			-- 
@@ -130,6 +132,8 @@ feature {NONE} -- Implementation
 					mw.show
 				end
 			end
+			
+			application_displayer_initialized := true
 		end
 
 	parse_command_line is
@@ -147,5 +151,5 @@ feature {NONE} -- Implementation
 		end
 		
 invariant
-	application_displayer_not_void: application_displayer /= void
+	application_displayer_not_void_after_initialization: (application_displayer = void) implies not application_displayer_initialized
 end -- class APPLICATION

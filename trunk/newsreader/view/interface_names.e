@@ -9,11 +9,14 @@ deferred class
 
 feature -- General
 
-	Application_name: STRING is "newsreader"
+	Application_name: STRING is "Newsreader"
 			-- String with application's name
 			
-	Application_version_number: STRING is ""
+	Application_version_number: STRING is "0.x"
 			-- String representing application's version number
+			
+	Application_about: STRING is ""
+			-- String representing information about this application
 
 feature -- preferences
 
