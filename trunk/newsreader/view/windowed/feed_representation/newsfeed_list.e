@@ -44,6 +44,14 @@ feature -- Basic Operations
 		do
 			
 		end
+
+feature -- Access
+
+	has_list_focus: BOOLEAN is
+			-- has list focus?
+		do
+			Result := list.has_focus
+		end
 		
 	
 feature {NONE} -- Implementation

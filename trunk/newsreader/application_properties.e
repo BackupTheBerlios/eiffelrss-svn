@@ -54,13 +54,10 @@ feature -- Properties
 			if properties.get ("User_specific").is_equal ("yes") then
 				path := user_properties_path
 				filename := application_default_properties.get ("user_properties_file")
-			else
-				path := "settings"
-				filename := application_default_properties.get ("user_properties_file")
+				create file.make_open_write (path + operating_environment.directory_separator.out + filename)
+				properties.store (file, "newsreader user preferences")
 			end
 
-			create file.make_open_write (path + operating_environment.directory_separator.out + filename)
-			properties.store (file, "newsreader user preferences")
 		end
 
 	load_application_properties is

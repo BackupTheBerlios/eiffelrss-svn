@@ -168,15 +168,11 @@ feature {NONE}
 			end
 			application.application_displayer.information_displayer.progress_forward
 				-- Browser_path
-			if browser_path.text_length > 0 then
-				application.logfile.log_message ("Preferences: setting 'Browser_path' to '" + browser_path.text + "'", feature{LOGFILE}.developer)
-				application.properties.force (browser_path.text, "Browser_path")
-			end
+			application.logfile.log_message ("Preferences: setting 'Browser_path' to '" + browser_path.text + "'", feature{LOGFILE}.developer)
+			application.properties.force (browser_path.text, "Browser_path")
 				-- Date_format
-			if date_format.text_length > 0 then
-				application.logfile.log_message ("Preferences: setting 'Date_format' to '" + date_format.text + "'", feature{LOGFILE}.developer)
-				application.properties.force (date_format.text, "Date_format")
-			end
+			application.logfile.log_message ("Preferences: setting 'Date_format' to '" + date_format.text + "'", feature{LOGFILE}.developer)
+			application.properties.force (date_format.text, "Date_format")
 			
 			application.application_displayer.information_displayer.progress_forward
 				-- save properties

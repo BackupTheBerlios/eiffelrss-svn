@@ -27,7 +27,8 @@ feature -- Initialization
 			label: EV_LABEL
 		do
 			Precursor
-			
+				
+				-- title
 			create hbox
 			create label.make_with_text (Info_item_title_item + ":")
 			label.set_minimum_width (label_width)
@@ -37,7 +38,7 @@ feature -- Initialization
 			create item_title
 			hbox.extend (item_title)
 			content.extend (hbox)
-
+				-- description
 			create hbox
 			create label.make_with_text (Info_item_description_item + ":")
 			label.set_minimum_width (label_width)
@@ -52,7 +53,7 @@ feature -- Initialization
 			description.set_minimum_height (description.height * 2)
 			hbox.extend (description)
 			content.extend (hbox)
-
+				-- link
 			create hbox
 			create label.make_with_text (Info_item_link_item + ":")
 			label.set_minimum_width (label_width)
@@ -62,7 +63,7 @@ feature -- Initialization
 			create link
 			hbox.extend (link)
 			content.extend (hbox)
-
+				-- author
 			create hbox
 			create label.make_with_text (Info_item_author_item + ":")
 			label.set_minimum_width (label_width)
@@ -72,7 +73,7 @@ feature -- Initialization
 			create author
 			hbox.extend (author)
 			content.extend (hbox)
-
+				-- publication date
 			create hbox
 			create label.make_with_text (Info_item_pub_date_item + ":")
 			label.set_minimum_width (label_width)
@@ -87,6 +88,8 @@ feature -- Initialization
 			
 			
 			load
+			
+			set_title (Item_edit_title + ": '" + feed_item.title + "'")
 		end
 
 feature {NONE} -- Implementation
@@ -112,16 +115,22 @@ feature {NONE} -- Implementation
 			if mw /= void then
 				feed_item := mw.selected_item
 				
+				application.application_displayer.information_displayer.show_progress (6)
+				application.application_displayer.information_displayer.progress_forward
 				item_title.set_text (feed_item.title)
+				application.application_displayer.information_displayer.progress_forward
 				description.set_text (feed_item.description)
+				application.application_displayer.information_displayer.progress_forward
 				link.set_text (feed_item.link.location)
-				if feed_item.author /= void then
+				application.application_displayer.information_displayer.progress_forward
+				if feed_item.has_author then
 					author.set_text (feed_item.author)
 				end
-				if feed_item.pub_date /= void then
-					pub_date.set_text (feed_item.pub_date.default_format_string)
+				application.application_displayer.information_displayer.progress_forward
+				if feed_item.has_pub_date then
+					pub_date.set_text (feed_item.pub_date.formatted_out (application.properties.get ("Date_format")))
 				end
-				
+				application.application_displayer.information_displayer.progress_done				
 				
 			end
 		end

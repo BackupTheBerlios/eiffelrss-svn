@@ -53,7 +53,6 @@ feature -- Initialization
 				date := ""
 			end
 			fill (<<feed_item.title, feed_item.description, date>>)
-			application.logfile.log_message ("FEED_DETAIL_VIEW: added feed item  '" + feed_item.title + "' to list",feature{LOGFILE}.Developer)
 			pointer_double_press_actions.extend (agent on_double_click)
 		end
 		

@@ -56,6 +56,21 @@ feature {NONE} -- Events
 		end
 
 	on_edit is
+			-- open edit dialog for currently selected item/feed
+		local
+			mw: MAIN_WINDOW
+		do
+			mw ?= application.application_displayer
+			if mw /= void then 
+				if mw.has_feed_focus then
+					on_feed_edit
+				elseif mw.has_item_focus then
+					on_item_edit
+				end
+			end
+		end
+	
+	on_feed_edit is
 			-- open edit dialog for current feed
 		local
 			edit_dialog: EDIT_DIALOG
@@ -65,6 +80,7 @@ feature {NONE} -- Events
 			mw ?= application.application_displayer
 			if mw /= void then edit_dialog.show_modal_to_window (mw) end
 		end
+		
 	
 	on_item_edit is
 			-- open edit dialog fro current item

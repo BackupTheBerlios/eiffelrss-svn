@@ -23,50 +23,207 @@ feature -- Initialization
 	initialize is
 		local
 			hbox: EV_HORIZONTAL_BOX
+			vbox: EV_VERTICAL_BOX
 			label: EV_LABEL
 		do
 			Precursor
 			
-				-- add items
-			create label.make_with_text (Edit_name_item + ":")
-			label.align_text_left
-			label.set_minimum_width (50)
+				-- title
 			create hbox
+			create label.make_with_text (Info_feed_title_item + ":")
+			label.set_minimum_width (label_width)
+			label.align_text_left
 			hbox.extend (label)
 			hbox.disable_item_expand (label)
-			create name
-			name.set_minimum_width_in_characters (15)
-			hbox.extend (name)
+			create feed_title
+			hbox.extend (feed_title)
 			content.extend (hbox)
-			content.disable_item_expand (hbox)
-			create label.make_with_text (Edit_address_item + ":")
-			label.align_text_left
-			label.set_minimum_width (50)
+				-- description
 			create hbox
+			create label.make_with_text (Info_feed_description_item + ":")
+			label.set_minimum_width (label_width)
+			label.align_text_left
+			create vbox
+			vbox.extend (label)
+			vbox.disable_item_expand (label)
+			vbox.extend (create {EV_CELL})
+			hbox.extend (vbox)
+			hbox.disable_item_expand (vbox)
+			create description
+			description.set_minimum_height (description.height * 2)
+			hbox.extend (description)
+			content.extend (hbox)
+				-- link
+			create hbox
+			create label.make_with_text (Info_feed_link_item + ":")
+			label.set_minimum_width (label_width)
+			label.align_text_left
 			hbox.extend (label)
 			hbox.disable_item_expand (label)
-			create address
-			address.set_minimum_width_in_characters (15)
-			hbox.extend (address)
+			create link
+			hbox.extend (link)
 			content.extend (hbox)
-			content.disable_item_expand (hbox)
+				-- publication date
+			create hbox
+			create label.make_with_text (Info_feed_pub_date_item + ":")
+			label.set_minimum_width (label_width)
+			label.align_text_left
+			hbox.extend (label)
+			hbox.disable_item_expand (label)
+			create pub_date
+			hbox.extend (pub_date)
+			content.extend (hbox)
+				-- language
+			create hbox
+			create label.make_with_text (Info_feed_language_item + ":")
+			label.set_minimum_width (label_width)
+			label.align_text_left
+			hbox.extend (label)
+			hbox.disable_item_expand (label)
+			create language
+			hbox.extend (language)
+			content.extend (hbox)
+				-- managing_editor
+			create hbox
+			create label.make_with_text (Info_feed_managing_editor_item + ":")
+			label.set_minimum_width (label_width)
+			label.align_text_left
+			hbox.extend (label)
+			hbox.disable_item_expand (label)
+			create managing_editor
+			hbox.extend (managing_editor)
+			content.extend (hbox)
+				-- web_master
+			create hbox
+			create label.make_with_text (Info_feed_web_master_item + ":")
+			label.set_minimum_width (label_width)
+			label.align_text_left
+			hbox.extend (label)
+			hbox.disable_item_expand (label)
+			create web_master
+			hbox.extend (web_master)
+			content.extend (hbox)
+				-- last_build_date
+			create hbox
+			create label.make_with_text (Info_feed_last_build_date_item + ":")
+			label.set_minimum_width (label_width)
+			label.align_text_left
+			hbox.extend (label)
+			hbox.disable_item_expand (label)
+			create last_build_date
+			hbox.extend (last_build_date)
+			content.extend (hbox)
+				-- feed_generator
+			create hbox
+			create label.make_with_text (Info_feed_feed_generator_item + ":")
+			label.set_minimum_width (label_width)
+			label.align_text_left
+			hbox.extend (label)
+			hbox.disable_item_expand (label)
+			create feed_generator
+			hbox.extend (feed_generator)
+			content.extend (hbox)
+				-- docs
+			create hbox
+			create label.make_with_text (Info_feed_docs_item + ":")
+			label.set_minimum_width (label_width)
+			label.align_text_left
+			hbox.extend (label)
+			hbox.disable_item_expand (label)
+			create docs
+			hbox.extend (docs)
+			content.extend (hbox)
+				-- copyright
+			create hbox
+			create label.make_with_text (Info_feed_copyright_item + ":")
+			label.set_minimum_width (label_width)
+			label.align_text_left
+			hbox.extend (label)
+			hbox.disable_item_expand (label)
+			create copyright
+			hbox.extend (copyright)
+			content.extend (hbox)
+			
+			set_minimum_width (300)
 			
 			
-				-- set dialog options
-			set_title (Edit_title + " $NAME_OF_FEED")
+			load
+			
+			set_title (Edit_title + ": '" + feed.title + "'")
 		end
 
 feature {NONE} -- Implementation
-
+	
 	on_edited is
 			-- called when ok is clicked
 		do
-			if not address.text.is_empty and not name.text.is_empty then
-				destroy
-			end
+			
 		end
 	
-	name: EV_TEXT_FIELD
-	address: EV_TEXT_FIELD
-	delete_items: EV_CHECK_BUTTON
+	feed: FEED
+	
+	feed_title, description, link, pub_date, language, copyright, managing_editor, web_master, last_build_date, feed_generator, docs: EV_TEXT_FIELD
+
+	label_width: INTEGER is 90
+	
+	
+	load is
+			-- load feed information
+		do
+			-- TODO: load feed currently selected on feed list tab
+			
+			feed := application.current_feed
+			
+			application.application_displayer.information_displayer.show_progress (11)
+			application.application_displayer.information_displayer.progress_forward
+				-- feed_title
+			feed_title.set_text (feed.title)
+			application.application_displayer.information_displayer.progress_forward
+				-- description
+			description.set_text (feed.description)
+			application.application_displayer.information_displayer.progress_forward
+				-- link
+			link.set_text (feed.link.location)
+			application.application_displayer.information_displayer.progress_forward
+				-- pub_date
+			if feed.has_pub_date then
+				pub_date.set_text (feed.pub_date.formatted_out (application.properties.get ("Date_format")))
+			end
+			application.application_displayer.information_displayer.progress_forward
+				-- language
+			if feed.has_language then
+				language.set_text (feed.language)
+			end
+			application.application_displayer.information_displayer.progress_forward
+				-- copyright
+			if feed.has_copyright then
+				copyright.set_text (feed.copyright)
+			end
+			application.application_displayer.information_displayer.progress_forward
+				-- managing_editor
+			if feed.has_managing_editor then
+				managing_editor.set_text (feed.managing_editor)
+			end
+			application.application_displayer.information_displayer.progress_forward
+				-- web_master
+			if feed.has_web_master then
+				web_master.set_text (feed.web_master)
+			end
+				-- last_build_date
+			if feed.has_last_build_date then
+				last_build_date.set_text (feed.last_build_date.formatted_out (application.properties.get ("Date_format")))
+			end
+			application.application_displayer.information_displayer.progress_forward
+				-- feed_generator
+			if feed.has_feed_generator then
+				feed_generator.set_text (feed.feed_generator)
+			end
+			application.application_displayer.information_displayer.progress_forward
+				-- docs
+			if feed.has_docs then
+				docs.set_text (feed.docs.location)
+			end
+			application.application_displayer.information_displayer.progress_done
+		end
+		
 end -- class EDIT_DIALOG

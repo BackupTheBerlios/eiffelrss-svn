@@ -40,7 +40,6 @@ feature -- Initialisation
 			
 			title_sort := no_sort
 			pub_date_sort := no_sort
-
 		end
 
 feature -- Basic operations
@@ -51,6 +50,8 @@ feature -- Basic operations
 			f_not_void: f /= void
 		do
 			feed := f
+			
+			set_label_text (feed.title)
 			
 			from
 				feed.items.start
@@ -81,8 +82,15 @@ feature -- Basic operations
 		ensure
 			result_void_implies_empty_list: (Result = void) implies list.is_empty
 			result_not_void: Result /= void
+		end		
+
+feature -- Access
+
+	has_list_focus: BOOLEAN is
+			-- has list focus?
+		do
+			Result := list.has_focus
 		end
-		
 
 feature -- Events
 
@@ -146,5 +154,6 @@ feature {NONE} -- Implementation
 				list.set_column_width (0, 2)
 			end
 		end
+	
 		
 end -- class FEED_DETAIL_VIEW

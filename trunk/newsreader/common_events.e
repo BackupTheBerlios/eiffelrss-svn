@@ -57,7 +57,7 @@ feature -- Events
 			env: EXECUTION_ENVIRONMENT
 			command: STRING
 		do
-			if application.properties.has ("Browser_path") or else application.application_properties.has ("Browser_path") then
+			if (application.properties.has ("Browser_path") or else application.application_properties.has ("Browser_path")) and then not application.properties.get ("Browser_path").is_empty then
 				create env
 				command := "%"" + application.properties.get ("Browser_path") + "%" " + link.location
 				application.logfile.log_message ("open_url: launching command '" + command + "'", feature {LOGFILE}.developer)

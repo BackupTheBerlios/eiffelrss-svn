@@ -84,6 +84,32 @@ feature -- toolbar
 	Toolbar_preferences_tooltip: STRING is "Show preferences"
 			-- String for toolbar item 'preferences' tooltip
 
+feature -- edit
+
+	Edit_title: STRING is "Edit"
+			-- String for edit dialog title bar
+	
+	Edit_name_item: STRING is "Name"
+			-- String for 'Name' item in edit dialog
+	
+	Edit_address_item: STRING is "Address"
+			-- String for 'Address' item in edit dialog
+
+feature -- item edit
+
+	Item_edit_title: STRING is "Edit item"
+			-- String for edit item title bar
+feature -- add
+
+	Add_title: STRING is "Add"
+			-- String for add dialog title bar
+			
+	Add_address_item: STRING is "Address"
+			-- String for 'Address' item in add dialog
+	
+	Add_empty_address_information: STRING is "Please enter an address"
+			-- String for status bar when no address is entered in add dialog
+
 feature -- preferences
 
 	Preferences_title: STRING is "Preferences"

@@ -62,7 +62,9 @@ feature --  Basic Operations
 		do
 			feed_detail_view.display_feed (application.current_feed)
 		end
-	
+
+feature -- Access
+
 	selected_feed: FEED is
 			-- selected feed in newsfeed_list
 		do
@@ -74,6 +76,20 @@ feature --  Basic Operations
 		do
 			Result := feed_detail_view.selected_item
 		end
+	
+	has_item_focus: BOOLEAN is
+			-- has item list focus?
+		do
+			Result := feed_detail_view.has_list_focus
+		end
+	
+	has_feed_focus: BOOLEAN is
+			-- has feed list focus?
+		do
+			Result := newsfeed_list.has_list_focus
+		end
+		
+		
 
 feature {NONE} -- Implementation
 

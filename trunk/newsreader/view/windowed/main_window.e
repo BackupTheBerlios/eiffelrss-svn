@@ -193,13 +193,7 @@ feature -- Events
 			application.properties.force ("no", "Window_maximized")
 		end
 
-feature -- Basic Operations
-
-	show_feed is
-			-- show current feed in feed detail view
-		do
-			news_view.display_feed
-		end
+feature -- Access
 	
 	selected_feed: FEED is
 			-- selected feed in news_view
@@ -211,6 +205,28 @@ feature -- Basic Operations
 			-- selected feed item in news_view
 		do
 			Result := news_view.selected_item
+		end
+	
+	has_feed_focus: BOOLEAN is
+			-- has feed list focus?
+		do
+			Result := news_view.has_feed_focus
+		end
+		
+	
+	has_item_focus: BOOLEAN is
+			-- has item list focus?
+		do
+			Result := news_view.has_item_focus
+		end
+
+
+feature -- Basic Operations
+
+	show_feed is
+			-- show current feed in feed detail view
+		do
+			news_view.display_feed
 		end
 		
 feature {NONE} -- Implementation
