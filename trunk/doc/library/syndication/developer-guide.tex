@@ -450,9 +450,8 @@ to_string: STRING
 \label{sec:feed-channel-overview}
 
 \texttt{CHANNEL} is a class for abstract syndication channels. It uses
-the subclasses \texttt{CHANNEL\_CLOUD}, \texttt{CHANNEL\_IMAGE},
-\texttt{CHANNEL\_TEXT\_INPUT}, \texttt{CHANNEL\_SKIP\_DAYS} and
-\texttt{CHANNEL\_SKIP\_HOURS}.
+the subclasses \texttt{CHANNEL\_CLOUD}, \texttt{CHANNEL\_IMAGE} and
+\texttt{CHANNEL\_TEXT\_INPUT}.
 
 
 \section{Features}
@@ -493,9 +492,11 @@ the subclasses \texttt{CHANNEL\_CLOUD}, \texttt{CHANNEL\_IMAGE},
 \subsection{Access (categories)}
 \label{sec:channel-access-categories}
 
-\subsubsection{}
+\subsubsection{categories}
 
 \begin{lstlisting}[language=Eiffel]
+categories: SORTABLE_TWO_WAY_LIST[CATEGORY]
+  -- Categories list containing category items
 \end{lstlisting}
 
 \subsection{Access (metadata)}
@@ -533,9 +534,11 @@ the subclasses \texttt{CHANNEL\_CLOUD}, \texttt{CHANNEL\_IMAGE},
 \subsection{Setter (categories)}
 \label{sec:channel-setter-categories}
 
-\subsubsection{}
+\subsubsection{set\_categories}
 
 \begin{lstlisting}[language=Eiffel]
+set_categories (category_list: like categories)
+  -- Set categories with a new category list
 \end{lstlisting}
 
 \subsection{Status}
@@ -565,9 +568,11 @@ the subclasses \texttt{CHANNEL\_CLOUD}, \texttt{CHANNEL\_IMAGE},
 \subsection{Status (categories)}
 \label{sec:channel-status-categories}
 
-\subsubsection{}
+\subsubsection{has\_categories}
 
 \begin{lstlisting}[language=Eiffel]
+has_categories: BOOLEAN
+  -- Are there any categories?
 \end{lstlisting}
 
 \subsection{Status (metadata)}
@@ -606,9 +611,18 @@ the subclasses \texttt{CHANNEL\_CLOUD}, \texttt{CHANNEL\_IMAGE},
 \subsection{Basic operations (categories)}
 \label{sec:channel-basic-operations-categories}
 
-\subsubsection{}
+\subsubsection{add\_category}
 
 \begin{lstlisting}[language=Eiffel]
+add_category (category: CATEGORY)
+  -- Add a category item
+\end{lstlisting}
+
+\subsubsection{remove\_category}
+
+\begin{lstlisting}[language=Eiffel]
+remove_category (category: CATEGORY)
+  -- Remove a category item
 \end{lstlisting}
 
 \subsection{Sort}
@@ -622,10 +636,34 @@ the subclasses \texttt{CHANNEL\_CLOUD}, \texttt{CHANNEL\_IMAGE},
 \subsection{Sort (categories)}
 \label{sec:channel-sort-categories}
 
-\subsubsection{}
+\subsubsection{sort\_categories\_by\_title}
 
 \begin{lstlisting}[language=Eiffel]
+sort_categories_by_title
+  -- Sort categories by title
 \end{lstlisting}
+
+\subsubsection{sort\_categories\_by\_domain}
+
+\begin{lstlisting}[language=Eiffel]
+sort_categories_by_domain
+  -- Sort categories by domain
+\end{lstlisting}
+
+\subsubsection{reverse\_sort\_categories\_by\_title}
+
+\begin{lstlisting}[language=Eiffel]
+reverse_sort_categories_by_title
+  -- Reverse sort categories by title
+\end{lstlisting}
+
+\subsubsection{reverse\_sort\_categories\_by\_domain}
+
+\begin{lstlisting}[language=Eiffel]
+reverse_sort_categories_by_domain
+  -- Reverse sort categories by domain
+\end{lstlisting}
+
 
 \subsection{Debug}
 \label{sec:channel-debug}
@@ -641,33 +679,98 @@ the subclasses \texttt{CHANNEL\_CLOUD}, \texttt{CHANNEL\_IMAGE},
 \subsection{Initialization}
 \label{sec:channel-cloud-initialization}
 
-\subsubsection{}
+\subsubsection{make}
 
 \begin{lstlisting}[language=Eiffel]
+make (a_domain: STRING; a_port: INTEGER; a_path: STRING; a_register_procedure: STRING; a_protocol: STRING)
+  -- Create a channel cloud with domain, port, path, register procedure and protocol
 \end{lstlisting}
 
 \subsection{Access}
 \label{sec:channel-cloud-access}
 
-\subsubsection{}
+\subsubsection{domain}
 
 \begin{lstlisting}[language=Eiffel]
+domain: STRING
+  -- Domain of the cloud
+\end{lstlisting}
+
+\subsubsection{port}
+
+\begin{lstlisting}[language=Eiffel]
+port: INTEGER
+  -- Port of the cloud
+\end{lstlisting}
+
+\subsubsection{path}
+
+\begin{lstlisting}[language=Eiffel]
+path: STRING
+  -- Path of the cloud
+\end{lstlisting}
+
+\subsubsection{register\_procedure}
+
+\begin{lstlisting}[language=Eiffel]
+register_procedure: STRING
+  -- Register procedure of the cloud
+\end{lstlisting}
+
+\subsubsection{protocol}
+
+\begin{lstlisting}[language=Eiffel]
+protocol: STRING
+  -- Protocol of the cloud
 \end{lstlisting}
 
 \subsection{Setter}
 \label{sec:channel-cloud-setter}
 
-\subsubsection{}
+\subsubsection{set\_domain}
 
 \begin{lstlisting}[language=Eiffel]
+set_domain (a_domain: STRING)
+  -- Set domain to`a_domain'
+\end{lstlisting}
+
+\subsubsection{set\_port}
+
+\begin{lstlisting}[language=Eiffel]
+set_port (a_port: INTEGER)
+  -- Set port to `a_port'
+\end{lstlisting}
+
+\subsubsection{set\_path}
+
+\begin{lstlisting}[language=Eiffel]
+set_path (a_path: STRING)
+  -- Set path to `a_path'
+\end{lstlisting}
+
+\subsubsection{set\_register\_procedure}
+
+\begin{lstlisting}[language=Eiffel]
+set_register_procedure (a_register_procedure: STRING)
+  -- Set register_procedure to `a_register_procedure'
+\end{lstlisting}
+
+\subsubsection{set\_protocol}
+
+\begin{lstlisting}[language=Eiffel]
+set_protocol (a_protocol: STRING)
+  -- Set protocol to `a_protocol'
 \end{lstlisting}
 
 \subsection{Debug}
 \label{sec:channel-cloud-debug}
 
-\subsubsection{}
+\subsubsection{to\_string}
 
 \begin{lstlisting}[language=Eiffel]
+to_string: STRING is
+  -- Returns a string representation of cloud
+  -- This feature is especially useful for debugging
 \end{lstlisting}
 
 
@@ -677,49 +780,146 @@ the subclasses \texttt{CHANNEL\_CLOUD}, \texttt{CHANNEL\_IMAGE},
 \subsection{Initialization}
 \label{sec:channel-image-initialization}
 
-\subsubsection{}
+\subsubsection{make}
 
 \begin{lstlisting}[language=Eiffel]
+make (a_url: URL; a_title: STRING; a_link: URL)
+  -- Create a channel image with URL, title, and link
 \end{lstlisting}
 
 \subsection{Constants}
 \label{sec:channel-image-constants}
 
-\subsubsection{}
+\subsubsection{Default\_width}
 
 \begin{lstlisting}[language=Eiffel]
+Default_width: INTEGER is 88
+  -- Default width of the image
+\end{lstlisting}
+
+\subsubsection{Max\_width}
+
+\begin{lstlisting}[language=Eiffel]
+Max_width: INTEGER is 144
+  -- Maximum width of the image
 \end{lstlisting}
 
 \subsection{Access}
 \label{sec:channel-image-access}
 
-\subsubsection{}
+\subsubsection{url}
 
 \begin{lstlisting}[language=Eiffel]
+url: URL
+  -- URL of the image
+\end{lstlisting}
+
+\subsubsection{title}
+
+\begin{lstlisting}[language=Eiffel]
+title: STRING
+  -- Title of the image
+\end{lstlisting}
+
+\subsubsection{link}
+
+\begin{lstlisting}[language=Eiffel]
+link: URL
+  -- Link of the image
+\end{lstlisting}
+
+\subsubsection{width, height}
+
+\begin{lstlisting}[language=Eiffel]
+width, height: INTEGER
+  -- Width and height of the image
+\end{lstlisting}
+
+\subsubsection{description}
+
+\begin{lstlisting}[language=Eiffel]
+description: STRING
+  -- Description of the image
 \end{lstlisting}
 
 \subsection{Setter}
 \label{sec:channel-image-setter}
 
-\subsubsection{}
+\subsubsection{set\_url}
 
 \begin{lstlisting}[language=Eiffel]
+set_url (a_url: URL)
+  -- Set url to`a_url'
+\end{lstlisting}
+
+\subsubsection{set\_title}
+
+\begin{lstlisting}[language=Eiffel]
+set_title (a_title: STRING)
+  -- Set title to`a_title'
+\end{lstlisting}
+
+\subsubsection{set\_link}
+
+\begin{lstlisting}[language=Eiffel]
+set_link (a_link: URL)
+  -- Set link to`a_link'
+\end{lstlisting}
+
+\subsubsection{set\_width}
+
+\begin{lstlisting}[language=Eiffel]
+set_width (a_width: INTEGER)
+  -- Set width to`a_width'
+\end{lstlisting}
+
+\subsubsection{set\_height}
+
+\begin{lstlisting}[language=Eiffel]
+set_height (a_height: INTEGER)
+  -- Set heigh to`a_heigh'
+\end{lstlisting}
+
+\subsubsection{set\_description}
+
+\begin{lstlisting}[language=Eiffel]
+set_description (a_description: STRING)
+  -- Set  to`a_description'
 \end{lstlisting}
 
 \subsection{Status}
 \label{sec:channel-image-status}
 
-\subsubsection{}
+\subsubsection{has\_width}
 
 \begin{lstlisting}[language=Eiffel]
+has_width: BOOLEAN
+  -- Is `width' set?
+\end{lstlisting}
+
+\subsubsection{has\_height}
+
+\begin{lstlisting}[language=Eiffel]
+has_height: BOOLEAN
+  -- Is `height' set?
+\end{lstlisting}
+
+\subsubsection{has\_description}
+
+\begin{lstlisting}[language=Eiffel]
+has_description: BOOLEAN
+  -- Is `description' set and non-empty?
 \end{lstlisting}
 
 \subsection{Debug}
 \label{sec:channel-image-debug}
 
-\subsubsection{}
+\subsubsection{to\_string}
 
 \begin{lstlisting}[language=Eiffel]
+to_string: STRING
+  -- Returns a string representation of image
+  -- This feature is especially useful for debugging
 \end{lstlisting}
 
 \section{Subclass CHANNEL\_TEXT\_INPUT}
@@ -728,64 +928,84 @@ the subclasses \texttt{CHANNEL\_CLOUD}, \texttt{CHANNEL\_IMAGE},
 \subsection{Initialization}
 \label{sec:channel-text-input-initialization}
 
-\subsubsection{}
+\subsubsection{make}
 
 \begin{lstlisting}[language=Eiffel]
+make (a_title: STRING; a_description: STRING; a_name: STRING; a_link: URL)
+  -- Create a channel text input with title, description, name and link
 \end{lstlisting}
 
 \subsection{Access}
 \label{sec:channel-text-input-access}
 
-\subsubsection{}
+\subsubsection{title}
 
 \begin{lstlisting}[language=Eiffel]
+title: STRING
+  -- Title of the text input
+\end{lstlisting}
+
+\subsubsection{description}
+
+\begin{lstlisting}[language=Eiffel]
+description: STRING
+  -- Description of the text input
+\end{lstlisting}
+
+\subsubsection{name}
+
+\begin{lstlisting}[language=Eiffel]
+name: STRING
+  -- Name of the text input
+\end{lstlisting}
+
+\subsubsection{link}
+
+\begin{lstlisting}[language=Eiffel]
+link: URL
+  -- Link of the text input
 \end{lstlisting}
 
 \subsection{Setter}
 \label{sec:channel-text-input-setter}
 
-\subsubsection{}
+\subsubsection{set\_title}
 
 \begin{lstlisting}[language=Eiffel]
+set_title (a_title: STRING)
+  -- Set title to`a_title'
+\end{lstlisting}
+
+\subsubsection{set\_description}
+
+\begin{lstlisting}[language=Eiffel]
+set_description (a_description: STRING)
+  -- Set description to`a_description'
+\end{lstlisting}
+
+\subsubsection{set\_name}
+
+\begin{lstlisting}[language=Eiffel]
+set_name (a_name: STRING)
+  -- Set name to`a_name'
+\end{lstlisting}
+
+\subsubsection{set\_link}
+
+\begin{lstlisting}[language=Eiffel]
+set_link (a_link: URL)
+  -- Set link to`a_link'
 \end{lstlisting}
 
 \subsection{Debug}
 \label{sec:channel-text-input-debug}
 
-\subsubsection{}
+\subsubsection{to\_string}
 
 \begin{lstlisting}[language=Eiffel]
-\end{lstlisting}
-
-\section{Subclass CHANNEL\_SKIP\_DAYS}
-\label{sec:channel-skip-days}
-
-\texttt{CHANNEL\_SKIP\_DAYS} inherits from
-\texttt{TWO\_WAY\_SORTED\_SET}, so all the features of
-\texttt{TWO\_WAY\_SORTED\_SET} are availabe as well.
-
-\subsection{Element change}
-\label{sec:channel-skip-days-element-change}
-
-\subsubsection{}
-
-\begin{lstlisting}[language=Eiffel]
-\end{lstlisting}
-
-
-\section{Subclass CHANNEL\_SKIP\_HOURS}
-\label{sec:channel-skip-hours}
-
-\texttt{CHANNEL\_SKIP\_HOURS} inherits from
-\texttt{TWO\_WAY\_SORTED\_SET}, so all the features of
-\texttt{TWO\_WAY\_SORTED\_SET} are availabe as well.
-
-\subsection{Element change}
-\label{sec:channel-skip-hours-element-change}
-
-\subsubsection{}
-
-\begin{lstlisting}[language=Eiffel]
+to_string: STRING is
+  -- Returns a string representation of text input
+  -- This feature is especially useful for debugging
 \end{lstlisting}
 
 
@@ -810,6 +1030,19 @@ the subclasses \texttt{CHANNEL\_CLOUD}, \texttt{CHANNEL\_IMAGE},
 \subsubsection{}
 
 \begin{lstlisting}[language=Eiffel]
+
+\end{lstlisting}
+
+\subsubsection{}
+
+\begin{lstlisting}[language=Eiffel]
+
+\end{lstlisting}
+
+\subsubsection{}
+
+\begin{lstlisting}[language=Eiffel]
+
 \end{lstlisting}
 
 \subsection{Access}
@@ -818,14 +1051,77 @@ the subclasses \texttt{CHANNEL\_CLOUD}, \texttt{CHANNEL\_IMAGE},
 \subsubsection{}
 
 \begin{lstlisting}[language=Eiffel]
+
+\end{lstlisting}
+
+\subsubsection{}
+
+\begin{lstlisting}[language=Eiffel]
+
+\end{lstlisting}
+
+\subsubsection{}
+
+\begin{lstlisting}[language=Eiffel]
+
+\end{lstlisting}
+
+\subsubsection{}
+
+\begin{lstlisting}[language=Eiffel]
+
+\end{lstlisting}
+
+\subsubsection{}
+
+\begin{lstlisting}[language=Eiffel]
+
+\end{lstlisting}
+
+\subsubsection{}
+
+\begin{lstlisting}[language=Eiffel]
+
+\end{lstlisting}
+
+\subsubsection{}
+
+\begin{lstlisting}[language=Eiffel]
+
+\end{lstlisting}
+
+\subsubsection{}
+
+\begin{lstlisting}[language=Eiffel]
+
+\end{lstlisting}
+
+\subsubsection{}
+
+\begin{lstlisting}[language=Eiffel]
+
+\end{lstlisting}
+
+\subsubsection{}
+
+\begin{lstlisting}[language=Eiffel]
+
+\end{lstlisting}
+
+\subsubsection{}
+
+\begin{lstlisting}[language=Eiffel]
+
 \end{lstlisting}
 
 \subsection{Access (categories)}
 \label{sec:item-access-categories}
 
-\subsubsection{}
+\subsubsection{categories}
 
 \begin{lstlisting}[language=Eiffel]
+categories: SORTABLE_TWO_WAY_LIST[CATEGORY]
+  -- Categories list containing category items
 \end{lstlisting}
 
 \subsection{Access (metadata)}
@@ -847,9 +1143,11 @@ the subclasses \texttt{CHANNEL\_CLOUD}, \texttt{CHANNEL\_IMAGE},
 \subsection{Setter (categories)}
 \label{sec:item-setter-categories}
 
-\subsubsection{}
+\subsubsection{set\_categories}
 
 \begin{lstlisting}[language=Eiffel]
+set_categories (category_list: like categories)
+  -- Set categories with a new category list
 \end{lstlisting}
 
 \subsection{Setter (metadata)}
@@ -871,25 +1169,59 @@ the subclasses \texttt{CHANNEL\_CLOUD}, \texttt{CHANNEL\_IMAGE},
 \subsection{Status (categories)}
 \label{sec:item-status-categories}
 
-\subsubsection{}
+\subsubsection{has\_categories}
 
 \begin{lstlisting}[language=Eiffel]
+has_categories: BOOLEAN
+  -- Are there any categories?
 \end{lstlisting}
 
 \subsection{Basic operations (categories)}
 \label{sec:item-basic-operations-categories}
 
-\subsubsection{}
+\subsubsection{add\_category}
 
 \begin{lstlisting}[language=Eiffel]
+add_category (category: CATEGORY)
+  -- Add a category item
+\end{lstlisting}
+
+\subsubsection{remove\_category}
+
+\begin{lstlisting}[language=Eiffel]
+remove_category (category: CATEGORY)
+  -- Remove a category item
 \end{lstlisting}
 
 \subsection{Sort (categories)}
 \label{sec:item-sort-categories}
 
-\subsubsection{}
+\subsubsection{sort\_categories\_by\_title}
 
 \begin{lstlisting}[language=Eiffel]
+sort_categories_by_title
+  -- Sort categories by title
+\end{lstlisting}
+
+\subsubsection{sort\_categories\_by\_domain}
+
+\begin{lstlisting}[language=Eiffel]
+sort_categories_by_domain
+  -- Sort categories by domain
+\end{lstlisting}
+
+\subsubsection{reverse\_sort\_categories\_by\_title}
+
+\begin{lstlisting}[language=Eiffel]
+reverse_sort_categories_by_title
+  -- Reverse sort categories by title
+\end{lstlisting}
+
+\subsubsection{reverse\_sort\_categories\_by\_domain}
+
+\begin{lstlisting}[language=Eiffel]
+reverse_sort_categories_by_domain
+  -- Reverse sort categories by domain
 \end{lstlisting}
 
 \subsection{Debug}
@@ -907,33 +1239,70 @@ the subclasses \texttt{CHANNEL\_CLOUD}, \texttt{CHANNEL\_IMAGE},
 \subsection{Initialization}
 \label{sec:item-enclosure-initialization}
 
-\subsubsection{}
+\subsubsection{make}
 
 \begin{lstlisting}[language=Eiffel]
+make (a_url: URL; a_length: INTEGER; a_type: STRING)
+  -- Create an item enclosure
 \end{lstlisting}
 
 \subsection{Access}
 \label{sec:item-enclosure-access}
 
-\subsubsection{}
+\subsubsection{url}
 
 \begin{lstlisting}[language=Eiffel]
+url: URL
+  -- URL of the enclosure
+\end{lstlisting}
+
+\subsubsection{length}
+
+\begin{lstlisting}[language=Eiffel]
+length: INTEGER
+  -- Length in bytes of the enclosure
+\end{lstlisting}
+
+\subsubsection{type}
+
+\begin{lstlisting}[language=Eiffel]
+type: STRING
+  -- MIME type of the enclosure
 \end{lstlisting}
 
 \subsection{Setter}
 \label{sec:item-enclosure-setter}
 
-\subsubsection{}
+\subsubsection{set\_url}
 
 \begin{lstlisting}[language=Eiffel]
+set_url (a_url: URL)
+  -- Set the URL to `url'
+\end{lstlisting}
+
+\subsubsection{set\_length}
+
+\begin{lstlisting}[language=Eiffel]
+set_length (a_length: INTEGER)
+  -- Set the length to `a_length'
+\end{lstlisting}
+
+\subsubsection{set\_type}
+
+\begin{lstlisting}[language=Eiffel]
+set_type (a_type: STRING)
+  -- Set the MIME type to `a_type'
 \end{lstlisting}
 
 \subsection{Debug}
 \label{sec:item-enclosure-debug}
 
-\subsubsection{}
+\subsubsection{to\_string}
 
 \begin{lstlisting}[language=Eiffel]
+to_string: STRING
+  -- Returns a string representation of enclosure
+  -- This feature is especially useful for debugging
 \end{lstlisting}
 
 
@@ -943,33 +1312,63 @@ the subclasses \texttt{CHANNEL\_CLOUD}, \texttt{CHANNEL\_IMAGE},
 \subsection{Initialization}
 \label{sec:item-guid-initialization}
 
-\subsubsection{}
+\subsubsection{make}
 
 \begin{lstlisting}[language=Eiffel]
+make (a_guid: STRING)
+  -- Create an item guid with `is_perma_link' set to False
+\end{lstlisting}
+
+\subsubsection{make\_perma\_link}
+
+\begin{lstlisting}[language=Eiffel]
+make_perma_link (a_guid: STRING)
+  -- Create an item guid with `is_perma_link' set to True
 \end{lstlisting}
 
 \subsection{Access}
 \label{sec:item-guid-access}
 
-\subsubsection{}
+\subsubsection{guid}
 
 \begin{lstlisting}[language=Eiffel]
+guid: STRING
+  -- String representing a globally unique identifier (guid)
+\end{lstlisting}
+
+\subsubsection{is\_perma\_link}
+
+\begin{lstlisting}[language=Eiffel]
+is_perma_link: BOOLEAN
+  -- Is this guid a perma link?
 \end{lstlisting}
 
 \subsection{Setter}
 \label{sec:item-guid-setter}
 
-\subsubsection{}
+\subsubsection{set\_guid}
 
 \begin{lstlisting}[language=Eiffel]
+set_guid (a_guid: STRING)
+  -- Set guid to `a_guid'
+\end{lstlisting}
+
+\subsubsection{set\_perma\_link}
+
+\begin{lstlisting}[language=Eiffel]
+set_perma_link (value: BOOLEAN)
+  -- Set is_perma_link to `value'
 \end{lstlisting}
 
 \subsection{Debug}
 \label{sec:item-guid-debug}
 
-\subsubsection{}
+\subsubsection{to\_string}
 
 \begin{lstlisting}[language=Eiffel]
+to_string: STRING
+  -- Returns a string representation of guid
+  -- This feature is especially useful for debugging
 \end{lstlisting}
 
 \section{Subclass ITEM\_SOURCE}
@@ -978,33 +1377,56 @@ the subclasses \texttt{CHANNEL\_CLOUD}, \texttt{CHANNEL\_IMAGE},
 \subsection{Initialization}
 \label{sec:item-source-initialization}
 
-\subsubsection{}
+\subsubsection{make}
 
 \begin{lstlisting}[language=Eiffel]
+make (a_name: STRING; a_url: URL)
+  -- Create an item source
 \end{lstlisting}
 
 \subsection{Access}
 \label{sec:item-source-access}
 
-\subsubsection{}
+\subsubsection{name}
 
 \begin{lstlisting}[language=Eiffel]
+name: STRING
+  -- Name of the item source
+\end{lstlisting}
+
+\subsubsection{url}
+
+\begin{lstlisting}[language=Eiffel]
+url: URL
+  -- URL of the item source
 \end{lstlisting}
 
 \subsection{Setter}
 \label{sec:item-source-setter}
 
-\subsubsection{}
+\subsubsection{set\_name}
 
 \begin{lstlisting}[language=Eiffel]
+set_name (a_name: STRING)
+  -- Set name to `a_name'
+\end{lstlisting}
+
+\subsubsection{set\_url}
+
+\begin{lstlisting}[language=Eiffel]
+set_url (a_url: URL)
+  -- Set url to `a_url'
 \end{lstlisting}
 
 \subsection{Debug}
 \label{sec:item-source-debug}
 
-\subsubsection{}
+\subsubsection{to\_string}
 
 \begin{lstlisting}[language=Eiffel]
+to_string: STRING
+  -- Returns a string representation of source
+  -- This feature is especially useful for debugging
 \end{lstlisting}
 
 
