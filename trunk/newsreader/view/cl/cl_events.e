@@ -1,6 +1,6 @@
 indexing
-	description: "Objects that ..."
-	author: ""
+	description: "Class that provides access to common events %Nthat have to be accessible to all command line classes"
+	author: "Martin Luder"
 	date: "$Date$"
 	revision: "$Revision$"
 

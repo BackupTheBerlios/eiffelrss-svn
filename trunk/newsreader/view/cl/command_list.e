@@ -1,6 +1,6 @@
 indexing
-	description: "Objects that ..."
-	author: ""
+	description: "Objects that contain several commands in a hash table"
+	author: "Martin Luder"
 	date: "$Date$"
 	revision: "$Revision$"
 

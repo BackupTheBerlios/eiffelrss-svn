@@ -1,5 +1,5 @@
 indexing
-	description: "Edit feed dialog box"
+	description: "feed information dialog box"
 	author: "Martin Luder"
 	date: "$Date$"
 	revision: "$Revision$"

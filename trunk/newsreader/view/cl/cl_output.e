@@ -1,6 +1,6 @@
 indexing
-	description: "Objects that ..."
-	author: ""
+	description: "Objects that give output to the command line"
+	author: "Martin Luder"
 	date: "$Date$"
 	revision: "$Revision$"
 

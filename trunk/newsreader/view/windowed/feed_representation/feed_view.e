@@ -1,6 +1,6 @@
 indexing
-	description: "Objects that ..."
-	author: ""
+	description: "Objects that represent an item in a NEWSFEED_LIST object"
+	author: "Martin Luder"
 	date: "$Date$"
 	revision: "$Revision$"
 

@@ -1,6 +1,6 @@
 indexing
-	description: "Objects that ..."
-	author: ""
+	description: "List that can write it's items into a file (each item one line) and read them back"
+	author: "Martin Luder"
 	date: "$Date$"
 	revision: "$Revision$"
 

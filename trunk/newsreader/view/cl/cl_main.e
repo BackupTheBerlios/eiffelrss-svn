@@ -1,6 +1,6 @@
 indexing
-	description: "Objects that ..."
-	author: ""
+	description: "Main command line displayer"
+	author: "Martin Luder"
 	date: "$Date$"
 	revision: "$Revision$"
 
@@ -49,7 +49,6 @@ feature -- Initialization
 			Precursor {CL_PARSER}
 			known_commands.put (agent on_list_command, "list")
 			known_commands.put (agent on_show_command, "show")
-			known_commands.put (agent on_edit_command, "edit")
 			known_commands.put (agent on_add_command, "add")
 			known_commands.put (agent on_remove_command, "remove")
 			known_commands.put (agent on_refresh_command, "refresh")
@@ -79,14 +78,6 @@ feature -- Events
 			--
 		local
 			command: CL_SHOW_COMMAND
-		do
-			create command.make (words)
-		end
-	
-	on_edit_command is
-			-- 
-		local
-			command: CL_EDIT_COMMAND
 		do
 			create command.make (words)
 		end

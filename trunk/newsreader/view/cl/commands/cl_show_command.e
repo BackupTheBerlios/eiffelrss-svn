@@ -1,6 +1,6 @@
 indexing
-	description: "Objects that ..."
-	author: ""
+	description: "Objects that handle the 'show' command"
+	author: "Martin Luder"
 	date: "$Date$"
 	revision: "$Revision$"
 
@@ -57,7 +57,6 @@ feature -- Initialization
 			-- 
 		do
 			Precursor {CL_PARSER}
-			known_commands.force (agent on_edit_command, "edit")
 			known_commands.force (agent on_info_commmand, "info")
 			known_commands.force (agent on_open_command, "open")
 			known_commands.force (agent on_refresh_command, "refresh")
@@ -85,15 +84,6 @@ feature -- Events
 				i := i+1
 			end
 			io.put_new_line
-		end
-		
-
-	on_edit_command is
-			-- 
-		local
-			command: CL_FEED_EDIT_COMMAND
-		do
-			create command.make (words)
 		end
 	
 	on_info_commmand is

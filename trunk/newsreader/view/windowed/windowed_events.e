@@ -1,6 +1,6 @@
 indexing
 	description: "Class that provides access to common events %Nthat have to be accessible to all windowed classes"
-	author: ""
+	author: "Martin Luder"
 	date: "$Date$"
 	revision: "$Revision$"
 

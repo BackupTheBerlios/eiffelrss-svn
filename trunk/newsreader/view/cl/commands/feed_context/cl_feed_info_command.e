@@ -1,6 +1,6 @@
 indexing
-	description: "Objects that ..."
-	author: ""
+	description: "Objects that handle the 'info' command in feed context"
+	author: "Martin Luder"
 	date: "$Date$"
 	revision: "$Revision$"
 

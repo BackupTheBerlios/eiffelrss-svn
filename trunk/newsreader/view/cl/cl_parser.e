@@ -1,6 +1,6 @@
 indexing
-	description: "Objects that ..."
-	author: ""
+	description: "Objects that parse the command line using a COMMAND_LIST to execute commands"
+	author: "Martin Luder"
 	date: "$Date$"
 	revision: "$Revision$"
 

@@ -1,6 +1,6 @@
 indexing
-	description: "Edit item dialog box"
-	author: ""
+	description: "item information dialog box"
+	author: "Martin Luder"
 	date: "$Date$"
 	revision: "$Revision$"
 
