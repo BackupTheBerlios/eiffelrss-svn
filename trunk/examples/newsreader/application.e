@@ -43,11 +43,14 @@ feature {NONE} -- Initialization
 
 				-- create and initialize the first window.
 			create main_window.make
-
 				-- Show the first window.
 				--| TODO: Remove this line if you don't want the first 
 				--|       window to be shown at the start of the program.
 			main_window.show
+			
+				-- create debug window and hide
+			create debug_window.make
+			debug_window.hide
 		end
 
 feature -- Implementation
@@ -56,10 +59,9 @@ feature -- Implementation
 			-- Main window.
 	
 	debug_window: DEBUG_WINDOW
-			-- Debug window
+	
 	debug_window_create is
 		do
-			create debug_window.make
 			debug_window.show
 		end
 		

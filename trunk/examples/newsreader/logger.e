@@ -12,7 +12,7 @@ feature -- Logging
 	
 	logfile: LOGFILE
 			-- logfile of the application
-	
+
 	load_logfile is
 			-- create logfile
 		do
