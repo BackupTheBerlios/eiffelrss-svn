@@ -87,7 +87,7 @@ feature -- Access (RSS 0.91)
 
 feature -- Access (RSS 1.0)
 
-	items_toc: LINKED_LIST[STRING]
+	items_toc: TWO_WAY_LIST[STRING]
 
 
 	textinput: URL
@@ -97,7 +97,7 @@ feature -- Access (metadata)
 	format: CHANNEL_FORMAT
 			-- Format of the channel.
 
-	observers: LINKED_LIST[CHANNEL_OBSERVER]
+	observers: TWO_WAY_LIST[CHANNEL_OBSERVER]
 			-- List of subscribed observers
 
 -- feature -- Access (modules)

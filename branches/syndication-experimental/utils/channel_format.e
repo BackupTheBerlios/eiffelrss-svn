@@ -1,6 +1,6 @@
 indexing
-	description: "Class to represent different channel formats."
-	author: "Thomas Weibel"
+	description:	"Class to represent different channel formats."
+	author:	"Thomas Weibel"
 	date: "$Date$"
 	revision: "$Rev$"
 

@@ -47,6 +47,42 @@ feature -- Basic operations
 			-- category_removed: old categories.has (category) implies categories.count + 1 = old categories.count
 		end
 		
+feature -- Sort
+
+	title_equal (first, second: CATEGORY): BOOLEAN is
+			-- Checks whether two categories have the same title
+		require
+			first_non_void: first /= Void
+			second_non_void: second /= Void
+		do
+			Result := first.title = second.title
+		end
+		
+	title_before (first, second: CATEGORY): BOOLEAN is
+			-- Checks whether two categories have the same title
+		require
+			first_non_void: first /= Void
+			second_non_void: second /= Void			
+		do
+			Result := first.title < second.title
+		end
+		
+	sort_categories_by_title is
+			-- Sort categories by title
+		do
+			categories.set_custom_before (agent title_before)
+			categories.set_custom_equal (agent title_equal)
+			categories.sort
+		end
+		
+feature {CATEGORIES} -- Initialize `categories'
+
+	initialize_categories is
+			-- Initialize `categories'
+		do
+			create categories.make_empty (agent title_equal, agent title_before)
+		end
+		
 invariant
 	non_void_categories: categories /= Void
 

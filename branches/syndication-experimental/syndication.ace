@@ -37,6 +37,9 @@ cluster
 		end
 
 	all feed (syndication):		"feed"
+		exclude
+			".svn"
+		end
 
 	library net:		"$ISE_EIFFEL/library/net/"
 
@@ -54,8 +57,14 @@ cluster
 		end
 
 	all observer (syndication):		"observer"
+		exclude
+			".svn"
+		end
 
 	all utils (syndication):		"utils"
+		exclude
+			".svn"
+		end
 
 
 end

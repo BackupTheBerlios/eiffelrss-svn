@@ -8,22 +8,11 @@ class
 	CATEGORY_LIST
 	
 inherit
-	LINKED_LIST[CATEGORY]
-	redefine
-		make
-	end
+	CUSTOM_SORTED_TWO_WAY_LIST[CATEGORY]
 	
 create
-	make
+	make_empty
 	
-feature -- Initialization
-
-	make is
-			-- Call precursor
-		do
-			Precursor {LINKED_LIST}
-		end
-		
 feature -- Sort
 
 	-- TODO

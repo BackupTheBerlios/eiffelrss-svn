@@ -265,7 +265,7 @@ feature {NONE} -- Implementation
 	initialization is
 			-- Common initialization tasks
 		do
-			create categories.make
+			initialize_categories
 			create date_found.make_now_utc
 			set_read (False)
 		end

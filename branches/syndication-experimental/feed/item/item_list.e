@@ -8,22 +8,8 @@ class
 	ITEM_LIST
 	
 inherit
-	LINKED_LIST[ITEM]
-	redefine
-		make
-	end
+	CUSTOM_SORTED_TWO_WAY_LIST[ITEM]
 	
-create
-	make
-	
-feature -- Initialization
-
-	make is
-			-- Call precursor
-		do
-			Precursor {LINKED_LIST}
-		end
-		
 feature -- Sort
 
 	-- TODO

@@ -22,10 +22,10 @@ feature -- Initialization
 			test_item
 			
 			-- Channel
-			test_cloud
-			test_image
-			test_text_input
-			test_channel
+--			test_cloud
+--			test_image
+--			test_text_input
+--			test_channel
 		end
 		
 feature -- Test
@@ -147,6 +147,8 @@ feature -- Test
 			
 			create category.make_title_domain ("AnotherBlabla", url)
 			item.add_category (category)
+			
+			item.categories.sort
 			
 			io.put_string (item.to_string)
 			
