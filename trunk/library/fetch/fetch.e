@@ -6,6 +6,9 @@ indexing
 
 class
 	FETCH
+
+inherit
+	DATA_RESOURCE_FACTORY
 	
 create
 	make, make_source
@@ -14,7 +17,6 @@ feature -- Initialisation
 	make is
 			-- Create the object without a source
 	do
-		create resource_factory	
 		Error := Invalid_address
 	end
 	
@@ -50,8 +52,8 @@ feature -- Basic operations
 		error := Invalid_address
 		
 		if (an_address /= Void) then
-			resource_factory.Resource_factory.set_address (an_address)
-			if (resource_factory.Resource_factory.is_address_correct) then
+			Resource_factory.set_address (an_address)
+			if (Resource_factory.is_address_correct) then
 				error := None
 			end
 		end
@@ -65,8 +67,8 @@ feature -- Basic operations
 		if error = None then
 			create data.make_empty
 			
-			resource_factory.Resource_factory.create_resource
-			resource := resource_factory.Resource_factory.resource
+			Resource_factory.create_resource
+			resource := Resource_factory.resource
 			
 			resource.set_read_mode
 			resource.open
@@ -89,15 +91,10 @@ feature -- Basic operations
 			end
 		end
 	end
-		
-
-feature {NONE} -- Implementation
-	resource_factory: DATA_RESOURCE_FACTORY
 
 invariant
-	valid_resource_factory: resource_factory /= Void
 	void_source: (source_address = Void) implies (Error = Invalid_address)
 	empty_source: source_address.is_empty implies (Error = Invalid_address)
-	valid_source: resource_factory.Resource_factory.is_address_set implies (not resource_factory.Resource_factory.is_address_correct implies Error = Invalid_address)
+	valid_source: Resource_factory.is_address_set implies (not Resource_factory.is_address_correct implies Error = Invalid_address)
 
 end -- class FETCH
