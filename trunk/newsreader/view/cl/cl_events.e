@@ -35,7 +35,7 @@ feature -- Events / new
 			disp.show_temporary_text ("list%T%T" + Help_list_command)
 			disp.show_temporary_text ("show #%T%T" + Help_show_command)
 			disp.show_temporary_text ("info #%T%T" + Help_info_command)
-			disp.show_temporary_text ("edit #%T%T" + Help_edit_command)
+--			disp.show_temporary_text ("edit #%T%T" + Help_edit_command)
 			disp.show_temporary_text ("add URL%T%T" + Help_add_command)
 			disp.show_temporary_text ("remove #%T" + Help_remove_command)
 			disp.show_temporary_text ("refresh all|#%T" + Help_refresh_command)

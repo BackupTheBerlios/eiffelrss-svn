@@ -32,11 +32,12 @@ default
 	exception_trace (no)
 	inlining (no)
 	multithreaded (no)
+	arguments ("-cl")
+	arguments ("-no_debug_window")
 
 
 cluster
 	newsreader:		"."
-
 
 	view (newsreader):		"$\view"
 

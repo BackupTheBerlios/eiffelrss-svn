@@ -13,7 +13,10 @@ inherit
 feature -- Parser
 
 	Parser_unknown_command: STRING is "unknown command"
-			-- String that is shown when an unknown command is entered	
+			-- String that is shown when an unknown command is entered
+
+	Argument_error_item: STRING is "invalid argument"
+			-- String that is shown when invalid arguments were entered
 	
 feature -- help
 	

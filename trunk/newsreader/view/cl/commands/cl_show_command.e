@@ -51,13 +51,13 @@ feature -- Initialization
 			-- 
 		do
 			Precursor {CL_PARSER}
-			known_commands.put (agent on_edit_command, "edit")
-			known_commands.put (agent on_info_commmand, "info")
-			known_commands.put (agent on_open_command, "open")
-			known_commands.put (agent on_refresh_command, "refresh")
-			known_commands.put (agent on_remove_command, "remove")
-			known_commands.put (agent on_back_command, "back")
-			known_commands.put (agent show_feed, "show")
+			known_commands.force (agent on_edit_command, "edit")
+			known_commands.force (agent on_info_commmand, "info")
+			known_commands.force (agent on_open_command, "open")
+			known_commands.force (agent on_refresh_command, "refresh")
+			known_commands.force (agent on_remove_command, "remove")
+			known_commands.force (agent on_back_command, "back")
+			known_commands.force (agent show_feed, "show")
 		end
 		
 feature -- Events
@@ -102,8 +102,10 @@ feature -- Events
 			-- 
 		do
 			words.start
-			if application.current_feed.items.valid_index (words.item.to_integer) then
+			if words.count > 0 and then application.current_feed.items.valid_index (words.item.to_integer) then
 				open_url (application.current_feed.items.i_th (words.item.to_integer).link, false)
+			else
+				application.application_displayer.information_displayer.show_temporary_text (Argument_error_item)
 			end
 		end
 	
@@ -135,7 +137,7 @@ feature -- Events
 			disp.show_temporary_text ("show%T%T" + Help_feed_show_command)
 			disp.show_temporary_text ("open #%T%T" + Help_feed_open_command)
 			disp.show_temporary_text ("info #%T%T" + Help_feed_info_command)
-			disp.show_temporary_text ("edit #%T%T" + Help_feed_edit_command)
+--			disp.show_temporary_text ("edit #%T%T" + Help_feed_edit_command)
 			disp.show_temporary_text ("add URI%T%T" + Help_add_command)
 			disp.show_temporary_text ("remove #%T" + Help_feed_remove_command)
 			disp.show_temporary_text ("refresh%T%T" + Help_feed_refresh_command)
