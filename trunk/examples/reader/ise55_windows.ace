@@ -1,17 +1,34 @@
 system
-	"properties_example"
+	"reader_example"
 
 root
 	READER_EXAMPLE: make
 
 default
-	assertion (invariant)
-	assertion (loop)
+	assertion (check)
 	assertion (require)
 	assertion (ensure)
-	assertion (check)
-	multithreaded (no)
+	assertion (loop)
+	assertion (invariant)
+	disabled_debug (yes)
+	disabled_debug ("gelex")
+	disabled_debug ("geyacc")
+	disabled_debug ("xml_input_stream")
+	disabled_debug ("xml_parser")
+	debug (no)
+	line_generation (no)
+	trace (no)
+	check_vape (yes)
 	console_application (no)
+	syntax_warning (no)
+	address_expression (no)
+	array_optimization (no)
+	dead_code_removal (yes)
+	dynamic_runtime (no)
+	exception_trace (no)
+	inlining (no)
+	multithreaded (no)
+
 
 cluster
 	root_cluster:		"."
@@ -26,27 +43,33 @@ cluster
 		exclude
 			"german"; "french"; 
 		end
-	
+
 	library net:		"$ISE_EIFFEL\library\net"
 
-	library syndication:	"..\..\library\syndication"
+
+	library syndication:		"..\..\library\syndication"
 		exclude
-			".svn"
-		end
-		
-	library fetch:	"..\..\library\fetch"
-		exclude
-			".svn"
+			".svn"; 
 		end
 
-	library adt:	"..\..\library\adt"
+	library fetch:		"..\..\library\fetch"
 		exclude
-			".svn"
+			".svn"; 
 		end
-		
+
+	library adt:		"..\..\library\adt"
+		exclude
+			".svn"; 
+		end
+
 	library gobo:		"$ISE_EIFFEL\free_add_ons\gobo\library"
 		exclude
 			"other"; "ve"; "se"; "hact"; "expat"; 
 		end
+
+external
+
+	object:
+		"$(ISE_EIFFEL)\library\net\spec\$(ISE_C_COMPILER)\lib\net.lib"
 
 end
