@@ -10,7 +10,7 @@ class
 inherit
 	EV_VERTICAL_BOX
 
-	INTERFACE_NAMES
+	WINDOWED_INTERFACE_NAMES
 		export
 			{NONE} all
 		undefine

@@ -17,12 +17,13 @@ cluster
 
 	feed_representation (newsreader):		"$/feed_representation"
 
-	windows (newsreader):		"$/windows"
+	view (newsreader):		"$/view"
 
+	windowed (view):		"$/windowed"
 
-	bars (windows):		"$/bars"
+	bars (windowed):		"$/bars"
 
-	dialogs (windows):		"$/dialogs"
+	dialogs (windowed):		"$/dialogs"
 
 	library eiffelrss:		"../../library"
 		exclude

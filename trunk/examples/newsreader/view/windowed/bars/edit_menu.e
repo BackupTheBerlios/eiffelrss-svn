@@ -10,7 +10,7 @@ class
 inherit
 	EV_MENU
 
-	INTERFACE_NAMES
+	WINDOWED_INTERFACE_NAMES
 		export
 			{NONE} all
 		undefine

@@ -5,7 +5,7 @@ indexing
 	revision	: "1.0.0"
 
 deferred class
-	INTERFACE_NAMES
+	WINDOWED_INTERFACE_NAMES
 
 feature -- General
 

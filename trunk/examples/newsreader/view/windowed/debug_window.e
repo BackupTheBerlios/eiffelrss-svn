@@ -37,7 +37,7 @@ inherit
 
 		end
 
-	INTERFACE_NAMES
+	WINDOWED_INTERFACE_NAMES
 		export
 			{NONE} all
 		undefine
