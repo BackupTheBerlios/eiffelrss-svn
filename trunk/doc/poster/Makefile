@@ -1,4 +1,4 @@
-all: 	poster pdf jpg
+all: 	poster pdf
 
 full: 	clean all
 
@@ -9,6 +9,8 @@ clean:
 	-rm -f *.dvi
 	-rm -f *.bbl
 	-rm -f *.blg
+	-rm -f *.jpg
+	-rm -f a0header.ps
 	-rm -rf html/
 
 poster:
