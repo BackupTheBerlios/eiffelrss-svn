@@ -172,7 +172,7 @@ feature -- Setter
 		do
 			managing_editor := a_managing_editor
 		ensure
-			managing_editor_set: description = a_managing_editor
+			managing_editor_set: managing_editor = a_managing_editor
 		end
 	
 	set_web_master (a_web_master: STRING) is
