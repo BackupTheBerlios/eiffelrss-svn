@@ -42,7 +42,7 @@ feature {NONE} -- Initialization
 			
 				-- create logfile
 			create_log
-			logfile.log_message ("APPLICATION started and logfile created", logfile.info)
+			logfile.log_message ("Initialization: application started and logfile created", logfile.info)
 			
 				-- testing
 			create current_feed.make ("EiffelRSS", create {HTTP_URL}.make ("http://eiffelrss.berlios.de/Main/AllRecentChanges?action=rss"), "AllRecentChanges")
@@ -61,6 +61,7 @@ feature {NONE} -- Initialization
 				"EiffelRSS has been awarded by ISE as best syndication software written in Eiffel. For more info see award-winning pages: http://eiffelrss.berlios.de")
 			current_feed.last_added_item.set_guid (create {ITEM_GUID}.make_perma_link ("http://eiffelrss.berlios.de/newsItem42"))
 			current_feed.last_added_item.set_pub_date (create {DATE_TIME}.make (2005, 1, 21, 17, 34, 0))
+			logfile.log_message ("Initialization: added test feed which will HAVE TO BE REMOVED", feature{LOGFILE}.Warning)
 			
 				-- Open properties files
 			load_properties
@@ -76,12 +77,14 @@ feature {NONE} -- Initialization
 			clm: CL_MAIN
 		do
 			if is_cl then
+				logfile.log_message ("Loading command line interface...", feature{LOGFILE}.Info)
 				clm ?= application_displayer
 				if clm /= void then
 					is_launched := True
 					clm.start
 				end
 			else
+				logfile.log_message ("Loading GUI...", feature{LOGFILE}.Info)
 				Precursor
 			end
 		end
@@ -96,8 +99,10 @@ feature -- Events
 			dw ?= logfile
 			if dw /= void then
 				if dw.is_show_requested then
+					logfile.log_message ("Hiding debug window", feature{LOGFILE}.Info)
 					dw.hide
 				else
+					logfile.log_message ("Showing debug window", feature{LOGFILE}.Info)
 					dw.show
 				end
 			end

@@ -42,6 +42,7 @@ feature {NONE} -- Initialize
 		do
 			make_app_ref
 			Precursor
+			application.logfile.log_message ("showing about window", feature{LOGFILE}.Developer)
 			create ok_button.make_with_text (button_ok_item)
 			ok_button.set_minimum_size (75, 24)
 			ok_button.select_actions.extend (agent destroy)

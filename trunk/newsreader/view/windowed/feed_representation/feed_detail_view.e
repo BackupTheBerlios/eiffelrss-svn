@@ -52,6 +52,7 @@ feature -- Basic operations
 			feed := f
 			
 			set_label_text (feed.title)
+			application.logfile.log_message ("showing items of '" + feed.title + "'", feature{LOGFILE}.Developer)
 			
 			from
 				feed.items.start

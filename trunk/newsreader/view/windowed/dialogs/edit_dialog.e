@@ -27,6 +27,7 @@ feature -- Initialization
 			label: EV_LABEL
 		do
 			Precursor
+			application.logfile.log_message ("showing feed edit dialog", feature{LOGFILE}.Developer)
 			
 				-- title
 			create hbox
@@ -170,8 +171,6 @@ feature {NONE} -- Implementation
 	load is
 			-- load feed information
 		do
-			-- TODO: load feed currently selected on feed list tab
-			
 			feed := application.current_feed
 			
 			application.application_displayer.information_displayer.show_progress (11)

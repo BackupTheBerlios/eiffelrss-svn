@@ -54,6 +54,7 @@ feature {NONE}
 			sb: EV_STATUS_BAR
 		do
 			Precursor {EV_TITLED_WINDOW}
+			application.logfile.log_message ("creating main window", feature{LOGFILE}.Info)
 			
 				-- build status bar
 			create {STATUS_BAR}status_bar.make_with_text ("Welcome to " + Application_name)
@@ -94,7 +95,7 @@ feature {NONE}
 
 	is_in_default_state: BOOLEAN is
 		do
-			Result := true or else (width = application.properties.get ("Window_width").to_integer) and then (height = application.properties.get ("Window_height").to_integer) and then (title.is_equal (application.properties.get ("Window_title")))
+			Result := true
 		end
 	
 
@@ -171,6 +172,7 @@ feature -- Events
 		require
 			minimized: is_minimized
 		do
+			application.logfile.log_message ("minimizing main window", feature{LOGFILE}.Developer)
 			application.properties.force ("yes", "Window_minimized")
 			application.properties.force ("no", "Window_maximized")
 		end
@@ -180,6 +182,7 @@ feature -- Events
 		require
 			maximized: is_maximized
 		do
+			application.logfile.log_message ("maximizing main window", feature{LOGFILE}.Developer)
 			application.properties.force ("yes", "Window_maximized")
 			application.properties.force ("no", "Window_minimized")
 		end
@@ -189,6 +192,7 @@ feature -- Events
 		require
 			not_minimized_or_maximized: not is_minimized and not is_maximized
 		do
+			application.logfile.log_message ("restoring size of main window", feature{LOGFILE}.Developer)
 			application.properties.force ("no", "Window_minimized")
 			application.properties.force ("no", "Window_maximized")
 		end
@@ -284,44 +288,47 @@ feature {NONE} -- Implementation
 			accelerator: EV_ACCELERATOR
 			key: EV_KEY
 		do
-			
+				-- CTRL-Q: quit application
 			create key.make_with_code (feature {EV_KEY_CONSTANTS}.key_q)
 			create accelerator.make_with_key_combination (key, true, false, false)
 			accelerator.actions.extend (agent on_exit)
 			accelerators.extend (accelerator)
+				-- CTRL-P: open preferences
 			create key.make_with_code (feature {EV_KEY_CONSTANTS}.key_p)
 			create accelerator.make_with_key_combination (key, true, false, false)
 			accelerator.actions.extend (agent on_preferences)
 			accelerators.extend (accelerator)
+				-- CTRL-N: add new feed
 			create key.make_with_code (feature {EV_KEY_CONSTANTS}.key_n)
 			create accelerator.make_with_key_combination (key, true, false, false)
 			accelerator.actions.extend (agent on_add)
 			accelerators.extend (accelerator)
+				-- CTRL-T: refresh feed
 			create key.make_with_code (feature {EV_KEY_CONSTANTS}.key_t)
 			create accelerator.make_with_key_combination (key, true, false, false)
 			accelerator.actions.extend (agent on_refresh)
 			accelerators.extend (accelerator)
+				-- CTRL-SHIFT-T: refresh all feeds
 			create key.make_with_code (feature {EV_KEY_CONSTANTS}.key_t)
 			create accelerator.make_with_key_combination (key, true, false, true)
-			accelerator.actions.extend (agent on_add)
+			accelerator.actions.extend (agent on_refresh_all)
 			accelerators.extend (accelerator)
+				-- CTRL-U: edit feed/item
 			create key.make_with_code (feature {EV_KEY_CONSTANTS}.key_u)
 			create accelerator.make_with_key_combination (key, true, false, false)
 			accelerator.actions.extend (agent on_edit)
 			accelerators.extend (accelerator)
-			create key.make_with_code (feature {EV_KEY_CONSTANTS}.key_u)
-			create accelerator.make_with_key_combination (key, true, false, true)
-			accelerator.actions.extend (agent on_item_edit)
-			accelerators.extend (accelerator)
+				-- CTRL-D: remove selected feed/item
 			create key.make_with_code (feature {EV_KEY_CONSTANTS}.key_d)
 			create accelerator.make_with_key_combination (key, true, false, false)
 			accelerator.actions.extend (agent on_remove)
 			accelerators.extend (accelerator)
+				-- CTRL-ALT-TAB: open/close debug window
 			create key.make_with_code (feature {EV_KEY_CONSTANTS}.key_tab)
 			create accelerator.make_with_key_combination (key, true, true, false)
 			accelerator.actions.extend (agent application.on_debug_window)
 			accelerators.extend (accelerator)
-				-- testing: 
+				-- CTRL-ALT-`: test things (test_routing in COMMON_EVENTS): TO BE REMOVED
 			create key.make_with_code (feature {EV_KEY_CONSTANTS}.key_backquote)
 			create accelerator.make_with_key_combination (key, true, true, false)
 			accelerator.actions.extend (agent test_routine)

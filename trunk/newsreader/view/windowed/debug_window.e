@@ -189,7 +189,7 @@ feature -- Events
 			string := string + application.user_properties.list
 			properties_view.set_text (string)
 			
-			log_message ("refresh clicked", Developer)
+			log_message ("debug window: refresh clicked", Developer)
 		end
 	
 	on_show_properties is

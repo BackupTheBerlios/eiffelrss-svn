@@ -48,14 +48,17 @@ feature -- Menus
 	Menu_channel_item_info_item: STRING is "Item information...%TAlt+3"
 			-- String for menu "Channel/Item information"
 	
-	Menu_channel_edit_item: STRING is "&Edit feed...%TCtrl+U"
+	Menu_channel_feed_edit_item: STRING is "&Edit feed...%TCtrl+U"
 			-- String for menu "Channel/Edit feed"
 	
 	Menu_channel_item_edit_item: STRING is "Edit item...%TCtrl+Shift+U"
 			-- String for menu "Channel/Edit item"
 	
-	Menu_channel_remove_item: STRING is "Re&move%TCtrl+D"
+	Menu_channel_feed_remove_item: STRING is "Re&move feed%TCtrl+D"
 			-- String for menu "Channel/Remove"
+	
+	Menu_channel_item_remove_item: STRING is "Rem&ove item%TCtrl+Shift+D"
+			-- String for menu "Channel/Remove item"
 	
 	Menu_channel_refresh_all_item: STRING is "Refresh a&ll%TCtrl+Shift+T"
 			-- String for menu "Channel/Reload all"

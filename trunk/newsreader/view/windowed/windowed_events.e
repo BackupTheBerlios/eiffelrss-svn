@@ -92,7 +92,33 @@ feature {NONE} -- Events
 			mw ?= application.application_displayer
 			if mw /= void then edit_dialog.show_modal_to_window (mw) end
 		end
+
+	on_remove is
+			-- remove current feed/item
+		local
+			mw: MAIN_WINDOW
+		do
+			mw ?= application.application_displayer
+			if mw /= void then 
+				if mw.has_feed_focus then
+					on_feed_remove
+				elseif mw.has_item_focus then
+					on_item_remove
+				end
+			end
+		end
 		
+	on_feed_remove is
+			-- remove current feed
+		do
+			
+		end
+	
+	on_item_remove is
+			-- remove current item
+		do
+			
+		end
 
 	show_feed is
 			-- show current feed

@@ -35,6 +35,7 @@ feature -- Properties
 			load_application_default_properties
 			load_application_properties
 			load_user_properties
+			logfile.log_message ("All properties loaded", feature{LOGFILE}.Info)
 		ensure
 			properties_not_void: properties /= void
 		end
@@ -90,7 +91,7 @@ feature -- Properties
 				-- load properties from file
 			application_properties.load (file)
 			
-			logfile.log_message ("Application properties loaded from '" + file.name + "'", logfile.Info)
+			logfile.log_message ("Application properties loaded from '" + file.name + "'", feature{LOGFILE}.Info)
 			check_and_correct_properties (application_properties)
 		ensure
 			application_properties_loaded: application_properties /= void
@@ -117,7 +118,7 @@ feature -- Properties
 				end
 				user_properties.load (file)
 			
-				logfile.log_message ("User properties loaded from '" + file.name + "'",logfile.Info)
+				logfile.log_message ("User properties loaded from '" + file.name + "'",feature{LOGFILE}.Info)
 				
 			end
 			check_and_correct_properties (user_properties)
@@ -135,6 +136,7 @@ feature {NONE} -- Implementation
 			application_default_properties.put ("600","Window_height")
 			application_default_properties.put ("yes","Ask_on_exit")
 			application_default_properties.put ("no", "User_specific")
+			application_default_properties.put ("no", "Share_feeds")
 			application_default_properties.put ("yes", "Show_toolbar")
 			application_default_properties.put ("[0]mm/[0]dd/yyyy [0]hh:[0]mi", "Date_format")
 			
@@ -143,7 +145,7 @@ feature {NONE} -- Implementation
 			application_default_properties.put ("user.properties","user_properties_file")
 			application_default_properties.put ("default.properties","application_properties_file")
 
-			logfile.log_message ("Application default properties loaded",logfile.Developer)
+			logfile.log_message ("Application default properties loaded",feature{LOGFILE}.Developer)
 			check_and_correct_properties (application_default_properties)
 		ensure
 			application_default_properties_loaded: application_default_properties /= void
@@ -155,20 +157,36 @@ feature {NONE} -- Implementation
 			p_not_void: p /= void
 		do
 			if not p.get ("Window_width").is_integer then
-				logfile.log_message ("WARNING: Window_width is no integer, loading default value",logfile.Warning)
+				logfile.log_message ("WARNING: Window_width is no integer, loading default value",feature{LOGFILE}.Warning)
 				p.remove ("Window_width")
 			end
+			if p.get ("Window_width").to_integer <= 0 then
+				logfile.log_message ("WARNING: Window_width is negative, loading default value", feature{LOGFILE}.Warning)
+				p.remove ("Window_widht")
+			end
 			if not p.get ("Window_height").is_integer then
-				logfile.log_message ("WARNING: Window_height is no integer, loading default value", logfile.Warning)
+				logfile.log_message ("WARNING: Window_height is no integer, loading default value", feature{LOGFILE}.Warning)
+				p.remove ("Window_height")
+			end
+			if p.get ("Window_height").to_integer <= 0 then
+				logfile.log_message ("WARNING: Window_height is negative, loading default value", feature{LOGFILE}.Warning)
 				p.remove ("Window_height")
 			end
 			if not (p.get ("Ask_on_exit").is_equal ("yes") or p.get ("Ask_on_exit").is_equal ("no")) then
-				logfile.log_message ("WARNING: Ask_on_exit is not 'yes' or 'no', loading default value", logfile.Warning)
+				logfile.log_message ("WARNING: Ask_on_exit is not 'yes' or 'no', loading default value", feature{LOGFILE}.Warning)
 				p.remove ("Ask_on_exit")
 			end
 			if not (p.get ("User_specific").is_equal ("yes") or p.get ("User_specific").is_equal ("no")) then
-				logfile.log_message ("WARNING: User_specific is not 'yes' or 'no', loading default value", logfile.Warning)
+				logfile.log_message ("WARNING: User_specific is not 'yes' or 'no', loading default value", feature{LOGFILE}.Warning)
 				p.remove ("User_specific")
+			end
+			if not (p.get ("Share_feeds").is_equal ("yes") or p.get ("Share_feeds").is_equal ("no")) then
+				logfile.log_message ("WARNING: Share_feeds is not 'yes' or 'no', loading default value", feature{LOGFILE}.Warning)
+				p.remove ("Share_feeds")
+			end
+			if not (p.get ("Show_toolbar").is_equal ("yes") or p.get ("Show_toolbar").is_equal ("no")) then
+				logfile.log_message ("WARNING: Show_toolbar is not 'yes' or 'no', loading default value", feature{LOGFILE}.Warning)
+				p.remove ("Show_toolbar")
 			end
 		end
 	

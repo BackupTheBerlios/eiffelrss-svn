@@ -34,8 +34,9 @@ feature -- Initialization
 			label: EV_LABEL
 		do
 			Precursor
+			application.logfile.log_message ("showing preferences dialog", feature{LOGFILE}.Developer)
 			
-				-- create options widgets
+				-- create options widgets:
 				
 				-- Ask_on_exit
 			create ask_on_exit.make_with_text (Preferences_ask_on_exit_item)
@@ -219,13 +220,6 @@ feature {NONE} -- Events
 			else
 				share_feeds.disable_sensitive
 			end
-		end
-	
-	on_user_specific_deselect is
-			-- 
-		do
-			
-		end
-		
+		end		
 		
 end -- class PREFERENCES_DIALOG

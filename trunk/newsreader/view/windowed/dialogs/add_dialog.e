@@ -26,6 +26,7 @@ feature -- Initialization
 			label: EV_LABEL
 		do
 			Precursor
+			application.logfile.log_message ("showing add dialog", feature{LOGFILE}.Developer)
 			
 			create hbox
 			create label.make_with_text (Add_address_item + ":")

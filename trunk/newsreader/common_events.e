@@ -45,12 +45,6 @@ feature -- Events
 			
 		end
 	
-	on_remove is
-			-- remove current feed
-		do
-			
-		end
-	
 	open_url (link: URL; asynchronous_request: BOOLEAN) is
 			-- open url
 		local

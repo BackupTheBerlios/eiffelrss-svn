@@ -27,6 +27,7 @@ feature -- Initialization
 			label: EV_LABEL
 		do
 			Precursor
+			application.logfile.log_message ("showing item edit dialog", feature{LOGFILE}.Developer)
 				
 				-- title
 			create hbox
