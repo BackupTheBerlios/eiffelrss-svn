@@ -10,7 +10,7 @@ class
 inherit
 	TWO_WAY_LIST[G]
 		redefine
-			make
+			make, has
 		end
 
 	SORTABLE[G]
@@ -39,7 +39,25 @@ feature -- Initialization
 			set_order (an_order_relation)
 		end
 		
-		
+
+feature -- Access
+
+	has (v: G): BOOLEAN is
+			-- Does structure include `v'?
+ 			-- (Reference or object equality,
+			-- based on `object_comparison'.)
+		local
+			pos: CURSOR
+		do
+			if not is_empty then
+				pos := cursor
+				start
+				search (v)
+				Result := not after
+				go_to (pos)
+			end
+		end
+
 feature -- Sorting
 
 	sort is
