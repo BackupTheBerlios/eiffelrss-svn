@@ -32,7 +32,7 @@ feature -- Access
 	read (a_document: XM_DOCUMENT): FEED is
 			-- Create a feed with error message
 	do
-		create Result.make ("Error", create {HTTP_URL}.make ("http://"), "An error occured")
+		create Result.make ("Error", create {HTTP_URL}.make (" "), "An error occured")
 		
 		from
 			errors.start

@@ -33,7 +33,7 @@ feature{NONE} -- Implementation
 		default_value /= Void
 	do
 		Result := default_value
-		if (a_element /= Void) and then not a_element.text.is_empty then
+		if (a_element /= Void) and then (a_element.text /= Void) and then not a_element.text.is_empty then
 			Result := a_element.text
 		else
 			Result := default_value
@@ -56,6 +56,18 @@ feature{NONE} -- Implementation
 	ensure
 		valid_result: Result /= Void
 	end
+
+	valid_element_text (an_element: XM_ELEMENT; a_name: STRING): BOOLEAN is
+			-- Has the subelement `a_name' of `an_element' text?
+		require
+			valid_name: a_name /= Void
+			not_empty_name: not a_name.is_empty
+		do
+			if (an_element /= Void) and then (an_element.element_by_name (a_name) /= Void) and then (an_element.element_by_name (a_name).text /= Void) and then not an_element.element_by_name (a_name).text.is_empty then
+				Result := true	
+			end
+		end
+		
 
 	read_date (a_string: STRING): DATE_TIME is
 			-- Convert an RFC 822 date string to a DATE_TIME object

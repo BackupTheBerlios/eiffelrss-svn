@@ -39,34 +39,34 @@ feature -- Operations
 			Result.set_description (read_or_default_element (channel.element_by_name ("description"), "Undefined"))
 
 			-- Optional fields
-			if (channel.element_by_name ("lastBuildDate") /= Void) then
-				Result.set_last_build_date (read_date(channel.element_by_name ("lastBuildDate").text))
+			if (valid_element_text(channel, "lastBuildDate")) then
+				Result.set_last_build_date (read_date(channel.element_by_name ("lastBuildDate").text))				
 			end
-			if (channel.element_by_name ("language") /= Void) then
+			if (valid_element_text(channel, "language")) then
 				Result.set_language (channel.element_by_name ("language").text)
 			end
-			if (channel.element_by_name ("copyright") /= Void) then
+			if (valid_element_text(channel, "copyright")) then
 				Result.set_copyright (channel.element_by_name ("copyright").text)
 			end
-			if (channel.element_by_name ("managingEditor") /= Void) then
+			if (valid_element_text(channel, "managingEditor")) then
 				Result.set_managing_editor (channel.element_by_name ("managingEditor").text)
 			end
-			if (channel.element_by_name ("webMaster") /= Void) then
+			if (valid_element_text(channel, "webMaster")) then
 				Result.set_web_master (channel.element_by_name ("webMaster").text)
 			end
-			if (channel.element_by_name ("pubDate") /= Void) then
+			if (valid_element_text(channel, "pubDate")) then
 				Result.set_pub_date (read_date(channel.element_by_name ("pubDate").text))
 			end
-			if (channel.element_by_name ("generator") /= Void) then
+			if (valid_element_text(channel, "generator")) then
 				Result.set_feed_generator (channel.element_by_name ("generator").text)
 			end
-			if (channel.element_by_name ("docs") /= Void) then
+			if (valid_element_text(channel, "docs")) then
 				Result.set_docs (create {HTTP_URL}.make (channel.element_by_name ("docs").text))			
 			end
-			if (channel.element_by_name ("cloud") /= Void) then
+			if (valid_element_text(channel, "clouds")) then
 				Result.create_cloud (read_or_default_attribute (channel.element_by_name ("cloud").attribute_by_name ("domain"), "http://"), read_or_default_attribute (channel.element_by_name ("cloud").attribute_by_name ("port"), "80").to_integer, read_or_default_attribute (channel.element_by_name ("cloud").attribute_by_name ("path"), "/"), read_or_default_attribute (channel.element_by_name ("cloud").attribute_by_name ("registerProcedure"), "-"), read_or_default_attribute (channel.element_by_name ("cloud").attribute_by_name ("protocol"), "-"))
 			end		
-			if (channel.element_by_name ("ttl") /= Void) and then (channel.element_by_name ("ttl").text.is_integer) then
+			if (valid_element_text(channel, "ttl")) then
 				Result.set_ttl (channel.element_by_name ("ttl").text.to_integer)
 			end
 			
@@ -89,13 +89,13 @@ feature -- Operations
 			
 				-- Item
 				if item_element /= Void and then item_element.name.is_equal("item") then
-					create new_item.make (Result, read_or_default_element (item_element.element_by_name ("title"), "Undefined"), create {HTTP_URL}.make (read_or_default_element (item_element.element_by_name ("link"), "")), read_or_default_element (item_element.element_by_name ("description"), "Undefined"))
+					create new_item.make (Result, read_or_default_element (item_element.element_by_name ("title"), "Undefined"), create {HTTP_URL}.make (read_or_default_element (item_element.element_by_name ("link"), "http://")), read_or_default_element (item_element.element_by_name ("description"), "Undefined"))
 					
-					if (item_element.element_by_name ("author") /= Void) then
+					if (valid_element_text(item_element, "lastBuildDate")) then
 						new_item.set_author (item_element.element_by_name ("author").text)
 					end
 					
-					if (item_element.element_by_name ("pubDate") /= Void) then
+					if (valid_element_text(item_element, "pubDate")) then
 						new_item.set_pub_date (read_date (item_element.element_by_name ("pubDate").text))
 					end
 
