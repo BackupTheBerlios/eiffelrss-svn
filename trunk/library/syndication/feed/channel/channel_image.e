@@ -118,19 +118,18 @@ feature -- Debug
 			-- Returns a string representation of guid
 			-- This feature is especially useful for debugging
 		do
-			Result := "- URL: " + url.location + "%N" + "- Title: " + title + "%N"
-								+ "- Link: " + link.location + "%N"
+			Result := "* URL: " + url.location + "%N* Title: " + title + "%N* Link: " + link.location + "%N"
 			
 			if width > 0 then
-				Result := Result + "- Width: " + width.out + "%N"
+				Result.append ("* Width: " + width.out + "%N")
 			end
 			
 			if height > 0 then
-				Result := Result + "- Height: " + height.out + "%N"
+				Result.append ("* Height: " + height.out + "%N")
 			end
 			
 			if description /= Void then
-				Result := Result + "- Description: " + description + "%N"
+				Result.append ("* Description: " + description + "%N")
 			end
 		end
 

@@ -64,7 +64,7 @@ feature -- Debug
 			-- Returns a string representation of guid
 			-- This feature is especially useful for debugging
 		do
-			Result := "- GUID: " + guid + "%N" + "- is_perma_link: " + is_perma_link.out + "%N"
+			Result := "* GUID: " + guid + "%N* Perma link: " + is_perma_link.out + "%N"
 		end
 
 invariant

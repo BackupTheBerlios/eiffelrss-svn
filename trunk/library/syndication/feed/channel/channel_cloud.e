@@ -103,9 +103,7 @@ feature -- Debug
 			-- Returns a string representation of guid
 			-- This feature is especially useful for debugging
 		do
-			Result := "- Domain: " + domain + "%N" + "- Port: " + port.out + "%N"
-								+ "- Path: " + path + "%N" + "- Register procedure: " + register_procedure + "%N"
-								+ "- Protocol: " + protocol + "%N"
+			Result := "* Domain: " + domain + "%N* Port: " + port.out + "%N* Path: " + path + "%N* Register procedure: " + register_procedure + "%N* Protocol: " + protocol + "%N"
 		end
 
 invariant

@@ -79,11 +79,13 @@ feature -- Debug
 			-- Returns a string representation of category_item
 			-- This feature is especially useful for debugging
 		do
-			Result := "- Title: " + title + "%N"
+			Result := title
 			
 			if domain /= Void then
-				Result := Result + "- Domain: " + domain.location + "%N"
+				Result.append (" (" + domain.location + ")")
 			end
+			
+			Result.append ("%N")
 		end
 
 invariant

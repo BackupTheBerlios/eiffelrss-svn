@@ -73,7 +73,7 @@ feature -- Debug
 			-- Returns a string representation of enclosure
 			-- This feature is especially useful for debugging
 		do
-			Result := "- URL: " + url.location + "%N" + "- Length: " + length.out + "%N" + "- Type: " + type + "%N"
+			Result := "* URL: " + url.location + "%N* Length: " + length.out + "%N* Type: " + type + "%N"
 		end
 
 invariant

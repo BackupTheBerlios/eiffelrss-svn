@@ -458,83 +458,85 @@ feature -- Debug
 	to_string: STRING is
 			-- Returns a string representation of source
 			-- This feature is especially useful for debugging
-		do
-			Result := "* Title: " + title + "%N" + "* Link: " + link.location + "%N" + "* Description: " + description + "%N"
+		do	
+			Result := "Channel:%N========%N%N"
+			
+			Result.append ("* Title: " + title + "%N" + "* Link: " + link.location + "%N" + "* Description: " + description + "%N")
 			
 			if language /= Void then
-				Result := Result + "* Language: " + language + "%N"
+				Result.append ("* Language: " + language + "%N")
 			end
 
 			if copyright /= Void then
-				Result := Result + "* Copyright: " + copyright + "%N"
+				Result.append ("* Copyright: " + copyright + "%N")
 			end
 			
 			if managing_editor /= Void then
-				Result := Result + "* Managing Editor: " + managing_editor + "%N"
+				Result.append ("* Managing Editor: " + managing_editor + "%N")
 			end
 			
 			if web_master /= Void then
-				Result := Result + "* Webmaster: " + web_master + "%N"
+				Result.append ("* Webmaster: " + web_master + "%N")
 			end
 			
 			if pub_date /= Void then
-				Result := Result + "* Publication date: " + pub_date.out + "%N"
+				Result.append ("* Publication date: " + pub_date.out + "%N")
 			end
 			
 			if last_build_date /= Void then
-				Result := Result + "* Last build date: " + last_build_date.out + "%N"
+				Result.append ("* Last build date: " + last_build_date.out + "%N")
+			end
+			
+			if feed_generator /= Void then
+				Result.append ("* Feed generator: " + feed_generator + "%N")
+			end
+			
+			if docs /= Void then
+				Result.append ("* Documentation: " + docs.location + "%N")
+			end
+			
+			if ttl /= Void then
+				Result.append ("* TTL: " + ttl.out + "%N")
+			end
+			
+			if rating /= Void then
+				Result.append ("* Rating: " + rating + "%N")
+			end
+
+			if cloud /= Void then
+				Result.append ("%NChannel cloud:%N--------------%N" + cloud.to_string)
+			end
+
+			if image /= Void then
+				Result.append ("%NChannel image:%N--------------%N" + image.to_string)
+			end
+			
+			if text_input /= Void then
+				Result.append ("%NChannel text input:%N-------------------%N" + text_input.to_string)
 			end
 			
 			if categories.count > 0 then
-				Result := Result + "* Categories: %N---%N"
+				Result.append ("%NChannel categories:%N-------------------%N")
 				from
 					categories.start
 				until
 					categories.after
 				loop
-					Result := Result + categories.item.to_string + "---%N"
+					Result.append ("* " + categories.item.to_string)
 					categories.forth
 				end
 			end
 			
-			if feed_generator /= Void then
-				Result := Result + "* Feed generator: " + feed_generator + "%N"
-			end
-			
-			if docs /= Void then
-				Result := Result + "* Documentation: " + docs.location + "%N"
-			end
-			
-			if cloud /= Void then
-				Result := Result + "* Cloud: " + cloud.to_string + "%N"
-			end
-			
-			if ttl /= Void then
-				Result := Result + "* TTL: " + ttl.out + "%N"
-			end
-
-			if image /= Void then
-				Result := Result + "* Image: " + image.to_string + "%N"
-			end
-			
-			if text_input /= Void then
-				Result := Result + "* Text input: " + text_input.to_string + "%N"
-			end
-			
 			if items.count > 0 then
-				Result := Result + "* Items: %N---%N"
+				Result.append ("%N")
 				from
 					items.start
 				until
 					items.after
 				loop
-					Result := Result + items.item.to_string + "---%N"
+					Result.append ("%N" + items.item.to_string + "%N")
 					items.forth
 				end
-			end
-			
-			if rating /= Void then
-				Result := Result + "* Rating: " + rating + "%N"
 			end
 		end
 		

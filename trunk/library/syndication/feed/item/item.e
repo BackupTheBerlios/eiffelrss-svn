@@ -228,56 +228,58 @@ feature -- Debug
 			-- Returns a string representation of source
 			-- This feature is especially useful for debugging
 		do
+			Result := "Item:%N=====%N%N"		
+		
 			if title /= Void then
-				Result := "* Title: " + title + "%N"
+				Result.append ("* Title: " + title + "%N")
 			end
 			
 			if link /= Void then
-				Result := Result + "* Link: " + link.location + "%N"
+				Result.append ("* Link: " + link.location + "%N")
 			end
 			
 			if description /= Void then
-				Result := Result + "* Description: %N---%N" + description + "%N---%N"
+				Result.append ("* Description: " + description + "%N")
+			end
+			
+			if author /= Void then
+				Result.append ("* Author: " + author + "%N")
+			end
+			
+			if comments /= Void then
+				Result.append ("* Comments: " + comments.location + "%N")
+			end
+			
+			if pub_date /= Void then
+				Result.append ("* Publication date: " + pub_date.out + "%N")
+			end
+			
+			Result.append ("* Date found: " + date_found.out + "%N")
+			Result.append ("* Is read: " + is_read.out + "%N")
+			
+			if source /= Void then
+				Result.append ("%NItem source:%N------------%N" + source.to_string)
+			end
+
+			if enclosure /= Void then
+				Result.append ("%NItem enclosure:%N----------------------------%N" + enclosure.to_string)
+			end
+			
+			if guid /= Void then
+				Result.append ("%NItem GUID%N---------------------%N" + guid.to_string)
 			end
 			
 			if categories.count > 0 then
-				Result := Result + "* Categories: %N---%N"
+				Result.append ("%NItem categories:%N----------------%N")
 				from
 					categories.start
 				until
 					categories.after
 				loop
-					Result := Result + categories.item.to_string + "---%N"
+					Result.append ("* " + categories.item.to_string)
 					categories.forth
 				end
 			end
-			
-			if author /= Void then
-				Result := Result + "* Author: " + author + "%N"
-			end
-			
-			if comments /= Void then
-				Result := Result + "* Comments: " + comments.location + "%N"
-			end
-			
-			if enclosure /= Void then
-				Result := Result + "* Enclosure: %N---%N" + enclosure.to_string + "---%N"
-			end
-			
-			if guid /= Void then
-				Result := Result + "* GUID: %N---%N" + guid.to_string + "---%N"
-			end
-			
-			if pub_date /= Void then
-				Result := Result + "* Publication date: " + pub_date.out + "%N"
-			end
-			
-			if source /= Void then
-				Result := Result + "* Source: %N---%N" + source.to_string + "---%N"
-			end
-			
-			Result := Result + "* Date found: " + date_found.out + "%N"
-			Result := Result + "* Is read: " + is_read.out + "%N"
 		end
 		
 feature {NONE} -- Implementation

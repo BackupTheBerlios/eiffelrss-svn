@@ -58,7 +58,7 @@ feature -- Debug
 			-- Returns a string representation of source
 			-- This feature is especially useful for debugging
 		do
-			Result := "- Name: " + name + "%N" + "- URL: " + url.location + "%N"
+			Result := "* Name: " + name + "%N* URL: " + url.location + "%N"
 		end
 
 invariant

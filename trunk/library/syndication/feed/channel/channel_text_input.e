@@ -88,8 +88,7 @@ feature -- Debug
 			-- Returns a string representation of guid
 			-- This feature is especially useful for debugging
 		do
-			Result := "- Title: " + title + "%N" + "- Description: " + description + "%N"
-								+ "- Name: " + name + "%N" + "- Link: " + link.location + "%N"
+			Result := "* Title: " + title + "%N* Description: " + description + "%N* Name: " + name + "%N* Link: " + link.location + "%N"
 		end
 
 invariant
