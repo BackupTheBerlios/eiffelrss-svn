@@ -83,7 +83,7 @@ feature -- Debug
 		do
 			Result := title
 			
-			if domain /= Void then
+			if has_domain then
 				Result.append (" (" + domain.location + ")")
 			end
 			
