@@ -6,7 +6,31 @@ indexing
 
 class
 	SYNDICATION_FACTORY
-	
+
+feature -- READER factory
+
+	new_	reader_from_url (a_url: STRING): FEED_READER is
+			-- Create with `a_url' as source of feed
+		require
+			valid_url: a_url /= Void
+		do
+			create Result.make_url (a_url)
+		ensure
+			non_void_result: Result /= Void
+		end
+
+feature -- WRITER factory
+
+	new_writer_from_feed (a_feed: FEED): FEED_WRITER is
+			-- Create a writer object for the feed `a_feed'
+		require
+			valid_feed: a_feed /= Void
+		do
+			create Result.make_feed (a_feed)
+		ensure
+			non_void_result: Result /= Void
+		end
+
 feature -- FEED_MANAGER factory
 
 	new_feed_manager: FEED_MANAGER is
@@ -214,17 +238,5 @@ feature -- CATEGORY factory
 		ensure
 			non_void_result: Result /= Void
 		end
-
-feature -- FORMATS factory
-
--- [TODO]
-
-feature -- READER factory
-
--- [TODO]
-
-feature -- WRITER factory
-
--- [TODO]
 
 end -- class SYNDICATION_FACTORY
