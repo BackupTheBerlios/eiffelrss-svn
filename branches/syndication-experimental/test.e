@@ -41,7 +41,7 @@ feature -- Test
 			create channel_url.make ("http://beeblebrox.net")
 			create channel.make ("My little channel", channel_url, "Just a little test channel")			
 			create item_url.make ("http://beeblebrox.net/Test/Case")
-			create item.make ("Just a test", item_url, "This is just a simple test case")
+			create item.make (channel, "Just a test", item_url, "This is just a simple test case")
 			create category1_url.make ("http://beeblebrox.net/Test/")
 			create category1.make_title_domain ("Test", category1_url)
 			item.add_category (category1)
@@ -57,6 +57,7 @@ feature -- Test
 	test_item is
 			-- Test item
 		local
+			channel: CHANNEL
 			item: ITEM
 			item_url: HTTP_URL
 			category1: CATEGORY
@@ -69,7 +70,8 @@ feature -- Test
 			io.put_string ("================================================================================%N")
 
 			create item_url.make ("http://beeblebrox.net/Test/Case")
-			create item.make ("Just a test", item_url, "This is just a simple test case")
+			create channel.make ("Test", item_url, "Test")
+			create item.make (channel, "Just a test", item_url, "This is just a simple test case")
 			io.put_string (item.to_string)
 			
 			io.put_string ("--------------------------------------------------------------------------------%N")

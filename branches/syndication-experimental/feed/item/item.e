@@ -15,38 +15,47 @@ create
 	
 feature -- Initialization
 
-	make (a_title: STRING; a_link: URL; a_description: STRING) is
+	make (a_channel: CHANNEL; a_title: STRING; a_link: URL; a_description: STRING) is
 			-- Create an item with title, link and description
 		require
+			non_void_channel: a_channel /= Void
 			non_empty_title: a_title /= Void and then not a_title.is_empty
 			non_void_link: a_link /= Void
 			non_empty_description: a_description /= Void and then not a_description.is_empty
 		do
+			set_channel (a_channel)
 			set_title (a_title)
 			set_link (a_link)
 			set_description (a_description)
 			initialization
 		end
 		
-	make_title (a_title: STRING) is
+	make_title (a_channel: CHANNEL; a_title: STRING) is
 			-- Create an item with title
 		require
+			non_void_channel: a_channel /= Void
 			non_empty_title: a_title /= Void and then not a_title.is_empty
 		do
+			set_channel (a_channel)
 			set_title (a_title)
 			initialization
 		end
 		
-	make_description (a_description: STRING) is
+	make_description (a_channel: CHANNEL; a_description: STRING) is
 			-- Create an item with description
 		require
+			non_void_channel: a_channel /= Void
 			non_empty_description: a_description /= Void and then not a_description.is_empty
 		do
+			set_channel (a_channel)
 			set_description (a_description)
 			initialization
 		end
 
 feature -- Access
+
+	channel: CHANNEL
+			-- Backlink to the corresponding channel
 
 	title: STRING
 			-- Item title
@@ -92,6 +101,16 @@ feature -- Access (metadata)
 --			-- Hashtable containing various optional modules
 
 feature -- Setter
+
+	set_channel (a_channel: CHANNEL) is
+			-- Set channel to `a_channel'
+		require
+			non_void_channel: a_channel /= Void
+		do
+			channel := a_channel
+		ensure
+			channel_set: channel = a_channel
+		end
 
 	set_title (a_title: STRING) is
 			-- Set title to `a_title'
@@ -272,6 +291,7 @@ feature {NONE} -- Implementation
 		end
 
 invariant
+	non_void_channel: channel /= Void
 	date_found_non_void: date_found /= Void
 
 end -- class ITEM
