@@ -16,5 +16,11 @@ feature -- Access
 	once
 		Result := "Error"
 	end
+	
+	write (a_feed: FEED): XM_DOCUMENT is
+			-- Export `a_feed' into an xml document
+	do
+	
+	end
 
 end -- class ERROR_WRITER
