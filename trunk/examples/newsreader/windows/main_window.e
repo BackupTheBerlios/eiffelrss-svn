@@ -49,10 +49,6 @@ feature {NONE}
 		end
 
 	initialize is
-		local
-			accelerator: EV_ACCELERATOR
-			key: EV_KEY
-			key_constants: EV_KEY_CONSTANTS
 		do
 			Precursor {EV_TITLED_WINDOW}
 			
@@ -74,46 +70,11 @@ feature {NONE}
 			
 				-- build main area
 			build_main_view
-			
-				-- set accelerators
-			create key_constants
-			create key.make_with_code (key_constants.key_q)
-			create accelerator.make_with_key_combination (key, true, false, false)
-			accelerator.actions.extend (agent on_exit)
-			accelerators.extend (accelerator)
-			create key.make_with_code (key_constants.key_p)
-			create accelerator.make_with_key_combination (key, true, false, false)
-			accelerator.actions.extend (agent on_preferences)
-			accelerators.extend (accelerator)
-			create key.make_with_code (key_constants.key_n)
-			create accelerator.make_with_key_combination (key, true, false, false)
-			accelerator.actions.extend (agent on_add)
-			accelerators.extend (accelerator)
-			create key.make_with_code (key_constants.key_t)
-			create accelerator.make_with_key_combination (key, true, false, false)
-			accelerator.actions.extend (agent on_refresh)
-			accelerators.extend (accelerator)
-			create key.make_with_code (key_constants.key_t)
-			create accelerator.make_with_key_combination (key, true, false, true)
-			accelerator.actions.extend (agent on_add)
-			accelerators.extend (accelerator)
-			create key.make_with_code (key_constants.key_u)
-			create accelerator.make_with_key_combination (key, true, false, false)
-			accelerator.actions.extend (agent on_edit)
-			accelerators.extend (accelerator)
-			create key.make_with_code (key_constants.key_d)
-			create accelerator.make_with_key_combination (key, true, false, false)
-			accelerator.actions.extend (agent on_remove)
-			accelerators.extend (accelerator)
-			create key.make_with_code (key_constants.key_backquote)
-			create accelerator.make_with_key_combination (key, true, true, false)
-			accelerator.actions.extend (agent on_debug)
-			accelerators.extend (accelerator)
 
 				-- set window options
 			close_request_actions.extend (agent request_close_window)
 			set_title (application.properties.get ("Window_title"))
-			
+			set_accelerators
 			resize_actions.extend (agent on_resize_or_move)
 			move_actions.extend (agent on_resize_or_move)
 			minimize_actions.extend (agent on_minimize)
@@ -253,34 +214,21 @@ feature -- Events
 		do
 			application.debug_window_create
 		end
-		
-	
-feature {NONE} -- Newsfeed representation
 
-	newsfeed_list: NEWSFEED_LIST
 
-	feed_detail_view: FEED_DETAIL_VIEW
-	
 feature {NONE} -- Implementation
 
 	main_container: EV_VERTICAL_BOX
-
-	horizontal_split_area: EV_HORIZONTAL_SPLIT_AREA
-
-	horizontal_box: EV_HORIZONTAL_BOX
+	
+	news_view: NEWS_VIEW
 
 	build_main_view is
 		require
 			main_container_not_yet_created: main_container = Void
 		do
 			create main_container
-			create horizontal_split_area
-			horizontal_split_area.set_minimum_width (400)
-			create newsfeed_list.make
-			horizontal_split_area.set_first (newsfeed_list)
-			create feed_detail_view.make
-			horizontal_split_area.set_second (feed_detail_view)
-			main_container.extend (horizontal_split_area)
+			create news_view.make
+			main_container.extend (news_view)
 			
 			extend (main_container)
 		ensure
@@ -289,7 +237,7 @@ feature {NONE} -- Implementation
 		
 	restore_window_size_and_position is
 			-- restore window size and position from last session if stored
-		do			
+		do
 			if 
 				application.properties.has ("Window_x_position") 
 				and application.properties.has ("Window_y_position")
@@ -316,5 +264,47 @@ feature {NONE} -- Implementation
 				minimize
 			end
 		end
+		
+	set_accelerators is
+			-- set accelerators for window
+		local
+			accelerator: EV_ACCELERATOR
+			key: EV_KEY
+		do
+			
+			create key.make_with_code ((create {EV_KEY_CONSTANTS}).key_q)
+			create accelerator.make_with_key_combination (key, true, false, false)
+			accelerator.actions.extend (agent on_exit)
+			accelerators.extend (accelerator)
+			create key.make_with_code ((create {EV_KEY_CONSTANTS}).key_p)
+			create accelerator.make_with_key_combination (key, true, false, false)
+			accelerator.actions.extend (agent on_preferences)
+			accelerators.extend (accelerator)
+			create key.make_with_code ((create {EV_KEY_CONSTANTS}).key_n)
+			create accelerator.make_with_key_combination (key, true, false, false)
+			accelerator.actions.extend (agent on_add)
+			accelerators.extend (accelerator)
+			create key.make_with_code ((create {EV_KEY_CONSTANTS}).key_t)
+			create accelerator.make_with_key_combination (key, true, false, false)
+			accelerator.actions.extend (agent on_refresh)
+			accelerators.extend (accelerator)
+			create key.make_with_code ((create {EV_KEY_CONSTANTS}).key_t)
+			create accelerator.make_with_key_combination (key, true, false, true)
+			accelerator.actions.extend (agent on_add)
+			accelerators.extend (accelerator)
+			create key.make_with_code ((create {EV_KEY_CONSTANTS}).key_u)
+			create accelerator.make_with_key_combination (key, true, false, false)
+			accelerator.actions.extend (agent on_edit)
+			accelerators.extend (accelerator)
+			create key.make_with_code ((create {EV_KEY_CONSTANTS}).key_d)
+			create accelerator.make_with_key_combination (key, true, false, false)
+			accelerator.actions.extend (agent on_remove)
+			accelerators.extend (accelerator)
+			create key.make_with_code ((create {EV_KEY_CONSTANTS}).key_backquote)
+			create accelerator.make_with_key_combination (key, true, true, false)
+			accelerator.actions.extend (agent on_debug)
+			accelerators.extend (accelerator)			
+		end
+		
 
 end -- class MAIN_WINDOW

@@ -18,7 +18,7 @@ inherit
 		end
 
 create
-	make_and_launch 
+	make_and_launch
 
 feature {NONE} -- Initialization
 
@@ -36,7 +36,7 @@ feature {NONE} -- Initialization
 			-- avoid to violate the invariant of class EV_APPLICATION.
 		do
 				-- create logfile
-			load_logfile
+			create_log
 			
 				-- Open properties files
 			load_properties
@@ -49,8 +49,6 @@ feature {NONE} -- Initialization
 			main_window.show
 			
 				-- create debug window and hide
-			create debug_window.make
-			debug_window.hide
 		end
 
 feature -- Implementation
@@ -58,11 +56,35 @@ feature -- Implementation
 	main_window: MAIN_WINDOW
 			-- Main window.
 	
-	debug_window: DEBUG_WINDOW
+--	debug_window: DEBUG_WINDOW
+	
+	create_log is
+			-- 
+		local
+			dw: DEBUG_WINDOW
+		do
+			create {DEBUG_WINDOW}logfile.make_filename ("newsreader.log")
+			logfile.set_threshold (logfile.Developer)
+			
+			dw ?= logfile
+			if dw /= void then
+				dw.hide
+			end
+		end
+		
 	
 	debug_window_create is
+		local
+			dw: DEBUG_WINDOW
 		do
-			debug_window.show
+			dw ?= logfile
+			if dw /= void then
+				if dw.is_show_requested then
+					dw.hide
+				else
+					dw.show
+				end
+			end
 		end
 
 end -- class APPLICATION

@@ -4,14 +4,11 @@ indexing
 	date: "$Date$"
 	revision: "$Revision$"
 
-class
+deferred class
 	APPLICATION_PROPERTIES
 
 inherit
 	LOGGER
-
-create
-	load_properties
 
 feature -- Properties
 	
@@ -187,18 +184,14 @@ feature -- Properties
 			create platform
 			create env
 			Result := "settings"
-			logfile.log_message ("Result: " + Result + "%N",logfile.Developer)
 				-- platform specific path
 			if platform.is_windows then
 				Result := env.get ("APPDATA")
-				logfile.log_message ("Result: " + Result + "%N",logfile.Developer)
 				create dir.make (Result)
 				if dir.exists then
 					Result := Result + operating_environment.directory_separator.out + "newsreader"
-					logfile.log_message ("Result: " + Result + "%N",logfile.Developer)
 				else
 					Result := "settings"
-					logfile.log_message ("Result: " + Result + "%N",logfile.Developer)
 				end
 			elseif platform.is_unix then
 				Result := env.get ("HOME")
@@ -212,7 +205,7 @@ feature -- Properties
 			
 				-- create directory if not exists
 			create dir.make (Result)
-			logfile.log_message ("exists: " + dir.exists.out,logfile.Developer)
+			logfile.log_message ("User properties path: '" + Result + "'" ,logfile.Developer)
 			if not dir.exists then
 				dir.create_dir
 			end

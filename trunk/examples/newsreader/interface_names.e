@@ -4,7 +4,7 @@ indexing
 	date		: "$Date: 2005/1/13 18:10:25 $"
 	revision	: "1.0.0"
 
-class
+deferred class
 	INTERFACE_NAMES
 
 feature -- General

@@ -12,7 +12,6 @@ inherit
 		redefine
 			make
 		end
-
 create
 	make
 	
@@ -22,7 +21,6 @@ feature -- Initialisation
 			-- creation procedure
 		do
 			Precursor {INFORMATION_PANEL}
-
 			
 			create list
 			create title
@@ -62,8 +60,8 @@ feature
 
 feature {NONE} -- Implementation
 
-		list: EV_MULTI_COLUMN_LIST
-		title, description, date: EV_MULTI_COLUMN_LIST_ROW
+	list: EV_MULTI_COLUMN_LIST
+	title, description, date: EV_MULTI_COLUMN_LIST_ROW
 		
 	on_resize (x,y,w,h: INTEGER) is
 			-- called on resize of list
@@ -77,7 +75,5 @@ feature {NONE} -- Implementation
 			list.set_column_width (w-title_width-date_width, list.index_of (description, 1))
 			list.set_column_width (date_width, list.index_of (date, 1))
 		end
-		
-	
 		
 end -- class FEED_DETAIL_VIEW

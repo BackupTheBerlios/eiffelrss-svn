@@ -4,11 +4,8 @@ indexing
 	date: "$Date$"
 	revision: "$Revision$"
 
-class
+deferred class
 	APP_REF
-	
-create
-	make
 
 feature -- Initialization
 

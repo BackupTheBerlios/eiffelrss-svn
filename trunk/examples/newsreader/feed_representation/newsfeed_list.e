@@ -9,22 +9,19 @@ class
 
 inherit
 	INFORMATION_PANEL
-		redefine
-			make
-		end
 
 create
-	make
+	make_with_detail_view
 	
 feature -- Initialisation
 
-	make is
+	make_with_detail_view (detail_view: FEED_DETAIL_VIEW) is
 			-- creation procedure
 		local
 			i: EV_LIST_ITEM
 		do
-			Precursor {INFORMATION_PANEL}
-			
+			feed_detail_view := detail_view
+			make
 			create list
 			
 				-- test
@@ -45,6 +42,9 @@ feature {NONE}
 	
 	list: EV_LIST
 	
-	detail_window: FEED_DETAIL_VIEW
-			-- Reference to detail view
+	feed_detail_view: FEED_DETAIL_VIEW
+		-- associated detail view
+
+invariant
+	detail_view_associated: feed_detail_view /= void
 end -- class NEWSFEED_LIST

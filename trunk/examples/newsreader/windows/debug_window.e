@@ -12,6 +12,29 @@ inherit
 		redefine
 			initialize,
 			is_in_default_state
+		select
+			cl_put,
+			default_create,
+			dispose,
+			prune,
+			fill,
+			full,
+			extendible,
+			copy,
+			cl_extend,
+			wipe_out,
+			prunable,
+			is_inserted,
+			prune_all,
+			has,
+			is_empty,
+			empty,
+			object_comparison,
+			changeable_comparison_criterion,
+			compare_objects,
+			compare_references,
+			linear_representation
+
 		end
 
 	INTERFACE_NAMES
@@ -22,12 +45,14 @@ inherit
 			copy
 		end
 	APP_REF
+		rename
+			make as make_app_ref
 		undefine
 			default_create,
 			copy,
 			is_equal
-		redefine
-			make
+		select
+			make_app_ref
 		end
 
 	COMMON_EVENTS
@@ -37,51 +62,115 @@ inherit
 			is_equal,
 			on_refresh
 		end
+	
+	LOGFILE
+		rename
+			put as logfile_put,
+			item as logfile_item,
+			readable as logfile_readable,
+			writable as logfile_writable,
+			make as logfile_make,
+			default_create as logfile_default_create,
+			dispose as logfile_dispose,
+			prune as logfile_prune,
+			fill as logfile_fill,
+			count as logfile_count,
+			full as logfile_full,
+			extendible as logfile_extendible,
+			copy as logfile_copy,
+			extend as logfile_extend,
+			wipe_out as logfile_wipe_out,
+			prunable as logfile_prunable,
+			is_inserted as logfile_is_inserted,
+			prune_all as logfile_prune_all,
+			has as logfile_has,
+			replace as logfile_replace,
+			is_empty as logfile_is_empty,
+			empty as logfile_empty,
+			object_comparison as logfile_object_comparison,
+			changeable_comparison_criterion as logfile_changeable_comparison_criterion,
+			compare_objects as logfile_compare_objects,
+			compare_references as logfile_compare_references,
+			linear_representation as logfile_linear_representation
+		redefine
+			make_filename_threshold,
+			make_filename,
+			log_message
+		end
 		
 create 
-	make
+	make_filename_threshold, make_filename
 
 feature -- Initialization
 
 	make is
+			-- create app_ref and window
 		do
-			Precursor {APP_REF}
+			make_app_ref
 			default_create
-			create logfile.make_filename_threshold ("debug.log", 1)
 		end
+		
+	
+	make_filename_threshold (a_filename: STRING; a_threshold: INTEGER)  is
+			-- Create logfile object with a_filename as file name and a_threshold as output threshold
+		do
+			Precursor {LOGFILE} (a_filename, a_threshold)
+			make
+		end
+	
+	make_filename (a_filename: STRING) is
+			-- Create logfile object with a_filename as file name
+		do
+			Precursor {LOGFILE} (a_filename)
+			make
+		end
+		
 	
 	initialize is
 		do
 			Precursor
 			create main_vbox
-			create split_area
 			
+			create properties_box
+			create show_properties.make_with_text ("Show properties")
+			show_properties.select_actions.extend (agent on_show_properties)
+			main_vbox.extend (show_properties)
+			main_vbox.disable_item_expand (show_properties)
 			create refesh_button.make_with_text_and_action ("Refresh", agent on_refresh)
-			main_vbox.extend (refesh_button)
-			main_vbox.disable_item_expand (refesh_button)
+			properties_box.extend (refesh_button)
+			properties_box.disable_item_expand (refesh_button)
+			properties_box.hide
 			create properties_view
 			properties_view.set_minimum_height (350)
-			split_area.set_first (properties_view)
+			properties_view.disable_edit
+			properties_box.extend (properties_view)
+			main_vbox.extend (properties_box)
 			create text_view
-			split_area.set_second (text_view)
-			main_vbox.extend (split_area)
+			text_view.disable_word_wrapping
+			text_view.disable_edit
+			main_vbox.extend (text_view)
 			extend (main_vbox)
 			
-			close_request_actions.extend (agent destroy)
+			close_request_actions.extend (agent hide)
 			
 			set_title ("DEBUG")
-			set_minimum_size (250, 550)
+			set_size (250, 700)
+			set_minimum_size (150, 200)
 		end
 		
 	is_in_default_state: BOOLEAN is true
 		
 	main_vbox: EV_VERTICAL_BOX
-	split_area: EV_VERTICAL_SPLIT_AREA
 	refesh_button: EV_BUTTON
+	properties_box: EV_VERTICAL_BOX
 	properties_view: EV_TEXT
 	text_view: EV_TEXT
+	show_properties: EV_CHECK_BUTTON
 	logfile: LOGFILE
-		
+
+
+feature -- Events
+
 	on_refresh is
 		local
 			string: STRING
@@ -93,18 +182,32 @@ feature -- Initialization
 			string := string + application.user_properties.list
 			properties_view.set_text (string)
 			
-			add_text ("refresh clicked%N")
+			log_message ("refresh clicked", Developer)
 		end
 	
-	add_text (s: STRING) is
-			-- add 's' to text_view
-		require
-			s_not_void: s /= void
+	on_show_properties is
+			-- called when show_properties is clicked
 		do
-			text_view.append_text (s)
-			logfile.log_message (s, 1)
+			if show_properties.is_selected then
+				properties_box.show
+				on_refresh
+			else
+				properties_box.hide
+			end
 		end
+		
 
-invariant
-	logfile_not_void: logfile /= void
+feature
+	
+	log_message (a_message: STRING; a_priority: INTEGER) is
+			-- Log the message to the logfile if a_priority is equal or greater than the threshold
+			-- Add message to window
+		do
+			Precursor (a_message, a_priority)
+			if (a_priority >= output_threshold) then	
+				text_view.append_text (a_message + "%N")
+			end
+		end
+		
+		
 end -- class DEBUG_WINDOW

@@ -12,6 +12,7 @@ default
 	assertion (check)
 	precompiled ("${ISE_EIFFEL}\precomp\spec\windows\vision2")
 
+
 cluster
 	newsreader:		"."
 
@@ -19,14 +20,13 @@ cluster
 
 	windows (newsreader):		"$\windows"
 
-
 	bars (windows):		"$\bars"
-	
+
 	dialogs (windows):		"$\dialogs"
-	
+
 	library eiffelrss:		"..\..\library"
 		exclude
-			".svn"
+			".svn"; 
 		end
 
 	library base:		"$ISE_EIFFEL\library\base"
@@ -36,7 +36,7 @@ cluster
 			assertion (no)
 			assertion (require)
 		end
-	
+
 	library time:		"$ISE_EIFFEL\library\time"
 		exclude
 			"french"; "german"; 
@@ -65,7 +65,7 @@ cluster
 			assertion (no)
 			assertion (require)
 		end
-		
+
 external
 
 	include_path:

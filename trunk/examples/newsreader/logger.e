@@ -4,22 +4,17 @@ indexing
 	date: "$Date$"
 	revision: "$Revision$"
 
-class
+deferred class
 	LOGGER
-	
-create
-	load_logfile
 
 feature -- Logging
 	
 	logfile: LOGFILE
 			-- logfile of the application
 
-	load_logfile is
+	create_log is
 			-- create logfile
-		do
-			create logfile.make_filename ("newsreader.log")
-			logfile.set_threshold (logfile.Developer)
+		deferred
 		end
 
 invariant
