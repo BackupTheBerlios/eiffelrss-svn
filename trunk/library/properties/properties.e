@@ -23,6 +23,7 @@ feature -- Initialization
 		do
 			Precursor (n)
 			defaults := Void
+			compare_objects
 		end
 		
 	make_defaults (n: INTEGER; def: PROPERTIES) is

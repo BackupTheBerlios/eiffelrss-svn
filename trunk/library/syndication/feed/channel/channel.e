@@ -465,6 +465,7 @@ feature -- Basic operations
 	remove_skip_hour (skip_hour: INTEGER) is
 			-- Remove a skip hour
 		do
+			skip_hours.start
 			skip_hours.prune (skip_hour)
 		end
 	
@@ -481,6 +482,7 @@ feature -- Basic operations
 	remove_skip_day (skip_day: STRING) is
 			-- Remove a skip day
 		do
+			skip_days.start
 			skip_days.prune (skip_day)
 		end
 
@@ -499,6 +501,7 @@ feature -- Basic operations
 		require
 			non_void_item: item /= Void
 		do
+			items.start
 			items.prune (item)
 		end
 
@@ -517,6 +520,7 @@ feature -- Basic operations (RSS 1.0)
 		require
 			non_void_item_toc: item_toc /= Void
 		do
+			items_toc.start
 			items_toc.prune (item_toc)
 		end
 

@@ -318,11 +318,11 @@ feature -- Debug
 			end
 
 			if has_enclosure then
-				Result.append ("%NItem enclosure:%N----------------------------%N" + enclosure.to_string)
+				Result.append ("%NItem enclosure:%N---------------%N" + enclosure.to_string)
 			end
 			
 			if has_guid then
-				Result.append ("%NItem GUID%N---------------------%N" + guid.to_string)
+				Result.append ("%NItem GUID:%N----------%N" + guid.to_string)
 			end
 			
 			if has_categories then

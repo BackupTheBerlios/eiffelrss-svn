@@ -47,6 +47,7 @@ feature -- Basic operations
 		require
 			non_void_category_item: category /= Void
 		do
+			categories.start
 			categories.prune (category)
 		end
 

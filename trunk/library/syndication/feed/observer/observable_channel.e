@@ -50,6 +50,7 @@ feature -- Basic operations
 		require
 			non_void_observer: an_observer /= Void		
 		do
+			observers.start
 			observers.prune (an_observer)
 		end
 
