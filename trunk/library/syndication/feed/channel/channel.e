@@ -548,6 +548,27 @@ feature -- Sort
 			items.set_order (create {ITEM_SORT_BY_LINK[ITEM]})
 			items.sort
 		end
+		
+	reverse_sort_items_by_title is
+			-- Reverse sort items by title
+		do
+			items.set_order (create {ITEM_REVERSE_SORT_BY_TITLE[ITEM]})
+			items.sort
+		end
+		
+	reverse_sort_items_by_pub_date is
+			-- Reverse sort items by publication date
+		do
+			items.set_order (create {ITEM_REVERSE_SORT_BY_PUB_DATE[ITEM]})
+			items.sort
+		end
+		
+	reverse_sort_items_by_link is
+			-- Reverse sort items by link
+		do
+			items.set_order (create {ITEM_REVERSE_SORT_BY_LINK[ITEM]})
+			items.sort
+		end
 
 feature -- Debug
 

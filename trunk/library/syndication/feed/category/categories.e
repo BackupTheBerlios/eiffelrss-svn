@@ -69,6 +69,20 @@ feature -- Sort
 			categories.sort
 		end
 		
+	reverse_sort_categories_by_title is
+			-- Reverse sort categories by title
+		do
+			categories.set_order (create {CATEGORY_REVERSE_SORT_BY_TITLE[CATEGORY]})
+			categories.sort
+		end
+		
+	reverse_sort_categories_by_domain is
+			-- Reverse sort categories by domain
+		do
+			categories.set_order (create {CATEGORY_REVERSE_SORT_BY_DOMAIN[CATEGORY]})
+			categories.sort
+		end
+		
 feature {CATEGORIES} -- Initialize `categories'
 
 	initialize_categories is
