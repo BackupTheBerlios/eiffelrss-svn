@@ -49,7 +49,7 @@ cluster
 
 	feed_representation (windowed):		"$\feed_representation"
 
-	library eiffelrss:		"..\..\library"
+	library eiffelrss:		"..\library"
 		exclude
 			".svn"; 
 		end
