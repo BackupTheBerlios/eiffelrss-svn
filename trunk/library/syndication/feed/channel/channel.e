@@ -79,8 +79,7 @@ feature -- Access
 -- [TODO]	
 --	skip_hours: HASH_TABLE[INTEGER, INTEGER]
 --			-- Channel skip hours
-
--- [TODO]	
+--
 --	skip_days: HASH_TABLE[STRING, STRING]
 --			-- Channel skip days
 
@@ -105,10 +104,6 @@ feature -- Access (metadata)
 			
 	last_added_item: ITEM
 			-- The last added channel item
-
--- [TODO]
---	format: CHANNEL_FORMAT
---			-- Format of the channel.
 
 -- [TODO]
 -- feature -- Access (modules)
@@ -270,23 +265,15 @@ feature -- Setter
 
 -- [TODO]	
 --	set_skip_hours (some_skip_hours: HASH_TABLE[INTEGER, INTEGER]) is
---			-- Channel skip hours
---		require
---		
+--			-- Channel skip hours	
 --		do
---			
---		ensure
---			
+--	
 --		end
 --
 --	set_skip_days (some_skip_days: HASH_TABLE[STRING, STRING]) is
---			-- Channel skip days
---		require
---		
+--			-- Channel skip days		
 --		do
---			
---		ensure
---			
+--
 --		end
 
 	set_items (item_list: like items) is
@@ -315,36 +302,15 @@ feature -- Setter (RSS 1.0)
 
 -- [TODO]
 --	set_items_toc (item_toc_list: like items_toc) is
---			-- Channel items table of content
---		require
---		
+--			-- Channel items table of content		
 --		do
---			
---		ensure
---			
+--
 --		end
 --
 --	set_textinput (url: URL) is
---			-- Channel textinput URL
---		require
---		
+--			-- Channel textinput URL	
 --		do
---			
---		ensure
---			
---		end
-
-feature -- Setter (metadata)
-
--- [TODO]
---	set_format (a_format: CHANNEL_FORMAT) is
---			-- Format of the channel.
---		require
---		
---		do
---			
---		ensure
---			
+--
 --		end
 
 feature -- Status
@@ -377,6 +343,12 @@ feature -- Status
 			-- Is `pub_date' set?
 		do
 			Result := pub_date /= Void
+		end
+		
+	has_last_build_date: BOOLEAN is
+			-- Is `last_build_date' set?
+		do
+			Result := last_build_date /= Void
 		end	
 		
 	has_feed_generator: BOOLEAN is
@@ -415,6 +387,19 @@ feature -- Status
 			Result := text_input /= Void
 		end
 		
+-- [TODO]
+--	has_skip_hours: BOOLEAN is
+--			-- Is `skip_hours' set?
+--		do
+--			
+--		end
+--		
+--	has_skip_days: BOOLEAN is
+--			-- Is `skip_days' set?
+--		do
+--			
+--		end
+		
 	has_items: BOOLEAN is
 			-- Is `items' set?
 		do
@@ -432,6 +417,17 @@ feature -- Status (RSS 0.91)
 feature -- Status (RSS 1.0)
 
 -- [TODO]
+--	has_items_toc: BOOLEAN is
+--			-- Is `items_toc' set?
+--		do
+--
+--		end
+--
+--	has_textinput: BOOLEAN is
+--			-- Is `textinput' set?
+--		do
+--
+--		end
 
 feature -- Status (metadata)
 
@@ -446,36 +442,24 @@ feature -- Basic operations
 -- [TODO]
 --	add_skip_hour (skip_hour: INTEGER) is
 --			-- Add a skip hour
---		require
---
 --		do
---
---		ensure
 --
 --		end
 --		
 --	remove_skip_hour (skip_hour: INTEGER) is
 --			-- Remove a skip hour
---		require
---
 --		do
 --
 --		end
 --		
 --	add_skip_day (skip_day: INTEGER) is
 --			-- Add a skip day
---		require
---
 --		do
---
---		ensure
 --
 --		end
 --		
 --	remove_skip_day (skip_day: INTEGER) is
 --			-- Remove a skip day
---		require
---
 --		do
 --
 --		end
@@ -505,23 +489,15 @@ feature -- Basic operations (RSS 1.0)
 
 -- [TODO]
 --	add_item_toc (item_toc: STRING) is
---			-- Add an item to the TOC
---		require
---		
+--			-- Add an item to the TOC	
 --		do
---			
---		ensure
---			
+--
 --		end
 --		
 --	remove_item_toc (item_toc: STRING) is
 --			-- Remove an item from the TOC
---		require
---		
 --		do
---			
---		ensure
---			
+--
 --		end
 
 feature -- Sort
@@ -578,59 +554,59 @@ feature -- Debug
 			
 			Result.append ("* Title: " + title + "%N" + "* Link: " + link.location + "%N" + "* Description: " + description + "%N")
 			
-			if language /= Void then
+			if has_language then
 				Result.append ("* Language: " + language + "%N")
 			end
 
-			if copyright /= Void then
+			if has_copyright then
 				Result.append ("* Copyright: " + copyright + "%N")
 			end
 			
-			if managing_editor /= Void then
+			if has_managing_editor then
 				Result.append ("* Managing Editor: " + managing_editor + "%N")
 			end
 			
-			if web_master /= Void then
+			if has_web_master then
 				Result.append ("* Webmaster: " + web_master + "%N")
 			end
 			
-			if pub_date /= Void then
+			if has_pub_date then
 				Result.append ("* Publication date: " + pub_date.out + "%N")
 			end
 			
-			if last_build_date /= Void then
+			if has_last_build_date then
 				Result.append ("* Last build date: " + last_build_date.out + "%N")
 			end
 			
-			if feed_generator /= Void then
+			if has_feed_generator then
 				Result.append ("* Feed generator: " + feed_generator + "%N")
 			end
 			
-			if docs /= Void then
+			if has_docs then
 				Result.append ("* Documentation: " + docs.location + "%N")
 			end
 			
-			if ttl /= 0 then
+			if has_ttl then
 				Result.append ("* TTL: " + ttl.out + "%N")
 			end
 			
-			if rating /= Void then
+			if has_rating then
 				Result.append ("* Rating: " + rating + "%N")
 			end
 
-			if cloud /= Void then
+			if has_cloud then
 				Result.append ("%NChannel cloud:%N--------------%N" + cloud.to_string)
 			end
 
-			if image /= Void then
+			if has_image then
 				Result.append ("%NChannel image:%N--------------%N" + image.to_string)
 			end
 			
-			if text_input /= Void then
+			if has_text_input then
 				Result.append ("%NChannel text input:%N-------------------%N" + text_input.to_string)
 			end
 			
-			if categories.count > 0 then
+			if has_categories then
 				Result.append ("%NChannel categories:%N-------------------%N")
 				from
 					categories.start
@@ -642,7 +618,7 @@ feature -- Debug
 				end
 			end
 			
-			if items.count > 0 then
+			if has_items then
 				Result.append ("%N")
 				from
 					items.start

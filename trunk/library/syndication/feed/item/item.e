@@ -286,46 +286,46 @@ feature -- Debug
 		do
 			Result := "Item:%N=====%N%N"		
 		
-			if title /= Void then
+			if has_title then
 				Result.append ("* Title: " + title + "%N")
 			end
 			
-			if link /= Void then
+			if has_link then
 				Result.append ("* Link: " + link.location + "%N")
 			end
 			
-			if description /= Void then
+			if has_description then
 				Result.append ("* Description: " + description + "%N")
 			end
 			
-			if author /= Void then
+			if has_author then
 				Result.append ("* Author: " + author + "%N")
 			end
 			
-			if comments /= Void then
+			if has_comments then
 				Result.append ("* Comments: " + comments.location + "%N")
 			end
 			
-			if pub_date /= Void then
+			if has_pub_date then
 				Result.append ("* Publication date: " + pub_date.out + "%N")
 			end
 			
 			Result.append ("* Date found: " + date_found.out + "%N")
 			Result.append ("* Is read: " + is_read.out + "%N")
 			
-			if source /= Void then
+			if has_source then
 				Result.append ("%NItem source:%N------------%N" + source.to_string)
 			end
 
-			if enclosure /= Void then
+			if has_enclosure then
 				Result.append ("%NItem enclosure:%N----------------------------%N" + enclosure.to_string)
 			end
 			
-			if guid /= Void then
+			if has_guid then
 				Result.append ("%NItem GUID%N---------------------%N" + guid.to_string)
 			end
 			
-			if categories.count > 0 then
+			if has_categories then
 				Result.append ("%NItem categories:%N----------------%N")
 				from
 					categories.start

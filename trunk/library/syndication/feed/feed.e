@@ -9,6 +9,9 @@ class
 	
 inherit
 	CHANNEL
+	redefine
+		to_string
+	end
 	
 create
 	make, make_from_channel
@@ -198,6 +201,26 @@ feature -- Basic operations
 			non_empty_description: a_description /= Void and then not a_description.is_empty
 		do
 			add_item (create {ITEM}.make (Current, a_title, a_link, a_description))
+		end
+		
+feature -- Debug
+
+	to_string: STRING is
+			-- 
+		do
+			Result := "Feed:%N=====%N%N"
+
+			if has_last_updated then
+				Result.append ("* Last updated: " + last_updated.out + "%N")
+			end
+			
+			if has_refresh_period then
+				Result.append ("* Refresh period (minutes): " + refresh_period.out + "%N")
+			end
+			
+			Result.append ("* Is out of date: " + is_out_of_date.out + "%N%N%N")
+			
+			Result.append (Precursor {CHANNEL})
 		end
 
 end -- class FEED

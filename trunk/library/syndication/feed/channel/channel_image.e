@@ -140,15 +140,15 @@ feature -- Debug
 		do
 			Result := "* URL: " + url.location + "%N* Title: " + title + "%N* Link: " + link.location + "%N"
 			
-			if width > 0 then
+			if has_width then
 				Result.append ("* Width: " + width.out + "%N")
 			end
 			
-			if height > 0 then
+			if has_height then
 				Result.append ("* Height: " + height.out + "%N")
 			end
 			
-			if description /= Void then
+			if has_description then
 				Result.append ("* Description: " + description + "%N")
 			end
 		end
