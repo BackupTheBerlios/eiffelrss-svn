@@ -22,7 +22,7 @@ cluster
 			"table_eiffel3"; "desc"; 
 		end
 
-	library adt:	"..\..\library\adt\"
+	library adt:	"..\..\library\adt"
 		exclude
 			".svn"
 		end
