@@ -237,6 +237,8 @@ feature -- Setter
 	
 	set_ttl (a_ttl: INTEGER) is
 			-- Channel time to live in minutes
+		require
+			ttl_period_positive: a_ttl >= 0
 		do
 			ttl := a_ttl
 		ensure
@@ -372,7 +374,7 @@ feature -- Status
 	has_ttl: BOOLEAN is
 			-- Is `ttl' set?
 		do
-			Result := ttl /= 0
+			Result := ttl > 0
 		end
 		
 	has_image: BOOLEAN is

@@ -20,6 +20,8 @@ feature -- Initialization
 			feed.add_category (create {CATEGORY}.make_title ("RSS"))
 			feed.add_category (create {CATEGORY}.make_title ("Programming"))
 			feed.add_category (create {CATEGORY}.make_title ("Eiffel"))
+			feed.set_refresh_period (15)
+			feed.set_last_updated (create {DATE_TIME}.make_now)
 			
 			-- Add a cloud to feed
 			feed.create_cloud ("eiffelrss.berlios.de", 80, "/RPC2", "xmlStorageSystem.rssPleaseNotify", "xml-rpc")
@@ -45,14 +47,18 @@ feature -- Initialization
 			feed.last_added_item.set_guid (create {ITEM_GUID}.make_perma_link ("http://eiffelrss.berlios.de/newsItem42"))
 				
 			-- Print feed
-			io.put_string ("Sample feed:%N")
-			io.put_string ("============%N%N%N")
-			io.put_string (feed.to_string)
+--			io.put_string ("Sample feed:%N")
+--			io.put_string ("============%N%N%N")
+--			io.put_string (feed.to_string)
+
+			create feed_manager.make
 		end
 		
 feature -- Arguments
 
 	feed: FEED
 			-- Example feed
+			
+	feed_manager: FEED_MANAGER
 
 end -- class FEED_MANAGER_EXAMPLE

@@ -132,29 +132,61 @@ feature -- Status
 			Result := last_updated /= Void
 		end
 		
-	is_out_of_date: BOOLEAN is
-			-- Is the feed out of date?
+	is_outdated: BOOLEAN is
+			-- Is the feed outdated?
 		local
 			date_to_update: DATE_TIME
 			date_now: DATE_TIME
 		do
 			Result := False
 
-			if has_last_updated then
-				create date_to_update.make_by_date_time (last_updated.date, last_updated.time)
-				create date_now.make_now_utc
+			-- If neither `refresh_period' nor `ttl' are set, a feed is never outdated
+			if not has_refresh_period and not has_ttl then
+				Result := False
 				
+			-- If `last_updated' is set, we have to calculate the time since the last refesh and compare it
+			-- either to `refresh_period' (higher precedence) or `ttl'
+			elseif has_last_updated then
+				create date_to_update.make_by_date_time (last_updated.date, last_updated.time)
+				create date_now.make_now
+				
+				-- `refresh_period' has higher precedence than `ttl'
 				if has_refresh_period then
 					date_to_update.minute_add (refresh_period)
 					Result := date_to_update < date_now
 				elseif has_ttl then
 					date_to_update.minute_add (ttl)
 					Result := date_to_update < date_now
+					
+				-- If neither `refresh_period' nor `ttl' are set, the feed is outdated
 				else
 					Result := True
 				end
+			
+			-- Feed is outdated
 			else
 				Result := True
+			end
+		end
+		
+	is_outdated_default (default_refresh_period: INTEGER) : BOOLEAN is
+			-- Is the feed outdated? 
+			-- Use either `refresh_period' or `default_refresh_period' to determine
+			-- whether the feed is outdated.
+		require
+			default_refresh_period_positive: default_refresh_period >= 0
+		local
+			original_refresh_period: INTEGER
+		do
+			Result := False
+			
+			if not has_refresh_period then
+				original_refresh_period := refresh_period
+				set_refresh_period (default_refresh_period)
+				Result := is_outdated
+				set_refresh_period (original_refresh_period)
+			else
+				Result := is_outdated
 			end
 		end
 
@@ -218,7 +250,7 @@ feature -- Debug
 				Result.append ("* Refresh period (minutes): " + refresh_period.out + "%N")
 			end
 			
-			Result.append ("* Is out of date: " + is_out_of_date.out + "%N%N%N")
+			Result.append ("* Is outdated: " + is_outdated.out + "%N%N%N")
 			
 			Result.append (Precursor {CHANNEL})
 		end

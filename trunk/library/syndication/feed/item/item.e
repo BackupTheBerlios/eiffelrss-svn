@@ -344,7 +344,7 @@ feature {NONE} -- Implementation
 			-- Common initialization tasks
 		do
 			initialize_categories
-			create date_found.make_now_utc
+			create date_found.make_now
 			set_read (False)
 		end
 
