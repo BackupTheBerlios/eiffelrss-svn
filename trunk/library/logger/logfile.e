@@ -11,7 +11,7 @@ inherit
 	PLAIN_TEXT_FILE
 
 create
-	make_filename_threshold
+	make_filename_threshold, make_filename
 
 feature -- Initialization
 	make_filename_threshold (a_filename: STRING; a_threshold: INTEGER) is
@@ -25,6 +25,17 @@ feature -- Initialization
 			set_threshold (a_threshold)
 		ensure then
 			threshold_set: output_threshold = a_threshold
+			file_is_open: is_open_append
+		end
+
+	make_filename (a_filename: STRING) is
+			-- Create logfile object with a_filename as file name
+		require else
+			valid_filename: a_filename /= Void
+			filename_not_empty: not a_filename.is_empty
+		do
+			make_open_read_append (a_filename)
+		ensure then
 			file_is_open: is_open_append
 		end
 	
@@ -80,5 +91,8 @@ feature -- Initialization
 feature -- Access
 	output_threshold: INTEGER
 	messages_logged: INTEGER
+
+invariant
+	file_is_open: is_open_append
 	
 end -- class LOGFILE
