@@ -1,7 +1,7 @@
 indexing
 	description: "Implementation of the RSS 2.0 format"
 	author: "Michael Käser"
-	date: "$Date: 2005-01-27 21:39:23 +0100 (Thu, 27 Jan 2005) $"
+	date: "$Date$"
 	revision: "$Revision: 191 $"
 
 class

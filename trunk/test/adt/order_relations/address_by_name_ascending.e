@@ -1,8 +1,8 @@
 indexing
 	description: "Sort address by name, ascending."
 	author: "Thomas Weibel"
-	date: "$Date: 2005-01-24 14:46:28 +0100 (Mon, 24 Jan 2005) $"
-	revision: "$Rev: 148 $"
+	date: "$Date$"
+	revision: "$Rev$"
 
 class
 	ADDRESS_BY_NAME_ASCENDING[G -> ADDRESS]

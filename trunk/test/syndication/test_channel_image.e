@@ -1,8 +1,8 @@
 indexing
 	description: "Tester class for channel image."
 	author: "Thomas Weibel"
-	date: "$Date: 2005-01-24 14:46:28 +0100 (Mon, 24 Jan 2005) $"
-	revision: "$Rev: 148 $"
+	date: "$Date$"
+	revision: "$Rev$"
 
 deferred class TEST_CHANNEL_IMAGE
 

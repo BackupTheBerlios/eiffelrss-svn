@@ -1,8 +1,8 @@
 indexing
 	description: "Tester class for feed manager."
 	author: "Thomas Weibel"
-	date: "$Date: 2005-01-28 21:05:40 +0100 (Fri, 28 Jan 2005) $"
-	revision: "$Rev: 208 $"
+	date: "$Date$"
+	revision: "$Rev$"
 
 deferred class TEST_FEED_MANAGER
 
