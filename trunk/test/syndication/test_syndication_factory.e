@@ -34,7 +34,7 @@ feature -- Test
 			category := syndication.new_category
 			assert ("new [2]", category /= Void)
 			
-			category := syndication.new_category_wit_title ("My title")
+			category := syndication.new_category_with_title ("My title")
 			assert ("new [3]", category /= Void)
 			
 			category := syndication.new_category_with_title_domain ("My title", create {HTTP_URL}.make ("http://mydomain.com/"))
