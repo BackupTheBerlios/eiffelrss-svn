@@ -32,7 +32,7 @@ feature
 				str.append (address.path)
 			end
 			str.extend (' ')
-			str.append ("HTTP/1.0%R%NHost: ")
+			str.append ("HTTP/1.1%R%NHost: ")
 			str.append (address.host)
 			str.append (Http_end_of_command)
 			if not error then
