@@ -13,7 +13,7 @@
 %-------------------------------------------------------------------------------
 % \documentclass and \usepackage directives
 %-------------------------------------------------------------------------------
-\documentclass[a4paper,fleqn]{report} 
+\documentclass[a4paper,fleqn,titlepage]{article}
 %\usepackage{ngerman}
 \usepackage[latin1]{inputenc}
 \usepackage[T1]{fontenc}
@@ -207,19 +207,16 @@
 \clearpage
 \listoffigures
 
-\chapter{Introduction}
-\label{cha:introduction}
+\newpage
 
+\section{Overview}
+\label{sec:overview}
 
 % Set page counter to zero
 \setcounter{page}{0} 
 
 % Use arabic page numbering
 \pagenumbering{arabic}
-
-
-\section{Overview}
-\label{sec:overview}
 
 \texttt{PROPERTIES} represents a persistent set of properties. The
 properties can be saved to a file or loaded from a file.
@@ -232,23 +229,33 @@ the original property list.
 
 \texttt{PROPERTIES} is similar to the \texttt{java.util.Properties}
 class. The main difference is, that \texttt{PROPERTIES} doesn't
-support keys and values separated by whitespace. It always expects
-\texttt{:} or \texttt{=} as a separator between key and value.
+support keys and values separated by whitespace only. It always
+expects \texttt{:} or \texttt{=} as a separator between key and value.
 
-See figure \ref{fig:uml-diagram} for an overview of the class.
+See figure \ref{fig:cluster} for an overview of the cluster.
 
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=\textwidth]{./figures/uml}
-  \caption{UML diagram of \texttt{PROPERTIES}}
-  \label{fig:uml-diagram}
+  \includegraphics[scale=.6]{./figures/EIFFELRSS_PROPERTIES}
+  \caption{BON diagram of cluster \texttt{PROPERTIES}}
+  \label{fig:cluster}
 \end{figure}
 
+Figure \ref{fig:classes} shows the classes \texttt{PROPERTIES} and
+\texttt{LOGICAL\_LINE}.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[scale=.6]{./figures/PROPERTIES}
+  \includegraphics[scale=.6]{./figures/LOGICAL_LINE}
+  \caption{BON diagram of classes \texttt{PROPERTIES} and \texttt{LOGICAL\_LINE}}
+  \label{fig:classes}
+\end{figure}
+
+\newpage
 
 \section{Usage}
 \label{sec:usage}
-
-See the class \texttt{PROPERTIES\_TESTER} for a more detailed example.
 
 \begin{lstlisting}[language=Eiffel]
 class USAGE_EXAMPLE
@@ -296,20 +303,20 @@ end -- class USAGE_EXAMPLE
 \end{lstlisting}
 
 
-\chapter{Features}
-\label{cha:features}
+\section{Features}
+\label{sec:features}
 
 Because \texttt{PROPERTIES} inherits from \texttt{HASH\_TABLE [STRING,
   STRING]}, all features of \texttt{HASH\_TABLE} can be applied to a
 \texttt{PROPERTIES} object, e.g. \texttt{put}, \texttt{has},
 \texttt{replace} etc.
 
-\section{Initialization}
+
+\subsection{Initialization}
 \label{sec:initialization}
 
 
-\subsection{make}
-\label{sec:make}
+\subsubsection{make}
 
 \begin{lstlisting}[language=Eiffel]
 make (n: INTEGER)
@@ -317,8 +324,7 @@ make (n: INTEGER)
 \end{lstlisting}
 
 
-\subsection{make\_defaults}
-\label{sec:make_defaults}
+\subsubsection{make\_defaults}
 
 \begin{lstlisting}[language=Eiffel]
 make_defaults (n: INTEGER; def: PROPERTIES)
@@ -326,12 +332,11 @@ make_defaults (n: INTEGER; def: PROPERTIES)
 \end{lstlisting}
 
 
-\section{Access}
+\subsection{Access}
 \label{sec:access}
 
 
-\subsection{get}
-\label{sec:get}
+\subsubsection{get}
 
 \begin{lstlisting}[language=Eiffel]
 get (key: STRING): STRING
@@ -345,8 +350,7 @@ defaults, recursively, are checked. It returns \texttt{Void} if the
 property is not found.
 
 
-\subsection{infix "\&"}
-\label{sec:infix_ampersand}
+\subsubsection{infix "\&"}
 
 \begin{lstlisting}[language=Eiffel]
 infix "&" (key: STRING): STRING
@@ -357,8 +361,7 @@ infix "&" (key: STRING): STRING
 Same as \texttt{get}, but used for infix notation.
 
 
-\subsection{get\_default}
-\label{sec:get_default}
+\subsubsection{get\_default}
 
 \begin{lstlisting}[language=Eiffel]
 get_default (key: STRING; def: STRING): STRING
@@ -372,12 +375,10 @@ defaults, recursively, are checked. It returns \texttt{def} if the
 property is not found.
 
 
-\section{Persistence}
+\subsection{Persistence}
 \label{sec:persistence}
 
-
-\subsection{load}
-\label{sec:load}
+\subsubsection{load}
 
 \begin{lstlisting}[language=Eiffel]
 load (input: FILE)
@@ -476,8 +477,7 @@ specifies the key \texttt{"42"} and the associated value \texttt{""}
 (empty string).
 
 
-\subsection{store}
-\label{sec:store}
+\subsubsection{store}
 
 \begin{lstlisting}[language=Eiffel]
 store (output: FILE; comments: STRING)
@@ -516,12 +516,11 @@ After the entries have been written, \texttt{output} is flushed but remains
 open, after the feature returns.
 
 
-\section{Debug}
+\subsection{Debug}
 \label{sec:debug}
 
 
-\subsection{list}
-\label{sec:list}
+\subsubsection{list}
 
 \begin{lstlisting}[language=Eiffel]
 list: STRING
@@ -530,12 +529,11 @@ list: STRING
 
 This feature is especially useful for debugging.
 
-\section{Arguments}
+\subsection{Arguments}
 \label{sec:arguments}
 
 
-\subsection{defaults}
-\label{sec:defaults}
+\subsubsection{defaults}
 
 \begin{lstlisting}[language=Eiffel]
 defaults: PROPERTIES
