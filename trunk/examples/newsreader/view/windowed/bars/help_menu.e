@@ -24,11 +24,9 @@ inherit
 			default_create,
 			copy,
 			is_equal
-		redefine
-			make
 		end
 
-	COMMON_EVENTS
+	WINDOWED_EVENTS
 		undefine
 			default_create,
 			copy,
@@ -44,7 +42,7 @@ feature
 		local
 			menu_item: EV_MENU_ITEM
 		do
-			Precursor {APP_REF}
+			make_app_ref
 			
 				-- set menu text
 			make_with_text (menu_help_item)

@@ -25,11 +25,9 @@ inherit
 			default_create,
 			copy,
 			is_equal
-		redefine
-			make
 		end
 
-	COMMON_EVENTS
+	WINDOWED_EVENTS
 		undefine
 			default_create,
 			copy,
@@ -43,7 +41,7 @@ feature -- Initialization
 
 	make is
 		do
-			Precursor {APP_REF}
+			make_app_ref
 			default_create
 		end
 	

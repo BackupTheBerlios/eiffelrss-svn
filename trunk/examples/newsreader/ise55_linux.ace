@@ -15,8 +15,6 @@ default
 cluster
 	newsreader:		"."
 
-	feed_representation (newsreader):		"$/feed_representation"
-
 	view (newsreader):		"$/view"
 
 	windowed (view):		"$/windowed"
@@ -24,6 +22,8 @@ cluster
 	bars (windowed):		"$/bars"
 
 	dialogs (windowed):		"$/dialogs"
+
+	feed_representation (windowed):		"$/feed_representation"
 
 	library eiffelrss:		"../../library"
 		exclude

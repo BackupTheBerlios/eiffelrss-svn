@@ -9,43 +9,27 @@ deferred class
 
 inherit
 	APP_REF
-		undefine
-			make
-		end
 
 feature {NONE} -- Events
 
 	on_preferences is
-			-- Open preferences dialog
-		local
-			preferences_dialog: PREFERENCES_DIALOG
-		do
-			create preferences_dialog.make
-			preferences_dialog.show_modal_to_window (application.main_window)
+			-- preferences setting access
+		deferred
 		end
-
+	
 	on_exit is
 			-- exit application
-		do
-			application.main_window.request_close_window
+		deferred
 		end
 
 	on_about is
-			-- open about dialog
-		local
-			about_dialog: ABOUT_DIALOG
-		do
-			create about_dialog
-			about_dialog.show_modal_to_window (application.main_window)
+			-- show about information
+		deferred
 		end
 	
 	on_add is
-			-- open add dialog
-		local
-			add_dialog: ADD_DIALOG
-		do
-			create add_dialog.make
-			add_dialog.show_modal_to_window (application.main_window)
+			-- add new feed
+		deferred
 		end
 		
 	on_add_feed_from_string (address: STRING) is
@@ -73,12 +57,23 @@ feature {NONE} -- Events
 		end
 	
 	on_edit is
-			-- open edit dialog for current feed
+			-- edit feed information
+		deferred
+		end
+	
+	open_url is
+			-- open url
 		local
-			edit_dialog: EDIT_DIALOG
+			env: EXECUTION_ENVIRONMENT
 		do
-			create edit_dialog.make
-			edit_dialog.show_modal_to_window (application.main_window)
-		end		
+			if application.properties.has ("Browser_path") or else application.application_properties.has ("Browser_path") then
+				create env
+				env.launch ("%"" + application.properties.get ("Browser_path") + "%"" + " http://eiffelrss.berlios.de/")
+			else
+				application.application_displayer.information_displayer.show_temporary_text (application.application_displayer.Preferences_browser_not_set_information)
+			end
+			
+		end
+		
 
 end -- class COMMON_EVENTS

@@ -30,7 +30,8 @@ feature -- Initialization
 	initialize is
 		local
 			hbox: EV_HORIZONTAL_BOX
-			cell :EV_CELL
+			cell: EV_CELL
+			label: EV_LABEL
 		do
 			Precursor
 			
@@ -58,9 +59,22 @@ feature -- Initialization
 			show_toolbar.set_tooltip (Preferences_show_toolbar_tooltip)
 			content.extend (show_toolbar)
 			content.disable_item_expand (show_toolbar)
+			create browser_path
+			browser_path.set_tooltip (Preferences_browser_path_tooltip)
+			browser_path.set_minimum_width (80)
+			create hbox
+			create label.make_with_text (Preferences_browser_path_item + ":")
+			label.set_minimum_width (100)
+			label.align_text_left
+			hbox.extend (label)
+			hbox.disable_item_expand (label)
+			hbox.extend (browser_path)
+			content.extend (hbox)
+			content.disable_item_expand (hbox)
 			
 				-- set dialog options
 			set_title (preferences_title)
+			set_minimum_size (400, 200)
 		end
 	
 feature {NONE} 
@@ -76,10 +90,15 @@ feature {NONE}
 	
 	show_toolbar: EV_CHECK_BUTTON
 		-- Show_toolbar option
+	
+	browser_path: EV_TEXT_FIELD
+		-- path to browser
 
 	save is
 			-- save properties to properties objects and write to files
 			-- is callon on ok_button click
+		local
+			mw: MAIN_WINDOW
 		do			
 				-- User_specific
 			if user_specific.is_selected then
@@ -109,14 +128,21 @@ feature {NONE}
 				application.properties.force ("no", "Ask_on_exit")
 			end
 				-- Show_toolbar
+			mw ?= application.application_displayer
 			if show_toolbar.is_selected then
 				application.logfile.log_message ("Preferences: setting 'Show_toolbar' to 'yes'",application.logfile.developer)
 				application.properties.force ("yes", "Show_toolbar")
-				application.main_window.toolbar.show
+				if mw /= void then mw.toolbar.show end
 			else
 				application.logfile.log_message ("Preferences: setting 'Show_toolbar' to 'no'", application.logfile.developer)
 				application.properties.force ("no", "Show_toolbar")
-				application.main_window.toolbar.hide
+				if mw /= void then mw.toolbar.hide end
+			end
+			
+				-- Browser_path
+			if browser_path.text_length > 0 then
+				application.logfile.log_message ("Preferences: setting 'Browser_path' to '" + browser_path.text + "'", application.logfile.developer)
+				application.properties.force (browser_path.text, "Browser_path")
 			end
 			
 				-- save properties

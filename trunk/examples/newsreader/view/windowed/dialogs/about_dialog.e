@@ -42,7 +42,7 @@ feature {NONE}
 			buttons_box: EV_HORIZONTAL_BOX
 			ev_cell: EV_CELL
 		do
-			make
+			make_app_ref
 			Precursor
 			create pixmap
 			pixmap.copy ((create {EV_STOCK_PIXMAPS}).information_pixmap)

@@ -35,45 +35,61 @@ feature {NONE} -- Initialization
 			-- Perform one call to first window in order to
 			-- avoid to violate the invariant of class EV_APPLICATION.
 		do
+			parse_command_line
+			
 				-- create logfile
 			create_log
+			
 			
 				-- Open properties files
 			load_properties
 
-				-- create and initialize the first window.
-			create main_window.make
-				-- Show the first window.
-				--| TODO: Remove this line if you don't want the first 
-				--|       window to be shown at the start of the program.
-			main_window.show
+			create_application_displayer
 			
 				-- create debug window and hide
 		end
 
 feature -- Implementation
 
-	main_window: MAIN_WINDOW
-			-- Main window.
+	application_displayer: APPLICATION_DISPLAYER
 	
---	debug_window: DEBUG_WINDOW
-	
+	is_no_debug_window: BOOLEAN
+		
 	create_log is
 			-- 
 		local
 			dw: DEBUG_WINDOW
 		do
-			create {DEBUG_WINDOW}logfile.make_filename ("newsreader.log")
-			logfile.set_threshold (logfile.Developer)
-			
-			dw ?= logfile
-			if dw /= void then
-				dw.hide
+			if is_no_debug_window then
+				create logfile.make_filename ("newsreader.log")
+				logfile.set_threshold (logfile.Developer)
+			else
+				create {DEBUG_WINDOW}logfile.make_filename ("newsreader.log")
+				logfile.set_threshold (logfile.Developer)
+				
+				dw ?= logfile
+				if dw /= void then
+					dw.hide
+				end
 			end
 		end
 		
+	create_application_displayer is
+			-- create displayer for application
+		local
+			mw: MAIN_WINDOW
+		do
+			create {MAIN_WINDOW}application_displayer.make
+			
+			mw ?= application_displayer
+			if mw /= void then
+				mw.show
+			end
+		end
+		
+		
 	
-	debug_window_create is
+	on_debug_window is
 		local
 			dw: DEBUG_WINDOW
 		do
@@ -86,5 +102,19 @@ feature -- Implementation
 				end
 			end
 		end
+
+	parse_command_line is
+			-- parse command line options
+		local
+			env: EXECUTION_ENVIRONMENT
+			cl_argument: INTEGER
+		do
+			create env
+			cl_argument := env.command_line.index_of_word_option ("no_debug_window")
+			if cl_argument /= 0 then
+				is_no_debug_window := true
+			end
+		end
+		
 
 end -- class APPLICATION

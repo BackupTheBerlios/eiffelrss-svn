@@ -7,13 +7,9 @@ indexing
 deferred class
 	WINDOWED_INTERFACE_NAMES
 
-feature -- General
+inherit
+	INTERFACE_NAMES
 
-	Application_name: STRING is "newsreader"
-			-- String with application's name
-			
-	Application_version_number: STRING is ""
-			-- String representing application's version number
 
 feature -- Access / Buttons
 
@@ -103,25 +99,11 @@ feature -- Access / preferences
 			-- String for 'Show toolbar' item in preferences
 	Preferences_show_toolbar_tooltip: STRING is "Enable to show the toolbar %Nin the main window"
 			-- String for 'Show toolbar' item tooltip in preferences
-
-feature -- Access / add
-
-	Add_title: STRING is "Add"
-			-- String for add dialog title bar
-			
-	Add_address_item: STRING is "Address"
-			-- String for 'Address' item in add dialog
-
-feature -- Access / edit
-
-	Edit_title: STRING is "Edit"
-			-- String for edit dialog title bar
 	
-	Edit_name_item: STRING is "Name"
-			-- String for 'Name' item in edit dialog
-	
-	Edit_address_item: STRING is "Address"
-			-- String for 'Address' item in edit dialog
+	Preferences_browser_path_item: STRING is "Browser path"
+			-- String for 'Browser path' item in preferences
+	Preferences_browser_path_tooltip: STRING is "Enter path to browser executable %Nthat you want to use"
+			-- String for 'Browser path' item tooltip in preferences
 
 feature -- Access / feed representation
 	Label_confirm_close_window: STRING is "Are you sure you want to close .%NClick OK to proceed."

@@ -45,17 +45,13 @@ inherit
 			copy
 		end
 	APP_REF
-		rename
-			make as make_app_ref
 		undefine
 			default_create,
 			copy,
 			is_equal
-		select
-			make_app_ref
 		end
 
-	COMMON_EVENTS
+	WINDOWED_EVENTS
 		undefine
 			default_create,
 			copy,

@@ -24,11 +24,9 @@ inherit
 			default_create,
 			copy,
 			is_equal
-		redefine
-			make
 		end
 
-	COMMON_EVENTS
+	WINDOWED_EVENTS
 		undefine
 			default_create,
 			copy,
@@ -40,59 +38,13 @@ create
 	
 feature -- Initialization
 
---	make is
---			-- creation procedure
---		local
---			toolbar_item: EV_TOOL_BAR_BUTTON
---			toolbar_pixmap: EV_PIXMAP
---		do
---			Precursor {APP_REF}
---			default_create
---			
---				-- create toolbar items
---			create toolbar_item
---			create toolbar_pixmap.make_with_size (24, 24)
---			toolbar_pixmap.set_with_named_file ("graphics/stock_refresh.png")
---			toolbar_item.set_pixmap (toolbar_pixmap)
---			toolbar_item.select_actions.extend (agent on_refresh_all)
---			toolbar_item.set_tooltip (Toolbar_refresh_tooltip)
---			extend (toolbar_item)
---
---			create toolbar_item
---			create toolbar_pixmap.make_with_size (24, 24)
---			toolbar_pixmap.set_with_named_file ("graphics/stock_delete.png")
---			toolbar_item.set_pixmap (toolbar_pixmap)
---			toolbar_item.select_actions.extend (agent on_remove)
---			toolbar_item.set_tooltip (Toolbar_remove_tooltip)
---			extend (toolbar_item)
---
---			create toolbar_item
---			create toolbar_pixmap.make_with_size (24, 24)
---			toolbar_pixmap.set_with_named_file ("graphics/stock_edit.png")
---			toolbar_item.set_pixmap (toolbar_pixmap)
---			toolbar_item.select_actions.extend (agent on_edit)
---			toolbar_item.set_tooltip (Toolbar_edit_tooltip)
---			extend (toolbar_item)
---
---			create toolbar_item
---			create toolbar_pixmap.make_with_size (24, 24)
---			toolbar_pixmap.set_with_named_file ("graphics/stock_properties.png")
---			toolbar_item.set_pixmap (toolbar_pixmap)
---			toolbar_item.select_actions.extend (agent on_preferences)
---			toolbar_item.set_tooltip (Toolbar_preferences_tooltip)
---			extend (toolbar_item)
---			
---		ensure then
---			is_not_empty: not is_empty
---		end
-
 	make is
 			-- creation procedure
 		local
 			toolbar_item: EV_TOOL_BAR_BUTTON
 			toolbar_pixmap: EV_PIXMAP
 		do
-			Precursor {APP_REF}
+			make_app_ref
 			default_create
 			
 			create toolbar

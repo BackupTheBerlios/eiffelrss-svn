@@ -9,7 +9,7 @@ deferred class
 
 feature -- Initialization
 
-	make is
+	make_app_ref is
 			-- set application reference
 		do
 			application ?= (create {EV_ENVIRONMENT}).application

@@ -36,6 +36,9 @@ feature -- Initialization
 			content.extend (hbox)
 			content.extend (create {EV_CELL})
 			
+			ok_button.select_actions.finish
+			ok_button.select_actions.remove
+			
 				-- set dialog options
 			set_title (Add_title)
 
@@ -50,8 +53,11 @@ feature {NONE} -- Implementation
 		do
 			if address.text_length > 0 then
 				on_add_feed_from_string (address.text)
+				application.application_displayer.information_displayer.revert
+				destroy
+			else
+				application.application_displayer.information_displayer.show_temporary_text (Add_empty_address_information)
 			end
-			destroy
 		end
 		
 		

@@ -22,11 +22,9 @@ inherit
 			default_create,
 			copy,
 			is_equal
-		redefine
-			make
 		end
 
-	COMMON_EVENTS
+	WINDOWED_EVENTS
 		undefine
 			default_create,
 			copy,
@@ -45,7 +43,7 @@ feature -- Initialisation
 			cell: EV_CELL
 		do
 			default_create
-			Precursor {APP_REF}
+			make_app_ref
 			
 				-- create label
 			create label

@@ -8,12 +8,19 @@ class
 	MAIN_WINDOW
 
 inherit
+	APPLICATION_DISPLAYER
+		rename
+			information_displayer as status_bar
+		redefine
+			make
+		end
+		
 	EV_TITLED_WINDOW
 		redefine
 			initialize,
 			is_in_default_state
 		end
-
+	
 	WINDOWED_INTERFACE_NAMES
 		export
 			{NONE} all
@@ -21,16 +28,8 @@ inherit
 			default_create,
 			copy
 		end
-	APP_REF
-		undefine
-			default_create,
-			copy,
-			is_equal
-		redefine
-			make
-		end
 
-	COMMON_EVENTS
+	WINDOWED_EVENTS
 		undefine
 			default_create,
 			copy,
@@ -44,11 +43,13 @@ feature {NONE}
 
 	make is
 		do
-			Precursor {APP_REF}
+			make_app_ref
 			default_create
 		end
 
 	initialize is
+		local
+			sb: EV_STATUS_BAR
 		do
 			Precursor {EV_TITLED_WINDOW}
 			
@@ -65,8 +66,9 @@ feature {NONE}
 			end
 			
 				-- build status bar
-			build_status_bar
-			lower_bar.extend (status_bar)
+			create {STATUS_BAR}status_bar.make_with_text ("Welcome to " + Application_name)
+			sb ?= status_bar
+			if sb /= void then lower_bar.extend (sb) end
 			
 				-- build main area
 			build_main_view
@@ -124,26 +126,6 @@ feature {APP_REF} -- Toolbar
 	toolbar: TOOLBAR
 	
 feature {APP_REF} -- Status bar
-
-	status_bar: EV_STATUS_BAR
-
-	standard_status_label: EV_LABEL
-	temporary_status_label: EV_LABEL
-
-	build_status_bar is
-			-- build status bar
-		require
-			status_bar_not_yet_created: status_bar = Void and then standard_status_label = Void
-		do
-			create status_bar
-			status_bar.set_border_width (2)
-			create standard_status_label.make_with_text ("Welcome to " + Application_name)
-			create temporary_status_label
-			standard_status_label.align_text_left
-			status_bar.extend (standard_status_label)
-		ensure
-			status_bar_created: status_bar /= Void and then standard_status_label /= Void
-		end
 	
 feature -- Events
 
@@ -212,7 +194,7 @@ feature -- Events
 	on_debug is
 			-- open debug window
 		do
-			application.debug_window_create
+			application.on_debug_window
 		end
 
 
@@ -303,7 +285,13 @@ feature {NONE} -- Implementation
 			create key.make_with_code ((create {EV_KEY_CONSTANTS}).key_backquote)
 			create accelerator.make_with_key_combination (key, true, true, false)
 			accelerator.actions.extend (agent on_debug)
-			accelerators.extend (accelerator)			
+			accelerators.extend (accelerator)
+				-- testing: 
+			create key.make_with_code ((create {EV_KEY_CONSTANTS}).key_r)
+			create accelerator.make_with_key_combination (key, true, false, false)
+			accelerator.actions.extend (agent open_url)
+			accelerators.extend (accelerator)
+				-- :texting
 		end
 		
 
