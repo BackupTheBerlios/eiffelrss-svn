@@ -54,7 +54,7 @@
 
   \pdfinfo{
     /Title      (Project description)
-    /Author     (Thomas Weibel)
+    /Author     (Thomas Weibel, Martin Luder, Michael Käser)
     /Subject    (Eiffel programming)
     /Keywords   (Programming, EiffelRSS)
   }
@@ -312,7 +312,23 @@ syndication feed.
 \section{Newsreader}
 \label{sec:newsreader}
 
-[TODO: Description, screenshot, BON diagrams]
+Newsreader is a simple GUI, with which you can read your RSS feeds. In
+addition to the GUI it also has a command line user interface.
+
+It is possible to add custom feeds and open news in your Internet
+browser.
+
+Figure \ref{fig:newsreader} shows a screenshot of the graphical user
+interface.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.7\textwidth]{./figures/newsreader}
+  \caption{Screenshot of the graphical user interface of Newsreader}
+  \label{fig:newsreader}
+\end{figure}
+
+[TODO: BON diagram]
 
 
 \section{Extensibility}
@@ -337,21 +353,40 @@ fledged newsfeed reader.
 \label{sec:who_does_what}
 
 
+\subsection{All project members}
+\label{sec:all}
+
+\begin{itemize}
+\item Writing documentation
+\item Testing
+\end{itemize}
+
+
 \subsection{Michael Käser}
 \label{sec:michael}
 
-[TODO]
+\begin{itemize}
+\item The clusters \texttt{LOGFILE} and \texttt{FETCH}
+\item An abstraction for readers and writers which translate between
+  XML files and the \texttt{FEED} object structure
+\item An implementation of RSS 2.0
+\end{itemize}
 
 
 \subsection{Martin Luder}
 \label{sec:martin}
 
-[TODO]
+\begin{itemize}
+\item Newsreader with graphical and command line user interface
+\end{itemize}
 
 
 \subsection{Thomas Weibel}
 \label{sec:thomas}
 
-[TODO]
+\begin{itemize}
+\item The clusters \texttt{ADT} and \texttt{PROPERTIES}
+\item \texttt{FEED} data model
+\end{itemize}
 
 \end{document}
