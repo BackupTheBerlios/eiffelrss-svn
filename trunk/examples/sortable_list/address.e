@@ -44,7 +44,7 @@ feature -- Output
 	out: STRING is
 			-- Returns a string representation of an address object
 		do
-			Result := "  - Name: " + name + "%N  - Planet: " + planet + "%N  - Phone number: " + phone_number.out + "%N"
+			Result := "- Name: " + name + "%N- Planet: " + planet + "%N- Phone number: " + phone_number.out + "%N"
 		end
 
 end -- class ADDRESS

@@ -1,5 +1,5 @@
 indexing
-	description: "Example class for sortable two way lists"
+	description: "Example class for sortable two way lists."
 	author: "Thomas Weibel"
 	date: "$Date$"
 	revision: "$Rev$"
@@ -35,22 +35,26 @@ feature -- Initialization
 			create address.make ("Slartibartfast", "Magrathea", 43)
 			address_list.extend (address)
 			
-			io.put_string ("* No particular sorting:%N")
+			io.put_string ("No particular sorting:%N")
+			io.put_string ("======================%N")
 			address_list.do_all (agent print_address)
 			
-			io.put_string ("* By name:%N")
+			io.put_string ("By name:%N")
+			io.put_string ("========%N")
 			address_list.set_order (create {SORT_BY_NAME[ADDRESS]})
 			address_list.sort
 			address_list.do_all (agent print_address)
 			
-			io.put_string ("* By planet:%N")
+			io.put_string ("By planet:%N")
+			io.put_string ("==========%N")
 			address_list.set_order (create {SORT_BY_PLANET[ADDRESS]})
 			address_list.sort
 			address_list.do_all (agent print_address)
 			
 			address_list.prune (address)
 			
-			io.put_string ("* By phone number:%N")
+			io.put_string ("By phone number:%N")
+			io.put_string ("================%N")
 			address_list.set_order (create {SORT_BY_PHONE_NUMBER[ADDRESS]})
 			address_list.sort
 			address_list.do_all (agent print_address)
