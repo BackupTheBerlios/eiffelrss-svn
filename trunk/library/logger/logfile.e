@@ -38,16 +38,8 @@ feature -- Initialization
 		ensure then
 			file_is_open: is_open_append
 		end
-	
-	set_threshold (a_threshold: INTEGER) is
-			-- Set the output threshold to a_threshold
-		require
-			valid_threshold: a_threshold >= 0
-		do
-			output_threshold := a_threshold
-		ensure
-			threshold_set: output_threshold = a_threshold
-		end
+		
+feature -- Basic operations
 		
 	log_message (a_message: STRING; a_priority: INTEGER) is
 			-- Log the message to the logfile if a_priority is equal or greater than the threshold
@@ -87,12 +79,25 @@ feature -- Initialization
 		ensure
 			(a_priority <= output_threshold) implies (messages_logged = old messages_logged + 1)
 		end
+	
+	set_threshold (a_threshold: INTEGER) is
+			-- Set the output threshold to a_threshold
+		require
+			valid_threshold: a_threshold >= 0
+		do
+			output_threshold := a_threshold
+		ensure
+			threshold_set: output_threshold = a_threshold
+		end
 		
 feature -- Access
 	output_threshold: INTEGER
+		-- The current threshold used
 	messages_logged: INTEGER
+		-- The number of messages which got logged
 
 invariant
 	file_is_open: is_open_append
+	valid_threshold: output_threshold >= 0
 	
 end -- class LOGFILE
