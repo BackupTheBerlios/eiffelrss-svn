@@ -86,8 +86,7 @@ feature -- Initialization
 			content.extend (hbox)
 			
 			set_minimum_width (300)
-			
-			
+
 			load
 			
 			set_title (Item_edit_title + ": '" + feed_item.title + "'")

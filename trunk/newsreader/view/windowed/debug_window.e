@@ -127,6 +127,7 @@ feature -- Initialization
 		local
 			accelerator: EV_ACCELERATOR
 			key: EV_KEY
+			icon: EV_PIXMAP
 		do
 			Precursor
 			create main_vbox
@@ -162,6 +163,11 @@ feature -- Initialization
 			set_title ("DEBUG")
 			set_size (250, 700)
 			set_minimum_size (150, 200)
+
+				-- set icon of window
+			create icon
+			icon.set_with_named_file ("graphics/newsreader_icon.png")
+			set_icon_pixmap (icon)
 		end
 		
 	is_in_default_state: BOOLEAN is true

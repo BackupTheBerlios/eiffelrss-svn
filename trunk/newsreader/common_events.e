@@ -58,21 +58,43 @@ feature -- Events
 		do
 			application.logfile.log_message ("Removing item '" + an_item.title + "' from feed '" + application.current_feed.title + "'", feature{LOGFILE}.Info)
 			if application.current_feed.items.has (an_item) then
-				application.logfile.log_message ("'" + an_item.title + "' found, removing... ", feature{LOGFILE}.Developer)
 				application.current_feed.remove_item (an_item)
 			end
 		end
 		
-	refresh is
+	refresh (a_feed: FEED) is
+			-- refresh a_feed
+		do
+			application.logfile.log_message ("Refreshing feed '" + a_feed.link.location + "'", feature{LOGFILE}.Info)
+			application.feed_manager.refresh_force (a_feed.link.location)
+		end
+	
+	refresh_current is
 			-- refresh current feed
 		do
-			
+			if application.current_feed /= void then
+				refresh (application.current_feed)
+			end
 		end
+		
 		
 	refresh_all is
 			-- refresh all feeds
 		do
-			
+			application.logfile.log_message ("Refreshing all feeds...", feature{LOGFILE}.Info)
+			application.application_displayer.information_displayer.show_progress (application.feed_manager.count)
+			application.application_displayer.information_displayer.progress_forward
+			from
+				application.feed_manager.start
+			until
+				application.feed_manager.after
+			loop
+				refresh (application.feed_manager.item_for_iteration)
+				application.feed_manager.forth
+				application.application_displayer.information_displayer.progress_forward
+			end
+			application.logfile.log_message ("done.", feature{LOGFILE}.Info)
+			application.application_displayer.information_displayer.progress_done
 		end
 	
 	open_url (link: URL; asynchronous_request: BOOLEAN) is

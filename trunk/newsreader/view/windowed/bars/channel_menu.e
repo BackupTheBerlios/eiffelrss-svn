@@ -53,7 +53,7 @@ feature -- Initialization
 			menu_item.select_actions.extend (agent on_add)
 			extend (menu_item)
 			create menu_item.make_with_text (menu_channel_refresh_item)
-			menu_item.select_actions.extend (agent refresh)
+			menu_item.select_actions.extend (agent refresh_current)
 			extend (menu_item)
 			create menu_item.make_with_text (menu_channel_feed_edit_item)
 			menu_item.select_actions.extend (agent on_feed_edit)

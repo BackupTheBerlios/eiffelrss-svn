@@ -124,16 +124,6 @@ feature -- Initialization
 			create feed_generator
 			hbox.extend (feed_generator)
 			content.extend (hbox)
---				-- docs
---			create hbox
---			create label.make_with_text (Info_feed_docs_item + ":")
---			label.set_minimum_width (label_width)
---			label.align_text_left
---			hbox.extend (label)
---			hbox.disable_item_expand (label)
---			create docs
---			hbox.extend (docs)
---			content.extend (hbox)
 				-- copyright
 			create hbox
 			create label.make_with_text (Info_feed_copyright_item + ":")
@@ -146,7 +136,6 @@ feature -- Initialization
 			content.extend (hbox)
 			
 			set_minimum_width (300)
-			
 			
 			load
 			

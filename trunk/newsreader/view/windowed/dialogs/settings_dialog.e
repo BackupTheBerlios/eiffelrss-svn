@@ -49,6 +49,7 @@ feature -- Initialization
 			main_vertical_box: EV_VERTICAL_BOX
 			button_box: EV_HORIZONTAL_BOX
 			cell: EV_CELL
+			icon: EV_PIXMAP
 		do
 			Precursor
 			
@@ -84,6 +85,11 @@ feature -- Initialization
 			
 				-- set dialog options
 			close_request_actions.extend (agent destroy)
+
+				-- set icon of window
+			create icon
+			icon.set_with_named_file ("graphics/newsreader_icon.png")
+			set_icon_pixmap (icon)
 		end
 
 feature {NONE} -- Implementation

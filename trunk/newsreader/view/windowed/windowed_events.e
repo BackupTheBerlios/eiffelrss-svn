@@ -9,6 +9,12 @@ class
 
 inherit
 	COMMON_EVENTS
+		redefine
+			refresh_current,
+			refresh_all,
+			remove_item,
+			remove_feed
+		end
 
 
 feature {NONE} -- Events
@@ -97,6 +103,56 @@ feature {NONE} -- Events
 			end
 		end
 
+	refresh_current is
+			-- refresh current feed
+		local
+			mw: MAIN_WINDOW
+		do
+			Precursor
+			mw ?= application.application_displayer
+			if mw /= void then
+				mw.show_feed
+			end
+		end
+
+	refresh_all is
+			-- refresh all feeds
+		local
+			mw: MAIN_WINDOW
+		do
+			Precursor
+			mw ?= application.application_displayer
+			if mw /= void then
+				mw.show_feed
+			end
+		end
+	
+	remove_feed is
+			-- remove current feed
+		local
+			mw: MAIN_WINDOW
+		do
+			Precursor
+			mw ?= application.application_displayer
+			if mw /= void then
+				mw.show_feed
+				mw.show_feed_list
+				mw.show_feed
+			end
+		end
+	
+	remove_item (an_item: ITEM) is
+			-- remove an_item from current feed
+		local
+			mw: MAIN_WINDOW
+		do
+			Precursor (an_item)
+			mw ?= application.application_displayer
+			if mw /= void then
+				mw.show_feed
+			end
+		end
+
 	on_remove is
 			-- remove current feed/item
 		local
@@ -106,11 +162,8 @@ feature {NONE} -- Events
 			if mw /= void and application.current_feed /= void then 
 				if mw.has_feed_focus then
 					remove_feed
-					mw.show_feed_list
-					mw.show_feed
 				elseif mw.has_item_focus then
 					remove_item (mw.selected_item)
-					mw.show_feed
 				end
 			end
 		end

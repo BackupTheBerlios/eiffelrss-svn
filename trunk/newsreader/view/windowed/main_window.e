@@ -91,6 +91,7 @@ feature
 			show_actions.extend (agent restore_maximize_minimize)
 			restore_window_size_and_position
 			
+				-- set icon of window
 			create icon
 			icon.set_with_named_file ("graphics/newsreader_icon.png")
 			set_icon_pixmap (icon)
@@ -336,7 +337,7 @@ feature {NONE} -- Implementation
 				-- CTRL-T: refresh feed
 			create key.make_with_code (feature {EV_KEY_CONSTANTS}.key_t)
 			create accelerator.make_with_key_combination (key, true, false, false)
-			accelerator.actions.extend (agent refresh)
+			accelerator.actions.extend (agent refresh_current)
 			accelerators.extend (accelerator)
 				-- CTRL-SHIFT-T: refresh all feeds
 			create key.make_with_code (feature {EV_KEY_CONSTANTS}.key_t)

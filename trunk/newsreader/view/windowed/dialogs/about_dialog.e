@@ -39,6 +39,7 @@ feature {NONE} -- Initialize
 			left_vertical_box: EV_VERTICAL_BOX
 			right_vertical_box: EV_VERTICAL_BOX
 			buttons_box: EV_HORIZONTAL_BOX
+			icon: EV_PIXMAP
 		do
 			make_app_ref
 			Precursor
@@ -66,6 +67,11 @@ feature {NONE} -- Initialize
 			set_default_cancel_button (ok_button)
 			set_title (default_title)
 			set_size (400, 150)
+
+				-- set icon of window
+			create icon
+			icon.set_with_named_file ("graphics/newsreader_icon.png")
+			set_icon_pixmap (icon)
 		end
 	
 feature 
