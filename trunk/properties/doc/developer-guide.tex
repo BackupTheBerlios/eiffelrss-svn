@@ -141,16 +141,19 @@
 \section{Overview}
 \label{sec:overview}
 
-\texttt{PROPERTIES} is a port of the \texttt{java.util.Properties} class.
-
-This class represents a persistent set of properties. The properties
-can be save to a file or loaded from a file.
+\texttt{PROPERTIES} represents a persistent set of properties. The
+properties can be saved to a file or loaded from a file.
 
 Each key and its corresponding value in the property list is a string.
 
 A property list can contain another property list as its default. This
 default property list is searched if the property key is not found in
 the original property list.
+
+\texttt{PROPERTIES} is similar to the \texttt{java.util.Properties}
+class. The main difference is, that \texttt{PROPERTIES} doesn't
+support keys and values separated by whitespace. It always expects
+\texttt{:} or \texttt{=} as a separator between key and value.
 
 See figure \ref{fig:uml-diagram} for an overview of the class
 
