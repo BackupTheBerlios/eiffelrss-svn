@@ -5,28 +5,13 @@ root
 	PROPERTIES_EXAMPLE: make
 
 default
-	assertion (check)
+	assertion (invariant)
+	assertion (loop)
 	assertion (require)
 	assertion (ensure)
-	assertion (loop)
-	assertion (invariant)
-	disabled_debug (yes)
-	debug (no)
-	line_generation (no)
-	trace (no)
-	check_vape (yes)
-	console_application (no)
-	syntax_warning (no)
-	address_expression (no)
-	array_optimization (no)
-	dead_code_removal (yes)
-	dynamic_runtime (no)
-	exception_trace (no)
-	inlining (no)
+	assertion (check)
 	multithreaded (no)
-
-
--- EiffelBase
+	console_application (no)
 
 cluster
 	root_cluster:		"."
@@ -44,8 +29,7 @@ cluster
 
 	library properties:	"../../library/properties/"
 		exclude
-			".svn"; "doc"; 
+			".svn"
 		end
-
 
 end
