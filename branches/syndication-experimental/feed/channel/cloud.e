@@ -5,7 +5,7 @@ indexing
 	revision: "$Rev$"
 
 class
-	CLOUD
+	CHANNEL_CLOUD
 
 create
 	make
@@ -115,4 +115,4 @@ invariant
 	non_empty_register_procedure: register_procedure /= Void and then not register_procedure.is_empty
 	non_empty_protocol: protocol /= Void and then not protocol.is_empty
 
-end -- class CLOUD
+end -- class CHANNEL_CLOUD

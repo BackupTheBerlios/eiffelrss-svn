@@ -5,7 +5,7 @@ indexing
 	revision: "$Rev$"
 
 class
-	TEXT_INPUT
+	CHANNEL_TEXT_INPUT
 
 create
 	make
@@ -98,4 +98,4 @@ invariant
 	non_empty_name: name /= Void and then not name.is_empty
 	non_void_link: link /= Void
 
-end -- class TEXT_INPUT
+end -- class CHANNEL_TEXT_INPUT

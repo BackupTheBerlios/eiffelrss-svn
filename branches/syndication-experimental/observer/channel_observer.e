@@ -1,5 +1,5 @@
 indexing
-	description: "Deferred class which defines a observer interface."
+	description: "Deferred class which defines a channel observer interface."
 	author: "Thomas Weibel"
 	date: "$Date$"
 	revision: "$Rev$"
@@ -16,10 +16,8 @@ feature -- Observer
 		deferred
 		end
 		
-	channel_added (new_channel: CHANNEL) is
+	channel_updated (channel: CHANNEL) is
 			-- Is called when a new channel is added
-		require
-			non_void_channel: new_channel /= Void
 		deferred
 		end
 

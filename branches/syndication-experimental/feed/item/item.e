@@ -83,6 +83,7 @@ feature -- Access (metadata)
 	is_read: BOOLEAN
 			-- Is the item read?
 
+-- [TODO]
 -- feature -- Access (modules)
 -- The possiblity to add and remove modules to an item would be very nice to 
 -- have, but doesn't have a very high priority at the moment
@@ -201,7 +202,7 @@ feature -- Setter (metadata)
 		ensure
 			is_read_set: is_read = value
 		end
-		
+
 feature -- Debug
 
 	to_string: STRING is

@@ -60,11 +60,10 @@ cluster
 		exclude
 			".svn"
 		end
-
-	all utils (syndication):		"utils"
+	
+	library adt (syndication):		"../../trunk/library/adt"
 		exclude
 			".svn"
 		end
-
 
 end

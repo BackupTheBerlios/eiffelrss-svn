@@ -9,12 +9,12 @@ deferred class
 	
 feature -- Access
 
-	categories: CATEGORY_LIST
+	categories: SORTABLE_TWO_WAY_LIST[CATEGORY]
 			-- Categories list containing category items
 			
 feature -- Setter
 
-	set_categories (category_list: CATEGORY_LIST) is
+	set_categories (category_list: like categories) is
 			-- Set categories with a new category list
 		require
 			non_void_categories: category_list /= Void
@@ -43,35 +43,21 @@ feature -- Basic operations
 			non_void_category_item: category /= Void
 		do
 			categories.prune (category)
-		ensure
-			-- category_removed: old categories.has (category) implies categories.count + 1 = old categories.count
 		end
-		
+
 feature -- Sort
 
-	title_equal (first, second: CATEGORY): BOOLEAN is
-			-- Checks whether two categories have the same title
-		require
-			first_non_void: first /= Void
-			second_non_void: second /= Void
-		do
-			Result := first.title = second.title
-		end
-		
-	title_before (first, second: CATEGORY): BOOLEAN is
-			-- Checks whether two categories have the same title
-		require
-			first_non_void: first /= Void
-			second_non_void: second /= Void			
-		do
-			Result := first.title < second.title
-		end
-		
 	sort_categories_by_title is
 			-- Sort categories by title
 		do
-			categories.set_custom_before (agent title_before)
-			categories.set_custom_equal (agent title_equal)
+			categories.set_order (create {CATEGORY_SORT_BY_TITLE[CATEGORY]})
+			categories.sort
+		end
+		
+	sort_categories_by_domain is
+			-- Sort categories by domain
+		do
+			categories.set_order (create {CATEGORY_SORT_BY_DOMAIN[CATEGORY]})
 			categories.sort
 		end
 		
@@ -80,7 +66,8 @@ feature {CATEGORIES} -- Initialize `categories'
 	initialize_categories is
 			-- Initialize `categories'
 		do
-			create categories.make_empty (agent title_equal, agent title_before)
+			create categories.make
+			categories.compare_objects
 		end
 		
 invariant

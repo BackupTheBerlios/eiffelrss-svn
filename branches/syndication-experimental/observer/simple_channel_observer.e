@@ -15,8 +15,8 @@ feature -- Access
 	added_item: ITEM
 			-- The newly added item
 			
-	added_channel: CHANNEL
-			-- The newly added channel
+	updated_channel: CHANNEL
+			-- The newly updated channel
 
 feature -- Observer
 
@@ -29,13 +29,13 @@ feature -- Observer
 			added_item_set: added_item = new_item
 		end
 		
-	channel_added (new_channel: CHANNEL) is
+	channel_updated (channel: CHANNEL) is
 			-- Is called when a new channel is added
 		do
-			added_channel := new_channel
-			io.put_string (added_channel.to_string)
+			updated_channel := channel
+			io.put_string (updated_channel.to_string)
 		ensure then
-			added_channel_set: added_channel = new_channel 
+			updated_channel_set: updated_channel = channel 
 		end
 		
 

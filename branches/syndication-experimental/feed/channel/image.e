@@ -5,7 +5,7 @@ indexing
 	revision: "$Rev$"
 
 class
-	IMAGE
+	CHANNEL_IMAGE
 
 create
 	make
@@ -140,4 +140,4 @@ invariant
 	non_void_link: link /= Void
 	width_smaller_than_max_width: width <= Max_width
 
-end -- class IMAGE
+end -- class CHANNEL_IMAGE
