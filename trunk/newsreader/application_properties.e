@@ -139,6 +139,7 @@ feature {NONE} -- Implementation
 			application_default_properties.put ("yes","Ask_on_exit")
 			application_default_properties.put ("no", "User_specific")
 			application_default_properties.put ("yes", "Show_toolbar")
+			application_default_properties.put ("[0]mm/[0]dd/yyyy [0]hh:[0]mi", "Date_format")
 			
 			
 				-- properties that cannot be changed 

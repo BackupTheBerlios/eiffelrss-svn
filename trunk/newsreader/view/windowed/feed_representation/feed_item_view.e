@@ -48,7 +48,7 @@ feature -- Initialization
 		do
 			Precursor
 			if (feed_item.pub_date /= void) then
-				date := feed_item.pub_date.default_format_string
+				date := feed_item.pub_date.formatted_out (application.properties.get ("Date_format"))
 			else
 				date := ""
 			end

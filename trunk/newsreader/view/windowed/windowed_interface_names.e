@@ -113,6 +113,11 @@ feature -- preferences
 			-- String for 'Browser path' item in preferences
 	Preferences_browser_path_tooltip: STRING is "Enter path to browser executable %Nthat you want to use"
 			-- String for 'Browser path' item tooltip in preferences
+	
+	Preferences_date_format_item: STRING is "Date format"
+			-- String for 'Date format' item in preferences
+	Preferences_date_format_tooltip: STRING is "Set date format with a EIFFEL date format string%Nvisit award winning page http://www.eiffel.com"
+			-- String for 'Format_string' item tooltip in preferences
 
 feature -- feed representation
 	Label_confirm_close_window: STRING is "Are you sure you want to close .%NClick OK to proceed."

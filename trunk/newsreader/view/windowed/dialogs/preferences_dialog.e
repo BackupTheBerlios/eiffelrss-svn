@@ -36,15 +36,19 @@ feature -- Initialization
 			Precursor
 			
 				-- create options widgets
+				
+				-- Ask_on_exit
 			create ask_on_exit.make_with_text (Preferences_ask_on_exit_item)
 			ask_on_exit.set_tooltip (Preferences_ask_on_exit_tooltip)
 			content.extend (ask_on_exit)
 			content.disable_item_expand (ask_on_exit)
+				-- User_specific
 			create user_specific.make_with_text (Preferences_user_specific_item)
 			user_specific.set_tooltip (Preferences_user_specific_tooltip)
 			user_specific.select_actions.extend (agent on_user_specific_select)
 			content.extend (user_specific)
 			content.disable_item_expand (user_specific)
+				-- Share_feeds
 			create share_feeds.make_with_text (Preferences_share_feeds_item)
 			share_feeds.set_tooltip (Preferences_share_feeds_tooltip)
 			create hbox
@@ -55,10 +59,12 @@ feature -- Initialization
 			hbox.extend (share_feeds)
 			content.extend (hbox)
 			content.disable_item_expand (hbox)
+				-- Show_toolbar
 			create show_toolbar.make_with_text (Preferences_show_toolbar_item)
 			show_toolbar.set_tooltip (Preferences_show_toolbar_tooltip)
 			content.extend (show_toolbar)
 			content.disable_item_expand (show_toolbar)
+				-- Browser_path
 			create browser_path
 			browser_path.set_tooltip (Preferences_browser_path_tooltip)
 			browser_path.set_minimum_width (80)
@@ -71,6 +77,20 @@ feature -- Initialization
 			hbox.extend (browser_path)
 			content.extend (hbox)
 			content.disable_item_expand (hbox)
+				-- Date_format
+			create date_format
+			date_format.set_tooltip (Preferences_date_format_tooltip)
+			date_format.set_minimum_width (80)
+			create hbox
+			create label.make_with_text (Preferences_date_format_item + ":")
+			label.set_minimum_width (100)
+			label.align_text_left
+			hbox.extend (label)
+			hbox.disable_item_expand (label)
+			hbox.extend (date_format)
+			content.extend (hbox)
+			content.disable_item_expand (hbox)
+
 			
 				-- set dialog options
 			set_title (preferences_title)
@@ -93,6 +113,9 @@ feature {NONE}
 	
 	browser_path: EV_TEXT_FIELD
 		-- path to browser
+	
+	date_format: EV_TEXT_FIELD
+		-- date format
 
 	save is
 			-- save properties to properties objects and write to files
@@ -135,20 +158,26 @@ feature {NONE}
 				-- Show_toolbar
 			mw ?= application.application_displayer
 			if show_toolbar.is_selected then
-				application.logfile.log_message ("Preferences: setting 'Show_toolbar' to 'yes'",application.logfile.developer)
+				application.logfile.log_message ("Preferences: setting 'Show_toolbar' to 'yes'", feature{LOGFILE}.developer)
 				application.properties.force ("yes", "Show_toolbar")
 				if mw /= void then mw.toolbar.show end
 			else
-				application.logfile.log_message ("Preferences: setting 'Show_toolbar' to 'no'", application.logfile.developer)
+				application.logfile.log_message ("Preferences: setting 'Show_toolbar' to 'no'", feature{LOGFILE}.developer)
 				application.properties.force ("no", "Show_toolbar")
 				if mw /= void then mw.toolbar.hide end
 			end
 			application.application_displayer.information_displayer.progress_forward
 				-- Browser_path
 			if browser_path.text_length > 0 then
-				application.logfile.log_message ("Preferences: setting 'Browser_path' to '" + browser_path.text + "'", application.logfile.developer)
+				application.logfile.log_message ("Preferences: setting 'Browser_path' to '" + browser_path.text + "'", feature{LOGFILE}.developer)
 				application.properties.force (browser_path.text, "Browser_path")
 			end
+				-- Date_format
+			if date_format.text_length > 0 then
+				application.logfile.log_message ("Preferences: setting 'Date_format' to '" + date_format.text + "'", feature{LOGFILE}.developer)
+				application.properties.force (date_format.text, "Date_format")
+			end
+			
 			application.application_displayer.information_displayer.progress_forward
 				-- save properties
 			application.save_properties
@@ -162,7 +191,7 @@ feature {NONE}
 			-- set widgets in window to current properties' values
 			-- called in initialization of dialog
 		do
-			application.application_displayer.information_displayer.show_progress (5)
+			application.application_displayer.information_displayer.show_progress (6)
 			application.application_displayer.information_displayer.progress_forward
 			if application.properties.get ("Ask_on_exit").is_equal ("yes") then
 				ask_on_exit.enable_select
@@ -179,6 +208,8 @@ feature {NONE}
 			end
 			application.application_displayer.information_displayer.progress_forward
 			browser_path.set_text (application.properties.get ("Browser_path"))
+			application.application_displayer.information_displayer.progress_forward
+			date_format.set_text (application.properties.get ("Date_format"))
 			application.application_displayer.information_displayer.progress_done
 		end
 

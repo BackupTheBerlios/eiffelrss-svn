@@ -49,15 +49,18 @@ feature {NONE} -- Initialization
 			current_feed.new_item ("Version 23 released!", create {HTTP_URL}.make ("http://eiffelrss.berlios.de/Main/News"), 
 				"Version 23 of EiffelRSS got release today. Happy syndicating!")
 			current_feed.last_added_item.add_category (create {CATEGORY}.make_title_domain ("News", create {HTTP_URL}.make ("http://eiffelrss.berlios.de/Main/News/")))
+			current_feed.last_added_item.set_pub_date (create {DATE_TIME}.make (2005, 1, 18, 15, 23, 0))
 			
 			current_feed.new_item ("Microsoft uses EiffelRSS", create {HTTP_URL}.make ("http://eiffelrss.berlios.de/Main/WhoUsesEiffelRSS"), 
 				"Microsoft announced in a press release today that they will use EiffelRSS to syndicate news on their website.")
 			current_feed.last_added_item.set_source (create {ITEM_SOURCE}.make ("Microsoft", create {HTTP_URL}.make ("http://www.microsoft.com")))
 			current_feed.last_added_item.set_enclosure (create {ITEM_ENCLOSURE}.make (create {HTTP_URL}.make ("http://eiffelrss.berlios.de/files/ms-press-release.pdf"), 1000, "application/pdf"))
+			current_feed.last_added_item.set_pub_date (create {DATE_TIME}.make (2005, 1, 19, 01, 58, 0))
 				
 			current_feed.new_item ("EiffelRSS wins award", create {HTTP_URL}.make ("http://eiffelrss.berlios.de/Main/Awards"),
 				"EiffelRSS has been awarded by ISE as best syndication software written in Eiffel. For more info see award-winning pages: http://eiffelrss.berlios.de")
 			current_feed.last_added_item.set_guid (create {ITEM_GUID}.make_perma_link ("http://eiffelrss.berlios.de/newsItem42"))
+			current_feed.last_added_item.set_pub_date (create {DATE_TIME}.make (2005, 1, 21, 17, 34, 0))
 			
 				-- Open properties files
 			load_properties
