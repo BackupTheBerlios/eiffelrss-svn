@@ -45,13 +45,14 @@ feature -- Initialization
 			feed.new_item ("EiffelRSS wins award", create {HTTP_URL}.make ("http://eiffelrss.berlios.de/Main/Awards"),
 				"EiffelRSS has been awarded by ISE as best syndication software written in Eiffel. For more info see award-winning pages: http://eiffelrss.berlios.de")
 			feed.last_added_item.set_guid (create {ITEM_GUID}.make_perma_link ("http://eiffelrss.berlios.de/newsItem42"))
-				
-			-- Print feed
---			io.put_string ("Sample feed:%N")
---			io.put_string ("============%N%N%N")
---			io.put_string (feed.to_string)
+
+			io.put_string ("Feed manager:%N")
+			io.put_string ("============%N%N%N")
 
 			create feed_manager.make
+			feed_manager.add (feed)
+			feed_manager.refresh_all
+			io.put_string (feed_manager.item (feed.link).to_string)
 		end
 		
 feature -- Arguments
@@ -60,5 +61,6 @@ feature -- Arguments
 			-- Example feed
 			
 	feed_manager: FEED_MANAGER
+			-- Feed manager
 
 end -- class FEED_MANAGER_EXAMPLE
