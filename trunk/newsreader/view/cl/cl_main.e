@@ -53,6 +53,7 @@ feature -- Initialization
 			known_commands.put (agent on_add_command, "add")
 			known_commands.put (agent on_remove_command, "remove")
 			known_commands.put (agent on_refresh_command, "refresh")
+			known_commands.put (agent on_help_command, "help")
 		end
 		
 	start is
@@ -111,7 +112,7 @@ feature -- Events
 			command: CL_REFRESH_COMMAND
 		do
 			create command.make (words)
-		end
+		end		
 
 feature -- Status setting
 

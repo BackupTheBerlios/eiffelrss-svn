@@ -68,7 +68,7 @@ feature -- Events
 		end
 		
 
-feature {NONE} -- Implementation
+feature -- Access
 
 	feed_item: ITEM
 	

@@ -21,6 +21,7 @@ feature -- Initialization
 			known_commands.put (agent on_exit_command, "exit")
 			known_commands.put (agent on_about_command, "about")
 			known_commands.put (agent on_help_command, "help")
+			known_commands.put (agent on_info_command, "info")
 		end
 
 feature -- Basic operations

@@ -54,6 +54,28 @@ feature {NONE} -- Events
 			mw ?= application.application_displayer
 			if mw /= void then add_dialog.show_modal_to_window (mw) end
 		end
+	
+	on_info is
+			-- show information dialog for current feed
+		local
+			info_dialog: INFO_DIALOG
+			mw: MAIN_WINDOW
+		do
+			create info_dialog.make
+			mw ?= application.application_displayer
+			if mw /= void then info_dialog.show_modal_to_window (mw) end
+		end
+
+	on_item_info is
+			-- show information dialog for current feed
+		local
+			info_dialog: ITEM_INFO_DIALOG
+			mw: MAIN_WINDOW
+		do
+			create info_dialog.make
+			mw ?= application.application_displayer
+			if mw /= void then info_dialog.show_modal_to_window (mw) end
+		end
 
 	on_edit is
 			-- open edit dialog for current feed
@@ -63,8 +85,20 @@ feature {NONE} -- Events
 		do
 			create edit_dialog.make
 			mw ?= application.application_displayer
-			edit_dialog.show_modal_to_window (mw)
-		end	
+			if mw /= void then edit_dialog.show_modal_to_window (mw) end
+		end
+	
+	on_item_edit is
+			-- open edit dialog fro current item
+		local
+			edit_dialog: ITEM_EDIT_DIALOG
+			mw: MAIN_WINDOW
+		do
+			create edit_dialog.make
+			mw ?= application.application_displayer
+			if mw /= void then edit_dialog.show_modal_to_window (mw) end
+		end
+		
 
 	show_feed is
 			-- show current feed

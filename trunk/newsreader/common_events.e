@@ -67,5 +67,26 @@ feature -- Events
 			end
 		end
 
+	test_routine is
+			-- routine the only purpose of which is to do testing :)
+		local
+			sbar: STATUS_BAR
+			i: INTEGER
+		do
+			sbar ?= application.application_displayer.information_displayer
+			if sbar /= void then
+				sbar.show_progress (5)
+				from
+					i := 1
+				until
+					i > 5
+				loop
+					application.sleep (200)
+					sbar.progress_forward
+					i := i + 1
+				end
+			end
+		end
+		
 
 end -- class COMMON_EVENTS

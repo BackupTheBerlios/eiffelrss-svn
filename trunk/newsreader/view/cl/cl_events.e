@@ -27,9 +27,29 @@ feature -- Events / new
 	
 	on_help_command is
 			-- called when help is requested
+		local
+			disp: INFORMATION_DISPLAYER
+		do
+			disp := application.application_displayer.information_displayer
+			io.put_new_line
+			disp.show_temporary_text ("list%T%T" + Help_list_command)
+			disp.show_temporary_text ("show #%T%T" + Help_show_command)
+			disp.show_temporary_text ("info #%T%T" + Help_info_command)
+			disp.show_temporary_text ("edit #%T%T" + Help_edit_command)
+			disp.show_temporary_text ("add URL%T%T" + Help_add_command)
+			disp.show_temporary_text ("remove #%T" + Help_remove_command)
+			disp.show_temporary_text ("refresh all|#%T" + Help_refresh_command)
+			disp.show_temporary_text ("about%T%T" + Help_about_command)
+			disp.show_temporary_text ("exit%T%T" + Help_exit_command)
+			io.put_new_line
+		end
+	
+	on_info_command is
+			-- show information about feed
 		do
 			
 		end
+		
 
 feature -- Events / redefined
 	
@@ -41,6 +61,7 @@ feature -- Events / redefined
 	on_about_command is
 			-- show information about this application
 		do
+			io.put_new_line
 			application.application_displayer.information_displayer.show_temporary_text (Application_name + " v" + Application_version_number + "%N" + Application_about)
 		end
 

@@ -22,4 +22,31 @@ feature -- Basic operations
 			io.put_string (current_text + "%N")
 		end
 
+feature -- Progress display
+
+	show_progress (s: INTEGER) is
+			-- show progress and set number of steps to s
+		do
+			
+		end
+	
+	progress_forward is
+			-- increase progress
+		do
+			
+		end
+	
+	progress_backward is
+			-- decrease progress
+		do
+			
+		end
+	
+	progress_done is
+			-- finish progress
+		do
+			
+		end
+		
+
 end -- class CL_OUTPUT

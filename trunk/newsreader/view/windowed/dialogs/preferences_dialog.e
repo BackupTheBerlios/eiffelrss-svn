@@ -100,6 +100,8 @@ feature {NONE}
 		local
 			mw: MAIN_WINDOW
 		do			
+			application.application_displayer.information_displayer.show_progress (8)
+			application.application_displayer.information_displayer.progress_forward
 				-- User_specific
 			if user_specific.is_selected then
 				if application.properties.get ("User_specific").is_equal ("no") then
@@ -111,6 +113,7 @@ feature {NONE}
 				application.logfile.log_message ("Preferences: setting 'User_specific' to 'no'", application.logfile.developer)
 				application.application_properties.force ("no", "User_specific")
 			end
+			application.application_displayer.information_displayer.progress_forward
 				-- Share_feeds
 			if share_feeds.is_selected then
 				application.logfile.log_message ("Preferences: setting 'Share_feeds' to 'yes'", application.logfile.developer)
@@ -119,6 +122,7 @@ feature {NONE}
 				application.logfile.log_message ("Preferences: setting 'Share_feeds' to 'no'", application.logfile.developer)
 				application.application_properties.force ("no", "Share_feeds")
 			end
+			application.application_displayer.information_displayer.progress_forward
 				-- Ask_on_exit
 			if ask_on_exit.is_selected then
 				application.logfile.log_message ("Preferences: setting 'Ask_on_exit' to 'yes'", application.logfile.developer)
@@ -127,6 +131,7 @@ feature {NONE}
 				application.logfile.log_message ("Preferences: setting 'Ask_on_exit' to 'no'", application.logfile.developer)
 				application.properties.force ("no", "Ask_on_exit")
 			end
+			application.application_displayer.information_displayer.progress_forward
 				-- Show_toolbar
 			mw ?= application.application_displayer
 			if show_toolbar.is_selected then
@@ -138,34 +143,43 @@ feature {NONE}
 				application.properties.force ("no", "Show_toolbar")
 				if mw /= void then mw.toolbar.hide end
 			end
-			
+			application.application_displayer.information_displayer.progress_forward
 				-- Browser_path
 			if browser_path.text_length > 0 then
 				application.logfile.log_message ("Preferences: setting 'Browser_path' to '" + browser_path.text + "'", application.logfile.developer)
 				application.properties.force (browser_path.text, "Browser_path")
 			end
-			
+			application.application_displayer.information_displayer.progress_forward
 				-- save properties
 			application.save_properties
+			application.application_displayer.information_displayer.progress_forward
 			application.load_properties
+			application.application_displayer.information_displayer.progress_done
+			application.application_displayer.information_displayer.revert
 		end
 
 	load_properties is
 			-- set widgets in window to current properties' values
 			-- called in initialization of dialog
 		do
+			application.application_displayer.information_displayer.show_progress (5)
+			application.application_displayer.information_displayer.progress_forward
 			if application.properties.get ("Ask_on_exit").is_equal ("yes") then
 				ask_on_exit.enable_select
 			end
+			application.application_displayer.information_displayer.progress_forward
 			if application.properties.get ("User_specific").is_equal ("yes") then
 				user_specific.enable_select
 			else
 				share_feeds.disable_sensitive
 			end
+			application.application_displayer.information_displayer.progress_forward
 			if application.properties.get ("Show_toolbar").is_equal ("yes") then
 				show_toolbar.enable_select
 			end
-			browser_path.set_text (application.properties.get ("Browser_path")) 
+			application.application_displayer.information_displayer.progress_forward
+			browser_path.set_text (application.properties.get ("Browser_path"))
+			application.application_displayer.information_displayer.progress_done
 		end
 
 feature {NONE} -- Events

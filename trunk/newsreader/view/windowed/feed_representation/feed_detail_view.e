@@ -58,6 +58,28 @@ feature -- Basic operations
 				feed.items.forth
 			end
 		end
+	
+	selected_item: ITEM is
+			-- selected item in list
+		local
+			item_view: FEED_ITEM_VIEW
+			item_row: EV_MULTI_COLUMN_LIST_ROW
+		do
+			item_view ?= list.selected_item
+			item_row := list.selected_item
+			if item_view /= void then
+				Result := item_view.feed_item
+			else
+				item_view ?= list.first
+				if item_view /= void then
+					Result := item_view.feed_item
+				end
+			end
+		ensure
+			result_void_implies_empty_list: (Result = void) implies list.is_empty
+			result_not_void: Result /= void
+		end
+		
 
 feature -- Events
 
@@ -70,11 +92,11 @@ feature -- Events
 				c
 			when 1 then
 				application.logfile.log_message ("FEED_DETAIL_VIEW: sorting after names", feature {LOGFILE}.developer)
-				feed.items.set_order (create {ITEM_SORT_BY_TITLE [ITEM]})
+				feed.sort_items_by_title
 				feed.items.sort
 			when 3 then
 				application.logfile.log_message ("FEED_DETAIL_VIEW: sorting after date", feature {LOGFILE}.developer)
-				feed.items.set_order (create {ITEM_SORT_BY_PUB_DATE [ITEM]})
+				feed.sort_items_by_pub_date
 				feed.items.sort
 			else
 				

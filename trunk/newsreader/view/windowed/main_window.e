@@ -200,6 +200,18 @@ feature -- Basic Operations
 		do
 			news_view.display_feed
 		end
+	
+	selected_feed: FEED is
+			-- selected feed in news_view
+		do
+			Result := news_view.selected_feed
+		end
+		
+	selected_item: ITEM is
+			-- selected feed item in news_view
+		do
+			Result := news_view.selected_item
+		end
 		
 feature {NONE} -- Implementation
 
@@ -281,6 +293,10 @@ feature {NONE} -- Implementation
 			create accelerator.make_with_key_combination (key, true, false, false)
 			accelerator.actions.extend (agent on_edit)
 			accelerators.extend (accelerator)
+			create key.make_with_code (feature {EV_KEY_CONSTANTS}.key_u)
+			create accelerator.make_with_key_combination (key, true, false, true)
+			accelerator.actions.extend (agent on_item_edit)
+			accelerators.extend (accelerator)
 			create key.make_with_code (feature {EV_KEY_CONSTANTS}.key_d)
 			create accelerator.make_with_key_combination (key, true, false, false)
 			accelerator.actions.extend (agent on_remove)
@@ -290,9 +306,9 @@ feature {NONE} -- Implementation
 			accelerator.actions.extend (agent application.on_debug_window)
 			accelerators.extend (accelerator)
 				-- testing: 
-			create key.make_with_code (feature {EV_KEY_CONSTANTS}.key_r)
-			create accelerator.make_with_key_combination (key, true, false, false)
-			accelerator.actions.extend (agent open_url)
+			create key.make_with_code (feature {EV_KEY_CONSTANTS}.key_backquote)
+			create accelerator.make_with_key_combination (key, true, true, false)
+			accelerator.actions.extend (agent test_routine)
 			accelerators.extend (accelerator)
 				-- :texting
 		end

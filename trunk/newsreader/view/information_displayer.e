@@ -32,7 +32,7 @@ feature -- Initialization
 		end
 		
 	
-feature -- Status change
+feature -- Text display
 
 	show_initial_text (a_text: STRING) is
 			-- set initial text message
@@ -70,6 +70,28 @@ feature -- Status change
 			current_text := text
 			show_current
 		end
+
+feature -- Progress display
+
+	show_progress (s: INTEGER) is
+			-- show progress and set number of steps to s
+		require
+			s_positive: s > 0
+		deferred end
+	
+	progress_forward is
+			-- increase progress
+		deferred end
+	
+	progress_backward is
+			-- decrease progress
+		deferred end
+	
+	progress_done is
+			-- progess is done
+		deferred end
+		
+
 
 feature {NONE} -- Implementation
 

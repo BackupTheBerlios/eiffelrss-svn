@@ -20,7 +20,6 @@ feature -- Initialisation
 		local
 			i: EV_LIST_ITEM
 		do
-			feed_detail_view := detail_view
 			make
 			create list
 			
@@ -38,13 +37,17 @@ feature -- Initialisation
 			set_minimum_height (200)
 		end
 
+feature -- Basic Operations
+
+	selected_feed: FEED is
+			-- selected feed in list
+		do
+			
+		end
+		
+	
 feature {NONE} -- Implementation
 	
 	list: EV_LIST
-	
-	feed_detail_view: FEED_DETAIL_VIEW
-		-- associated detail view
 
-invariant
-	detail_view_associated: feed_detail_view /= void
 end -- class NEWSFEED_LIST

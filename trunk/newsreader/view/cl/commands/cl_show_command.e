@@ -9,6 +9,8 @@ class
 
 inherit
 	CL_COMMAND
+		rename
+			on_help_command as on_help_command_old
 		redefine
 			make
 		end
@@ -17,7 +19,10 @@ inherit
 		rename
 			make as make_parser
 		redefine
-			make_parser
+			make_parser,
+			on_help_command
+		select
+			on_help_command
 		end
 
 create
@@ -119,6 +124,27 @@ feature -- Events
 		do
 			is_stop_requested := true
 		end
+	
+	on_help_command is
+			-- 
+		local
+			disp: INFORMATION_DISPLAYER
+		do
+			disp := application.application_displayer.information_displayer
+			io.put_new_line
+			disp.show_temporary_text ("show%T%T" + Help_feed_show_command)
+			disp.show_temporary_text ("open #%T%T" + Help_feed_open_command)
+			disp.show_temporary_text ("info #%T%T" + Help_feed_info_command)
+			disp.show_temporary_text ("edit #%T%T" + Help_feed_edit_command)
+			disp.show_temporary_text ("add URI%T%T" + Help_add_command)
+			disp.show_temporary_text ("remove #%T" + Help_feed_remove_command)
+			disp.show_temporary_text ("refresh%T%T" + Help_feed_refresh_command)
+			disp.show_temporary_text ("about%T%T" + Help_about_command)
+			disp.show_temporary_text ("back%T%T" + Help_feed_back_command)
+			disp.show_temporary_text ("exit%T%T" + Help_exit_command)
+			io.put_new_line
+		end
+		
 		
 
 feature {NONE} -- Implementation

@@ -62,7 +62,18 @@ feature --  Basic Operations
 		do
 			feed_detail_view.display_feed (application.current_feed)
 		end
-		
+	
+	selected_feed: FEED is
+			-- selected feed in newsfeed_list
+		do
+			
+		end
+	
+	selected_item: ITEM is
+			-- selected feed item in feed_detail_view
+		do
+			Result := feed_detail_view.selected_item
+		end
 
 feature {NONE} -- Implementation
 
