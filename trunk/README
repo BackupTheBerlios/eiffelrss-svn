@@ -8,4 +8,6 @@ structured API for RSS.
 The distribution also contains a RSS newsfeed reader written with
 EiffelVision and EiffelRSS.
 
+EiffelRSS needs ISE Eiffel 5.5 and Gobo 3.3 (comes with ISE EiffelStudio 5.5).
+
 For more information see documentation in doc/.
