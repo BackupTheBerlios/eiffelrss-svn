@@ -48,6 +48,8 @@ feature -- Initialization
 			address_list.sort
 			address_list.do_all (agent print_address)
 			
+			address_list.prune (address)
+			
 			io.put_string ("* By phone number:%N")
 			address_list.set_order (create {SORT_BY_PHONE_NUMBER[ADDRESS]})
 			address_list.sort
