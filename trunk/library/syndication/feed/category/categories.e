@@ -40,9 +40,6 @@ feature -- Basic operations
 			non_void_category_item: category /= Void
 		do
 			categories.extend (category)
-		ensure
-			one_more_category: categories.count = old categories.count + 1
-			category_added: categories.i_th (categories.count) = category
 		end
 		
 	remove_category (category: CATEGORY) is

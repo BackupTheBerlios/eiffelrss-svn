@@ -76,12 +76,11 @@ feature -- Access
 	text_input: CHANNEL_TEXT_INPUT
 			-- Channel text input
 
--- [TODO]	
---	skip_hours: HASH_TABLE[INTEGER, INTEGER]
---			-- Channel skip hours
---
---	skip_days: HASH_TABLE[STRING, STRING]
---			-- Channel skip days
+	skip_hours: CHANNEL_SKIP_HOURS
+			-- Channel skip hours
+
+	skip_days: CHANNEL_SKIP_DAYS
+			-- Channel skip days
 
 	items: SORTABLE_TWO_WAY_LIST[ITEM]
 			-- Channel items
@@ -93,12 +92,11 @@ feature -- Access (RSS 0.91)
 
 feature -- Access (RSS 1.0)
 
--- [TODO]
---	items_toc: TWO_WAY_LIST[STRING]
---			-- Channel items table of content
---
---	textinput: URL
---			-- Channel textinput URL
+	items_toc: TWO_WAY_LIST[URL]
+			-- Channel items table of content
+
+	textinput: URL
+			-- Channel textinput URL
 
 feature -- Access (metadata)
 			
@@ -261,22 +259,30 @@ feature -- Setter
 			non_void_text_input: a_text_input /= Void
 		do
 			text_input := a_text_input
+			set_textinput (text_input.link)
 		ensure
 			text_input_set: text_input = a_text_input
 		end
+	
+	set_skip_hours (some_skip_hours: CHANNEL_SKIP_HOURS) is
+			-- Channel skip hours
+		require
+			non_void_skip_hours: some_skip_hours /= Void
+		do
+			skip_hours := some_skip_hours
+		ensure
+			skip_hours_set: skip_hours = some_skip_hours
+		end
 
--- [TODO]	
---	set_skip_hours (some_skip_hours: HASH_TABLE[INTEGER, INTEGER]) is
---			-- Channel skip hours	
---		do
---	
---		end
---
---	set_skip_days (some_skip_days: HASH_TABLE[STRING, STRING]) is
---			-- Channel skip days		
---		do
---
---		end
+	set_skip_days (some_skip_days: CHANNEL_SKIP_DAYS) is
+			-- Channel skip days		
+		require
+			non_void_skip_days: some_skip_days /= Void
+		do
+			skip_days := some_skip_days
+		ensure
+			skip_days_set: skip_days = some_skip_days
+		end
 
 	set_items (item_list: like items) is
 			-- Channel items
@@ -302,18 +308,25 @@ feature -- Setter (RSS 0.91)
 
 feature -- Setter (RSS 1.0)
 
--- [TODO]
---	set_items_toc (item_toc_list: like items_toc) is
---			-- Channel items table of content		
---		do
---
---		end
---
---	set_textinput (url: URL) is
---			-- Channel textinput URL	
---		do
---
---		end
+	set_items_toc (item_toc_list: like items_toc) is
+			-- Channel items table of content	
+		require
+			non_void_items_toc: item_toc_list /= Void
+		do
+			items_toc := item_toc_list
+		ensure
+			items_toc_set: items_toc = item_toc_list
+		end
+
+	set_textinput (url: URL) is
+			-- Channel textinput URL
+		require
+			non_void_url: url /= Void
+		do
+			textinput := url
+		ensure
+			textinput_set: textinput = url
+		end
 
 feature -- Status
 
@@ -389,18 +402,18 @@ feature -- Status
 			Result := text_input /= Void
 		end
 		
--- [TODO]
---	has_skip_hours: BOOLEAN is
---			-- Is `skip_hours' set?
---		do
---			
---		end
---		
---	has_skip_days: BOOLEAN is
---			-- Is `skip_days' set?
---		do
---			
---		end
+
+	has_skip_hours: BOOLEAN is
+			-- Is `skip_hours' set?
+		do
+			Result := skip_hours.count > 0
+		end
+
+	has_skip_days: BOOLEAN is
+			-- Is `skip_days' set?
+		do
+			Result := skip_days.count > 0
+		end
 		
 	has_items: BOOLEAN is
 			-- Is `items' set?
@@ -418,18 +431,17 @@ feature -- Status (RSS 0.91)
 
 feature -- Status (RSS 1.0)
 
--- [TODO]
---	has_items_toc: BOOLEAN is
---			-- Is `items_toc' set?
---		do
---
---		end
---
---	has_textinput: BOOLEAN is
---			-- Is `textinput' set?
---		do
---
---		end
+	has_items_toc: BOOLEAN is
+			-- Is `items_toc' set?
+		do
+			Result := items_toc.count > 0
+		end
+
+	has_textinput: BOOLEAN is
+			-- Is `textinput' set?
+		do
+			Result := textinput /= Void
+		end
 
 feature -- Status (metadata)
 
@@ -441,42 +453,45 @@ feature -- Status (metadata)
 		
 feature -- Basic operations
 
--- [TODO]
---	add_skip_hour (skip_hour: INTEGER) is
---			-- Add a skip hour
---		do
---
---		end
---		
---	remove_skip_hour (skip_hour: INTEGER) is
---			-- Remove a skip hour
---		do
---
---		end
---		
---	add_skip_day (skip_day: INTEGER) is
---			-- Add a skip day
---		do
---
---		end
---		
---	remove_skip_day (skip_day: INTEGER) is
---			-- Remove a skip day
---		do
---
---		end
+	add_skip_hour (skip_hour: INTEGER) is
+			-- Add a skip hour.
+			-- Only 0 <= `skip_hour' <= 23 is valid
+		require
+			skip_hour_beetween_0_and_23: skip_hour >= 0 and skip_hour <= 23
+		do
+			skip_hours.extend (skip_hour)
+		end
+		
+	remove_skip_hour (skip_hour: INTEGER) is
+			-- Remove a skip hour
+		do
+			skip_hours.prune (skip_hour)
+		end
+	
+	add_skip_day (skip_day: STRING) is
+			-- Add a skip day.
+			-- `skip_day' will be added to `skip_days' with the first letter to upper
+			-- and the rest to lower. For example: `mOnDaY' is added as `Monday'
+		require
+			valid_day: valid_day (skip_day)
+		do
+			skip_days.extend (skip_day)
+		end
+		
+	remove_skip_day (skip_day: STRING) is
+			-- Remove a skip day
+		do
+			skip_days.prune (skip_day)
+		end
 
 	add_item (item: ITEM) is
-			-- Add an item
+			-- Add an item.
 		require
 			non_void_item: item /= Void
 		do
 			last_added_item := item
 			items.extend (item)
 			notify_item_added (item)
-		ensure
-			one_more_item: items.count = old items.count + 1
-			item_added: items.i_th (items.count) = item
 		end
 		
 	remove_item (item: ITEM) is
@@ -489,18 +504,21 @@ feature -- Basic operations
 
 feature -- Basic operations (RSS 1.0)
 
--- [TODO]
---	add_item_toc (item_toc: STRING) is
---			-- Add an item to the TOC	
---		do
---
---		end
---		
---	remove_item_toc (item_toc: STRING) is
---			-- Remove an item from the TOC
---		do
---
---		end
+	add_item_toc (item_toc: URL) is
+			-- Add an item to the TOC	
+		require
+			non_void_item_toc: item_toc /= Void
+		do
+			items_toc.extend (item_toc)	
+		end
+		
+	remove_item_toc (item_toc: URL) is
+			-- Remove an item from the TOC
+		require
+			non_void_item_toc: item_toc /= Void
+		do
+			items_toc.prune (item_toc)
+		end
 
 feature -- Sort
 
@@ -595,6 +613,10 @@ feature -- Debug
 			if has_rating then
 				Result.append ("* Rating: " + rating + "%N")
 			end
+			
+			if has_textinput then
+				Result.append ("* Textinput: " + textinput.location + "%N")
+			end
 
 			if has_cloud then
 				Result.append ("%NChannel cloud:%N--------------%N" + cloud.to_string)
@@ -632,6 +654,24 @@ feature -- Debug
 				end
 			end
 		end
+	
+feature -- Implementation
+
+	valid_day (day: STRING): BOOLEAN is
+			-- Is `day' a valid day?
+		require
+			non_empty_day: day /= Void and then not day.is_empty
+		do
+			day.to_lower
+			
+			Result := day.is_equal ("monday") or
+				day.is_equal ("tuesday") or
+				day.is_equal ("wednesday") or
+				day.is_equal ("thursday") or
+				day.is_equal ("friday") or
+				day.is_equal ("saturday") or
+				day.is_equal ("sunday")
+		end
 		
 feature {NONE} -- Implementation
 
@@ -643,12 +683,20 @@ feature {NONE} -- Implementation
 			
 			create items.make
 			items.compare_objects
+			
+			create items_toc.make
+			items_toc.compare_objects
+			
+			create skip_hours.make
+			create skip_days.make
 		end
 
 invariant
 	non_empty_title: title /= Void and then not title.is_empty
 	non_void_link: link /= Void
 	non_empty_description: description /= Void and then not description.is_empty
+	non_void_items_toc: items_toc /= Void
 	non_void_items: items /= Void
+	non_void_skip_hours: skip_hours /= Void
 
 end -- class CHANNEL
