@@ -20,9 +20,9 @@ feature -- Initialization
 			io.put_string ("===============================%N%N")
 			
 			-- Open files
-			create input_file.make_open_read ("input.properties")
-			create output_file.make_create_read_write ("output.properties")
-			create defaults_file.make_open_read ("defaults.properties")
+			create input_file.make_open_read ("./test/input.properties")
+			create output_file.make_create_read_write ("./test/output.properties")
+			create defaults_file.make_open_read ("./test/defaults.properties")
 			
 			-- Create default properties
 			create defaults.make (10)
