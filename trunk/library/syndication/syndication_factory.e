@@ -9,7 +9,7 @@ class
 
 feature -- READER factory
 
-	new_	reader_from_url (a_url: STRING): FEED_READER is
+	new_reader_from_url (a_url: STRING): FEED_READER is
 			-- Create with `a_url' as source of feed
 		require
 			valid_url: a_url /= Void

@@ -52,55 +52,55 @@ feature -- Setter
 			set_skip_days (a_channel.skip_days)
 			set_items_toc (a_channel.items_toc)
 			
-			if language /= Void then
+			if a_channel.has_language then
 				set_language (a_channel.language)
 			end
 
-			if copyright /= Void then
+			if a_channel.has_copyright then
 				set_copyright (a_channel.copyright)
 			end
 			
-			if managing_editor /= Void then
+			if a_channel.has_managing_editor then
 				set_managing_editor (a_channel.managing_editor)
 			end
 			
-			if web_master /= Void then
+			if a_channel.has_web_master then
 				set_web_master (a_channel.web_master)
 			end
 			
-			if pub_date /= Void then
+			if a_channel.has_pub_date then
 				set_pub_date (a_channel.pub_date)
 			end
 			
-			if last_build_date /= Void then
+			if a_channel.has_last_build_date then
 				set_last_build_date (a_channel.last_build_date)
 			end
 			
-			if feed_generator /= Void then
+			if a_channel.has_feed_generator then
 				set_feed_generator (a_channel.feed_generator)
 			end
 			
-			if docs /= Void then
+			if a_channel.has_docs then
 				set_docs (a_channel.docs)
 			end
 			
-			if cloud /= Void then
+			if a_channel.has_cloud then
 				set_cloud (a_channel.cloud)
 			end
 
-			if image /= Void then
+			if a_channel.has_image then
 				set_image (a_channel.image)
 			end
 			
-			if text_input /= Void then
+			if a_channel.has_text_input then
 				set_text_input (a_channel.text_input)
 			end
 			
-			if rating /= Void then
+			if a_channel.has_rating then
 				set_rating (a_channel.rating)
 			end			
 
-			if textinput /= Void then
+			if a_channel.has_textinput then
 				set_textinput (a_channel.textinput)
 			end	
 		end
