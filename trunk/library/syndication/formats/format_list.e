@@ -1,6 +1,6 @@
 indexing
-	description: "Objects that ..."
-	author: ""
+	description: "Class which manages all formats"
+	author: "Michael Käser"
 	date: "$Date$"
 	revision: "$Revision$"
 
@@ -65,7 +65,7 @@ feature -- Access
 		end
 	end	
 
-	feature detect_format (a_document: XM_DOCUMENT): STRING is
+	detect_format (a_document: XM_DOCUMENT): STRING is
 			-- Get the format name for `a_document'
 	do
 		Result := "Error"

@@ -1,6 +1,6 @@
 indexing
-	description: "Objects that ..."
-	author: ""
+	description: "External resolver for xml parser which ignores all external entities"
+	author: "Michael Käser"
 	date: "$Date$"
 	revision: "$Revision$"
 

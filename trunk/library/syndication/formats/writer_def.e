@@ -1,6 +1,6 @@
 indexing
-	description: "Objects that ..."
-	author: ""
+	description: "Base class for writer objects"
+	author: "Michael Käser"
 	date: "$Date$"
 	revision: "$Revision$"
 

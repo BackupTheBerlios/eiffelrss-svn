@@ -1,6 +1,6 @@
 indexing
-	description: "Objects that ..."
-	author: ""
+	description: "Singleton pattern factory for FORMAT_LIST"
+	author: "Michael Käser"
 	date: "$Date$"
 	revision: "$Revision$"
 

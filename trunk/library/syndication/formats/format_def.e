@@ -1,6 +1,6 @@
 indexing
-	description: "Objects that ..."
-	author: ""
+	description: "Base class for format objects"
+	author: "Michael Käser"
 	date: "$Date$"
 	revision: "$Revision$"
 
@@ -10,18 +10,21 @@ deferred class
 feature{FORMAT_LIST} -- Access
 	
 	get_reader: READER_DEF is
+			-- Return a reader object
 	deferred
 	ensure
 		valid_result: Result /= Void
 	end
 
 	get_writer: WRITER_DEF is
+			-- Return a writer object
 	deferred
 	ensure
 		valid_result: Result /= Void
 	end
 
 	get_name: STRING is
+			-- Return the format name
 	deferred
 	ensure
 		valid_result: Result /= Void
