@@ -24,6 +24,14 @@ feature -- Setter
 			observers_set: observers = observer_list
 		end
 
+feature -- Status
+
+	has_observers: BOOLEAN is
+			-- Is `observers' set?
+		do
+			Result := observers.count > 0
+		end
+
 feature -- Basic operations
 
 	add_observer (an_observer: CHANNEL_OBSERVER) is
