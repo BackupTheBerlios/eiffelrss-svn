@@ -1,5 +1,5 @@
 indexing
-	description: "Example class for PROPERTIES"
+	description: "Example class for properties."
 	author: "Thomas Weibel"
 	date: "$Date$"
 	revision: "$Rev$"
