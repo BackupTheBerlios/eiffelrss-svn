@@ -9,9 +9,6 @@ class
 	
 inherit
 	HASH_TABLE [STRING, STRING]
-	rename
-		item as item_no_defaults,
-		infix "@" as infix "&"
 	redefine
 		make
 	end
@@ -39,39 +36,32 @@ feature -- Initialization
 		
 feature -- Access
 
-	item, infix "@" (key: STRING): STRING is
+	get, infix "&" (key: STRING): STRING is
 			-- Item associated with `key', if present
 			-- otherwise default value from `defaults'
 		require else
 			key_not_void: key /= Void
-		local
-			old_control, old_position: INTEGER
 		do
-			old_control := control; old_position := position
-			internal_search (key)
-			if found then
-				Result := content.item (position)
-			end
-			control := old_control; position := old_position
+			Result := item (key)
 			
 			-- If there is no entry with key `key' in the properties list, and `defaults'
 			-- is defined, lookup `default' for key `key'
 			if Result = Void and defaults /= Void then
-				Result := defaults.item (key)
+				Result := defaults.get (key)
 			end
-		ensure then
+		ensure
 			default_value_if_not_present:
-				defaults /= Void and then (not (has (key))) implies (Result = defaults.item (key))
+				defaults /= Void and then (not (has (key))) implies (Result = defaults.get (key))
 		end
 
-	item_default (key: STRING; def: STRING): STRING is
+	get_default (key: STRING; def: STRING): STRING is
 			-- Item associated with `key', if present
 			-- otherwise default value `default'
 		require
 			key_not_void: key /= Void
 			default_not_void: def /= Void
 		do
-			Result := item (key)
+			Result := get (key)
 			
 			-- If there is no entry with key `key' in the properties list, return
 			-- `default'
@@ -80,7 +70,7 @@ feature -- Access
 			end
 		ensure then
 			default_value_if_not_present:
-				(item (key) = Void) implies (Result = def)
+				(get (key) = Void) implies (Result = def)
 		end
 		
 feature -- Persistence

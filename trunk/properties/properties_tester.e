@@ -50,12 +50,12 @@ feature -- Initialization
 			io.put_string ("Queries: %N")
 			io.put_string ("========%N")
 			-- From settings
-			io.put_string ("Hitchhikers: " + settings.item_default ("hitchhikers", "Ford, Arthur") + "%N")
-			io.put_string ("Paranoid: " + settings @ "paranoid" + "%N")
+			io.put_string ("Hitchhikers: " + settings.get_default ("hitchhikers", "Ford, Arthur") + "%N")
+			io.put_string ("Paranoid: " + settings & "paranoid" + "%N")
 			-- From defaults
-			io.put_string ("Important item: " + settings.item ("important") + "%N")
+			io.put_string ("Important item: " + settings.get ("important") + "%N")
 			-- Not in property or defaults list, but default value specified in feature call
-			io.put_string ("Reporter: " + settings.item_default ("reporter", "Ford") + "%N")
+			io.put_string ("Reporter: " + settings.get_default ("reporter", "Ford") + "%N")
 			
 			io.put_new_line
 			

@@ -247,11 +247,11 @@ make_defaults (n: INTEGER; def: PROPERTIES)
 \label{sec:access}
 
 
-\subsection{item}
-\label{sec:item}
+\subsection{get}
+\label{sec:get}
 
 \begin{lstlisting}[language=Eiffel]
-item (key: STRING): STRING
+get (key: STRING): STRING
   -- Item associated with `key', if present
   -- otherwise default value from `defaults'
 \end{lstlisting}
@@ -261,24 +261,25 @@ list. If the key is not found, the default property list, and its
 defaults, recursively, are checked. It returns \texttt{Void} if the
 property is not found.
 
+\pagebreak
 
-\subsection{infix "@"}
-\label{sec:infix_at}
+\subsection{infix "\&"}
+\label{sec:infix_ampersand}
 
 \begin{lstlisting}[language=Eiffel]
-infix "@" (key: STRING): STRING
+infix "&" (key: STRING): STRING
   -- Item associated with `key', if present
   -- otherwise default value from `defaults'
 \end{lstlisting}
 
-Same as \texttt{item}, but used for infix notation.
+Same as \texttt{get}, but used for infix notation.
 
 
-\subsection{item\_default}
-\label{sec:item_default}
+\subsection{get\_default}
+\label{sec:get_default}
 
 \begin{lstlisting}[language=Eiffel]
-item_default (key: STRING; def: STRING): STRING
+get_default (key: STRING; def: STRING): STRING
   -- Item associated with `key', if present
   -- otherwise default value `default'
 \end{lstlisting}
@@ -333,6 +334,8 @@ first non-white character and up to, but not including, the first
 unescaped \texttt{=} or \texttt{:}. Both key termination characters
 may be included in the key by escaping them with a preceding backslash
 character.
+
+\pagebreak
 
 For example,
 
