@@ -52,6 +52,7 @@ feature -- Initialization
 			hbox.disable_item_expand (vbox)
 			create description
 			description.set_minimum_height (description.height * 2)
+			description.enable_word_wrapping
 			hbox.extend (description)
 			content.extend (hbox)
 				-- link
@@ -100,7 +101,9 @@ feature {NONE} -- Implementation
 			
 		end
 	
-	item_title, description, link, author, pub_date: EV_TEXT_FIELD
+	item_title, link, author, pub_date: EV_TEXT_FIELD
+	
+	description: EV_TEXT
 	
 	label_width: INTEGER is 70
 	

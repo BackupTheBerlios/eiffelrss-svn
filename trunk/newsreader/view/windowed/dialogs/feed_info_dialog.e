@@ -52,6 +52,7 @@ feature -- Initialization
 			hbox.disable_item_expand (vbox)
 			create description
 			description.set_minimum_height (description.height * 2)
+			description.enable_word_wrapping
 			hbox.extend (description)
 			content.extend (hbox)
 				-- link
@@ -152,7 +153,9 @@ feature {NONE} -- Implementation
 	
 	feed: FEED
 	
-	feed_title, description, link, pub_date, language, copyright, managing_editor, web_master, last_build_date, feed_generator, docs: EV_TEXT_FIELD
+	feed_title, link, pub_date, language, copyright, managing_editor, web_master, last_build_date, feed_generator, docs: EV_TEXT_FIELD
+	
+	description: EV_TEXT
 
 	label_width: INTEGER is 90
 	
@@ -207,10 +210,6 @@ feature {NONE} -- Implementation
 				feed_generator.set_text (feed.feed_generator)
 			end
 			application.application_displayer.information_displayer.progress_forward
---				-- docs
---			if feed.has_docs then
---				docs.set_text (feed.docs.location)
---			end
 			application.application_displayer.information_displayer.progress_done
 		end
 		
