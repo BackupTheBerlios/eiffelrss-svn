@@ -1,5 +1,5 @@
 %===============================================================================
-% FETCH
+% FETCH Developer Guide
 %===============================================================================
 % $Id$
 %===============================================================================
@@ -13,7 +13,7 @@
 %-------------------------------------------------------------------------------
 % \documentclass and \usepackage directives
 %-------------------------------------------------------------------------------
-\documentclass[a4paper,fleqn]{report} 
+\documentclass[a4paper,fleqn,titlepage]{article}
 %\usepackage{ngerman}
 \usepackage[latin1]{inputenc}
 \usepackage[T1]{fontenc}
@@ -53,10 +53,10 @@
   ]{hyperref} 
 
   \pdfinfo{
-    /Title      (FETCH)
-    /Author     (Thomas Weibel)
+    /Title      (EiffelRSS FETCH Developer Guide)
+    /Author     (Thomas Weibel, Martin Luder, Michael Käser)
     /Subject    (Eiffel programming)
-    /Keywords   (Programming, Eiffel, Configuration)
+    /Keywords   (Programming, EiffelRSS)
   }
 
   % Use default Acrobat reader fonts
@@ -99,18 +99,18 @@
   \lhead{\nouppercase{\leftmark}}
   \chead{}
   \rhead{\thepage}
-  \lfoot{FETCH}
+  \lfoot{EiffelRSS}
   \cfoot{}
-  \rfoot{Developer Guide}
+  \rfoot{FETCH Developer Guide}
 }
 
 \lhead{\nouppercase{\leftmark}}
 \chead{}
 \rhead{\thepage}
 
-\lfoot{FETCH}
+\lfoot{EiffelRSS}
 \cfoot{}
-\rfoot{Developer Guide}
+\rfoot{FETCH Developer Guide}
 
 
 %-------------------------------------------------------------------------------
@@ -169,7 +169,7 @@
       \noindent\rule{\textwidth}{3pt}\\[2.5ex]
 
       \hfill\emph{
-        \Large FETCH: Developer Guide
+        \Large FETCH Developer Guide
       }
     \end{minipage}
   }
@@ -211,20 +211,16 @@
 \clearpage
 \listoffigures
 
-\chapter{Introduction}
-\label{cha:introduction}
+\newpage
 
+\section{Overview}
+\label{sec:overview}
 
 % Set page counter to zero
 \setcounter{page}{0} 
 
 % Use arabic page numbering
 \pagenumbering{arabic}
-
-
-\section{Overview}
-\label{sec:overview}
-
 \texttt{FETCH} is a class which has features that can fetch data from
 a source address to a local \texttt{STRING} using various services.
   
@@ -236,15 +232,27 @@ A valid source address has the following format:
 
 Supported services are: file, http, ftp.
 
-See figure \ref{fig:uml-diagram} for an overview of the class.
+See figure \ref{fig:cluster} for an overview of the cluster.
 
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=\textwidth]{./figures/uml}
-  \caption{UML diagram of \texttt{FETCH}}
-  \label{fig:uml-diagram}
+  \includegraphics[scale=.6]{./figures/EIFFELRSS_FETCH}
+  \caption{BON diagram of cluster \texttt{FETCH}}
+  \label{fig:cluster}
 \end{figure}
 
+Figure \ref{fig:classes} shows the classes \texttt{FETCH} and
+\texttt{FETCH\_HTTP\_PROTOCOL}.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[scale=.6]{./figures/FETCH} $\;\;\;\;$
+  \includegraphics[scale=.6]{./figures/FETCH_HTTP_PROTOCOL}
+  \caption{BON diagram of classes \texttt{FETCH} and \texttt{FETCH\_HTTP\_PROTOCOL}}
+  \label{fig:classes}
+\end{figure}
+
+\newpage
 
 \section{Usage}
 \label{sec:usage}
@@ -291,25 +299,22 @@ end -- class USAGE_EXAMPLE
 \end{lstlisting}
 
 
-\chapter{Features}
-\label{cha:features}
+\section{Features of FETCH}
+\label{sec:features}
 
-
-\section{Initialization}
+\subsection{Initialization}
 \label{sec:initialization}
 
 
-\subsection{make}
-\label{sec:make}
+\subsubsection{make}
 
 \begin{lstlisting}[language=Eiffel]
-make ()
+make
   -- Create the object without a source address
 \end{lstlisting}
 
 
-\subsection{make\_source}
-\label{sec:make_source}
+\subsubsection{make\_source}
 
 \begin{lstlisting}[language=Eiffel]
 make_source (an_address: STRING) is
@@ -317,12 +322,11 @@ make_source (an_address: STRING) is
 \end{lstlisting}
 
 
-\section{Access}
+\subsection{Access}
 \label{sec:access}
 
 
-\subsection{data}
-\label{sec:data}
+\subsubsection{data}
 
 \begin{lstlisting}[language=Eiffel]
 data: STRING
@@ -332,8 +336,7 @@ data: STRING
 This can be void if there was an error.
 
 
-\subsection{source\_address}
-\label{sec:source_address}
+\subsubsection{source\_address}
 
 \begin{lstlisting}[language=Eiffel]
 source_address: STRING
@@ -343,8 +346,7 @@ source_address: STRING
 This can be void.
 
 
-\subsection{error}
-\label{sec:error}
+\subsubsection{error}
 
 \begin{lstlisting}[language=Eiffel]
 error: INTEGER
@@ -361,12 +363,11 @@ there was a problem when trying to load the data, i.e. there was no
 connection to the internet.
 
 
-\section{Basic Operations}
+\subsection{Basic Operations}
 \label{sec:basic-operations}
 
 
-\subsection{set\_address}
-\label{sec:set_address}
+\subsubsection{set\_address}
 
 \begin{lstlisting}[language=Eiffel]
 set_address (an_address: STRING)
@@ -377,8 +378,7 @@ This sets the source address to \texttt{an\_address}. After calling
 this feature, \texttt{error} can be \texttt{Invalid\_address}.
 
 
-\subsection{fetch}
-\label{sec:fetch}
+\subsubsection{fetch}
 
 \begin{lstlisting}[language=Eiffel]
 fetch
