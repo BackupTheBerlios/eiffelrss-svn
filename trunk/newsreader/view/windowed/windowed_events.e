@@ -13,7 +13,7 @@ inherit
 
 feature {NONE} -- Events
 
-	on_preferences is
+	show_preferences is
 			-- Open preferences dialog
 		local
 			preferences_dialog: PREFERENCES_DIALOG
@@ -24,7 +24,7 @@ feature {NONE} -- Events
 			if mw /= void then preferences_dialog.show_modal_to_window (mw) end
 		end
 	
-	on_exit is
+	exit is
 			-- exit application
 		local
 			mw: MAIN_WINDOW
@@ -33,7 +33,7 @@ feature {NONE} -- Events
 			if mw /= void then mw.request_close_window end
 		end
 
-	on_about is
+	show_about is
 			-- open about dialog
 		local
 			about_dialog: ABOUT_DIALOG
@@ -90,7 +90,7 @@ feature {NONE} -- Events
 			edit_dialog: ITEM_EDIT_DIALOG
 			mw: MAIN_WINDOW
 		do
-			if application.current_feed.items.count > 0 then
+			if application.current_feed /= void and then application.current_feed.items.count > 0 then
 				create edit_dialog.make
 				mw ?= application.application_displayer
 				if mw /= void then edit_dialog.show_modal_to_window (mw) end
@@ -103,12 +103,13 @@ feature {NONE} -- Events
 			mw: MAIN_WINDOW
 		do
 			mw ?= application.application_displayer
-			if mw /= void then 
+			if mw /= void and application.current_feed /= void then 
 				if mw.has_feed_focus then
-					on_feed_remove
+					remove_feed
 					mw.show_feed_list
+					mw.show_feed
 				elseif mw.has_item_focus then
-					on_item_remove (mw.selected_item)
+					remove_item (mw.selected_item)
 					mw.show_feed
 				end
 			end

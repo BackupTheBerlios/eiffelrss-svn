@@ -201,6 +201,13 @@ feature -- Events
 			application.properties.force ("no", "Window_minimized")
 			application.properties.force ("no", "Window_maximized")
 		end
+	
+	on_item_remove is
+			-- remove selected item
+		do
+			remove_item (selected_item)
+		end
+		
 
 feature -- Access
 	
@@ -314,12 +321,12 @@ feature {NONE} -- Implementation
 				-- CTRL-Q: quit application
 			create key.make_with_code (feature {EV_KEY_CONSTANTS}.key_q)
 			create accelerator.make_with_key_combination (key, true, false, false)
-			accelerator.actions.extend (agent on_exit)
+			accelerator.actions.extend (agent exit)
 			accelerators.extend (accelerator)
 				-- CTRL-P: open preferences
 			create key.make_with_code (feature {EV_KEY_CONSTANTS}.key_p)
 			create accelerator.make_with_key_combination (key, true, false, false)
-			accelerator.actions.extend (agent on_preferences)
+			accelerator.actions.extend (agent show_preferences)
 			accelerators.extend (accelerator)
 				-- CTRL-N: add new feed
 			create key.make_with_code (feature {EV_KEY_CONSTANTS}.key_n)
@@ -329,34 +336,39 @@ feature {NONE} -- Implementation
 				-- CTRL-T: refresh feed
 			create key.make_with_code (feature {EV_KEY_CONSTANTS}.key_t)
 			create accelerator.make_with_key_combination (key, true, false, false)
-			accelerator.actions.extend (agent on_refresh)
+			accelerator.actions.extend (agent refresh)
 			accelerators.extend (accelerator)
 				-- CTRL-SHIFT-T: refresh all feeds
 			create key.make_with_code (feature {EV_KEY_CONSTANTS}.key_t)
 			create accelerator.make_with_key_combination (key, true, false, true)
-			accelerator.actions.extend (agent on_refresh_all)
+			accelerator.actions.extend (agent refresh_all)
 			accelerators.extend (accelerator)
 				-- CTRL-U: edit feed/item
 			create key.make_with_code (feature {EV_KEY_CONSTANTS}.key_u)
 			create accelerator.make_with_key_combination (key, true, false, false)
 			accelerator.actions.extend (agent on_edit)
 			accelerators.extend (accelerator)
-				-- CTRL-D: remove selected feed/item
+				-- CTRL-D: remove selected feed
 			create key.make_with_code (feature {EV_KEY_CONSTANTS}.key_d)
 			create accelerator.make_with_key_combination (key, true, false, false)
-			accelerator.actions.extend (agent on_remove)
+			accelerator.actions.extend (agent remove_feed)
+			accelerators.extend (accelerator)
+				-- CTRL-SHIFT-D: remove selected item
+			create key.make_with_code (feature {EV_KEY_CONSTANTS}.key_d)
+			create accelerator.make_with_key_combination (key, true, false, true)
+			accelerator.actions.extend (agent on_item_remove)
 			accelerators.extend (accelerator)
 				-- CTRL-ALT-TAB: open/close debug window
 			create key.make_with_code (feature {EV_KEY_CONSTANTS}.key_tab)
 			create accelerator.make_with_key_combination (key, true, true, false)
 			accelerator.actions.extend (agent application.on_debug_window)
 			accelerators.extend (accelerator)
-				-- CTRL-ALT-`: test things (test_routing in COMMON_EVENTS): TO BE REMOVED
-			create key.make_with_code (feature {EV_KEY_CONSTANTS}.key_backquote)
-			create accelerator.make_with_key_combination (key, true, true, false)
-			accelerator.actions.extend (agent test_routine)
-			accelerators.extend (accelerator)
-				-- :texting
+--				-- CTRL-ALT-`: test things (test_routing in COMMON_EVENTS): TO BE REMOVED
+--			create key.make_with_code (feature {EV_KEY_CONSTANTS}.key_backquote)
+--			create accelerator.make_with_key_combination (key, true, true, false)
+--			accelerator.actions.extend (agent test_routine)
+--			accelerators.extend (accelerator)
+--				-- :testing
 		end
 		
 

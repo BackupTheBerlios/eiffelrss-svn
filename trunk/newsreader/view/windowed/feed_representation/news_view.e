@@ -68,17 +68,15 @@ feature --  Basic Operations
 			-- set feed to be shown in detail view
 		do
 			if not application.feed_manager.is_empty then
-				feed_detail_view.display_feed (application.current_feed)
+				if application.current_feed /= void then
+					feed_detail_view.display_feed (application.current_feed)
+				end
+			else
+				feed_detail_view.wipe_out_list
 			end
 		end
 
 feature -- Access
-
-	selected_feed: FEED is
-			-- selected feed in newsfeed_list
-		do
-			
-		end
 	
 	selected_item: ITEM is
 			-- selected feed item in feed_detail_view

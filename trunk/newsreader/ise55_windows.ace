@@ -60,9 +60,12 @@ cluster
 
 	feed_context (commands):		"$\feed_context"
 
-	library eiffelrss:		"..\library"
+	all eiffelrss:		"..\library"
 		exclude
 			".svn"; 
+		default
+			assertion (no)
+			trace (no)
 		end
 
 	library base:		"$ISE_EIFFEL\library\base"
@@ -76,7 +79,10 @@ cluster
 		end
 
 	library net:		"$ISE_EIFFEL\library\net"
-
+		default
+			assertion (no)
+			trace (no)
+		end
 
 	library gobo:		"$ISE_EIFFEL\free_add_ons\gobo\library"
 		exclude
@@ -87,7 +93,6 @@ cluster
 		end
 
 	library wel:		"$ISE_EIFFEL\library\wel"
-
 
 	library vision2:		"${ISE_EIFFEL}\library\vision2"
 		exclude

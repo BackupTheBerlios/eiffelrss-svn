@@ -12,17 +12,17 @@ inherit
 
 feature -- Events
 
-	on_preferences is
+	show_preferences is
 			-- preferences setting access
 		deferred
 		end
 	
-	on_exit is
+	exit is
 			-- exit application
 		deferred
 		end
 
-	on_about is
+	show_about is
 			-- show about information
 		deferred
 		end
@@ -30,27 +30,28 @@ feature -- Events
 	add_feed (url: STRING) is
 			-- add feed with URI 'address'
 		do
-			application.load_feed (create{STRING}.make_from_string (url))
-			application.feeds.extend (url)
+			application.load_feed (url)
 		end
 
-	on_feed_remove is
+	remove_feed is
 			-- remove current feed
 		do
-			application.logfile.log_message ("Removing feed '" + application.current_feed.title + "'", feature{LOGFILE}.Info)
-			application.feed_manager.remove (application.current_feed_url)
-			application.logfile.log_message ("Removing feed url '" + application.current_feed_url + "'", feature{LOGFILE}.Info)
-			application.feeds.search (application.current_feed_url)
-			if not application.feeds.exhausted then
-				application.feeds.remove
-			end
-			if not application.feed_manager.is_empty then
-				application.feed_manager.start
-				application.set_current_feed_url (application.feed_manager.key_for_iteration)
+			if application.current_feed /= void then
+				application.logfile.log_message ("Removing feed '" + application.current_feed.title + "'", feature{LOGFILE}.Info)
+				application.feed_manager.remove (application.current_feed.link.location)
+				debug
+					application.logfile.log_message ("Removing feed url '" + application.current_feed.link.location + "'", feature{LOGFILE}.Info)
+				end
+				if not application.feed_manager.is_empty then
+					application.feed_manager.start
+					application.set_current_feed (application.feed_manager.item_for_iteration)
+				else
+					application.set_current_feed_void
+				end
 			end
 		end
 	
-	on_item_remove (an_item: ITEM) is
+	remove_item (an_item: ITEM) is
 			-- remove an_item from current feed
 		require
 			an_item_not_void: an_item /= void
@@ -62,13 +63,13 @@ feature -- Events
 			end
 		end
 		
-	on_refresh is
+	refresh is
 			-- refresh current feed
 		do
 			
 		end
 		
-	on_refresh_all is
+	refresh_all is
 			-- refresh all feeds
 		do
 			
@@ -94,26 +95,11 @@ feature -- Events
 			end
 		end
 
-	test_routine is
-			-- routine the only purpose of which is to do testing :)
-		local
-			sbar: STATUS_BAR
-			i: INTEGER
-		do
-			sbar ?= application.application_displayer.information_displayer
-			if sbar /= void then
-				sbar.show_progress (5)
-				from
-					i := 1
-				until
-					i > 5
-				loop
-					application.sleep (200)
-					sbar.progress_forward
-					i := i + 1
-				end
-			end
-		end
+--	test_routine is
+--			-- routine the only purpose of which is to do testing :)
+--		do
+			
+--		end
 		
 
 end -- class COMMON_EVENTS

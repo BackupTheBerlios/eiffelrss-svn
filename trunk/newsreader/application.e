@@ -51,8 +51,6 @@ feature {NONE} -- Initialization
 			load_properties
 			
 				-- load saved URIs from disk
-			load_feed_uris
-
 			create feed_manager.make
 			
 			create_application_displayer
@@ -101,18 +99,30 @@ feature -- Access
 
 	application_displayer: APPLICATION_DISPLAYER
 	
-	current_feed: FEED is
-			-- current feed
-		do
-			Result := feed_manager.item (current_feed_url)
-		end
-		
-	
-	current_feed_url: STRING
+	current_feed: FEED
 	
 	feed_manager: FEED_MANAGER
 
-feature -- Basic Operations
+feature -- Feeds
+	
+	save_feed_uris is
+			-- save feeds
+		local
+			file: PLAIN_TEXT_FILE
+			path: STRING
+			feeds: SIMPLE_LIST_FILE
+		do
+			if (not properties.get ("User_specific").is_equal ("yes")) or properties.get ("Share_feeds").is_equal ("yes") then
+				path := "settings"
+			else
+				path := user_properties_path
+			end
+			create file.make_create_read_write (path + operating_environment.directory_separator.out + application_default_properties.get ("Feed_file"))
+			
+			feeds := feed_manager.feed_addresses
+			feeds.store (file)
+		end
+
 
 	load_feed (link: STRING) is
 			-- load feed into feed manager
@@ -121,13 +131,32 @@ feature -- Basic Operations
 		do
 			logfile.log_message ("loading feed from '" + link + "'...", feature{LOGFILE}.Info)
 			feed_manager.add_from_url (link)
-			current_feed_url := link
+			current_feed := feed_manager.last_added_feed
 			logfile.log_message ("done.", feature{LOGFILE}.Info)
 		end
 	
 	load_feeds is
 			-- load all feeds
+		local
+			file: PLAIN_TEXT_FILE
+			path: STRING
+			feeds: SIMPLE_LIST_FILE
 		do
+			if (not properties.get ("User_specific").is_equal ("yes")) or properties.get ("Share_feeds").is_equal ("yes") then
+				path := "settings"
+			else
+				path := user_properties_path
+			end
+			create file.make (path + operating_environment.directory_separator.out + application_default_properties.get ("Feed_file"))
+			
+			create feeds.make
+			if file.exists then
+				file.open_read_write
+				feeds := feed_manager.feed_addresses
+				feeds.load (file)
+			end
+			
+
 			if feeds.count > 0 then
 				logfile.log_message ("Loading all feeds...", feature{LOGFILE}.Info)
 				application_displayer.information_displayer.show_progress (feeds.count)
@@ -147,13 +176,24 @@ feature -- Basic Operations
 			end
 		end
 		
-	set_current_feed_url (a_feed_url: STRING) is
+	set_current_feed (a_feed: FEED) is
 			-- set current_feed to a_feed
 		require
-			a_feed_url_not_void: a_feed_url /= void
+			a_feed_not_void: a_feed /= void
 		do
-			current_feed_url := a_feed_url
+			current_feed := a_feed
+		ensure
+			current_feed_set: current_feed = a_feed
 		end
+	
+	set_current_feed_void is
+			-- set current_feed to void
+		do
+			current_feed := void
+		ensure
+			current_feed_void: current_feed = void
+		end
+		
 		
 		
 feature {NONE} -- Implementation
@@ -225,5 +265,5 @@ feature {NONE} -- Implementation
 
 invariant
 	application_displayer_not_void_after_initialization: (application_displayer = void) implies not application_displayer_initialized
-	feed_selected_if_feeds_loaded: (feed_manager.count > 0) implies (current_feed_url /= void)
+	feed_selected_if_feeds_loaded: (feed_manager.count > 0) implies (current_feed /= void)
 end -- class APPLICATION

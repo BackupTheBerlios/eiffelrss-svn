@@ -49,7 +49,7 @@ feature -- Initialization
 			
 				-- create menu items
 			create menu_item.make_with_text (Menu_file_exit_item)
-			menu_item.select_actions.extend (agent on_exit)
+			menu_item.select_actions.extend (agent exit)
 			
 			extend (menu_item)
 		end

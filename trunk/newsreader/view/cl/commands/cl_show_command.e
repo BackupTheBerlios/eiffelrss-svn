@@ -37,13 +37,19 @@ feature -- Initialization
 		do
 			Precursor (args)
 			make_parser
-			show_feed
-			parse
-			if is_exit_requested then
-				cl_main ?= application.application_displayer
-				if cl_main /= void then
-					cl_main.request_exit
+			args.start
+			if args.count > 0 then
+--				application.set_current_feed (application.feeds.i_th (args.item.to_integer)) --- NEEDS CHANGE
+				show_feed
+				parse
+				if is_exit_requested then
+					cl_main ?= application.application_displayer
+					if cl_main /= void then
+						cl_main.request_exit
+					end
 				end
+			else 
+				application.application_displayer.information_displayer.show_temporary_text (Argument_error_item)
 			end
 		end
 		

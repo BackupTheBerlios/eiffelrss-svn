@@ -10,9 +10,9 @@ deferred class
 inherit
 	COMMON_EVENTS
 		rename
-			on_preferences as on_preferences_command,
-			on_about as on_about_command,
-			on_exit as on_exit_command
+			show_preferences as on_preferences_command,
+			show_about as on_about_command,
+			exit as on_exit_command
 		end
 	
 	CL_INTERFACE_NAMES

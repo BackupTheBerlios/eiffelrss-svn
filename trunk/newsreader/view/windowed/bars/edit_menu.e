@@ -49,7 +49,7 @@ feature -- Initialization
 			
 				-- create menu items
 			create menu_item.make_with_text (menu_edit_preferences_item)
-			menu_item.select_actions.extend (agent on_preferences)
+			menu_item.select_actions.extend (agent show_preferences)
 			extend (menu_item)
 		end
 	

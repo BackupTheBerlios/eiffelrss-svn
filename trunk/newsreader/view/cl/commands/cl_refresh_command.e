@@ -25,7 +25,7 @@ feature -- Initialization
 			if not args.is_empty then
 				args.start
 				if args.item.is_equal ("all") then
-					on_refresh_all
+					refresh_all
 				elseif args.item.is_integer then
 					-- refresh feed no. item
 				end

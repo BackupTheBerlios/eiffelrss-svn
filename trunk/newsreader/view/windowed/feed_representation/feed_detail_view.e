@@ -85,6 +85,19 @@ feature -- Basic operations
 			end
 		end
 	
+	wipe_out_list is
+			-- empty list
+		do
+			feed := void
+			
+			set_label_text ("")
+			feed_url.set_text ("")
+			feed_description.set_text ("")
+			feed_description.set_tooltip ("")
+			list.wipe_out
+		end
+		
+	
 	selected_item: ITEM is
 			-- selected item in list
 		local

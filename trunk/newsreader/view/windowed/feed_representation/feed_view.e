@@ -33,14 +33,13 @@ create
 	
 feature -- Initialization
 
-	make_with_feed (a_feed_url: STRING) is
+	make_with_feed (a_feed: FEED) is
 			-- create item with a_feed
 		require
-			a_feed_url_not_void: a_feed_url /= void
+			a_feed_not_void: a_feed /= void
 		do
 			make_app_ref
-			feed_url := a_feed_url
-			feed := application.feed_manager.item (a_feed_url)
+			feed := a_feed
 			default_create
 		end
 	
@@ -64,7 +63,7 @@ feature -- Events
 			mw: MAIN_WINDOW
 		do
 			application.logfile.log_message ("NEWSFEED_LIST: feed clicked", feature {LOGFILE}.Developer)
-			application.set_current_feed_url (feed_url)
+			application.set_current_feed (feed)
 			
 			mw ?= application.application_displayer
 			if mw /= void then
@@ -76,10 +75,8 @@ feature -- Events
 feature -- Access
 
 	feed: FEED
-	feed_url:STRING
 		
 invariant
 	feed_not_void: feed /= void
-	url_not_void: feed_url /= void
 
 end -- class FEED_VIEW

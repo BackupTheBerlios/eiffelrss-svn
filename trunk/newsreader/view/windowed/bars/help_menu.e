@@ -49,7 +49,7 @@ feature -- Initialization
 			
 				-- create menu items
 			create menu_item.make_with_text (menu_help_about_item)
-			menu_item.select_actions.extend (agent on_about)
+			menu_item.select_actions.extend (agent show_about)
 			extend (menu_item)
 		end
 	

@@ -56,8 +56,7 @@ inherit
 		undefine
 			default_create,
 			copy,
-			is_equal,
-			on_refresh
+			is_equal
 		end
 	
 	LOGFILE
@@ -187,8 +186,6 @@ feature -- Events
 			string := string + application.application_properties.list
 			string := string + "%N"
 			string := string + application.user_properties.list
-			string := string + "%N"
-			string := string + application.feeds.list
 			properties_view.set_text (string)
 			
 			log_message ("debug window: refresh clicked", Developer)
