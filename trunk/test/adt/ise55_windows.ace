@@ -34,14 +34,14 @@ cluster
 	xadt: "."
 	xadt_testgen: "TESTGEN"
 
-	order_relations (xadt):	"$/order_relations"
+	order_relations (xadt):	"$\order_relations"
 
-	library eiffelrss:		"../../library"
+	library eiffelrss:		"..\..\library"
 		exclude
 			".svn"
 		end
 
-	library base:		"$ISE_EIFFEL/library/base"
+	library base:		"$ISE_EIFFEL\library\base"
 		exclude
 			"table_eiffel3"; "desc"; 
 		default
@@ -49,7 +49,7 @@ cluster
 			assertion (require)
 		end
 	
-	library time:		"$ISE_EIFFEL/library/time"
+	library time:		"$ISE_EIFFEL\library\time"
 		exclude
 			"french"; "german"; 
 		default
@@ -57,7 +57,7 @@ cluster
 			assertion (require)
 		end
 
-	library gobo:		"$ISE_EIFFEL/free_add_ons/gobo/library"
+	library gobo:		"$ISE_EIFFEL\free_add_ons\gobo\library"
 		exclude
 			"other"; "ve"; "se"; "hact"; "expat"; 
 		default
