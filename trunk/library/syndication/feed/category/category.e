@@ -45,12 +45,6 @@ feature -- Access
 	domain: URL
 			-- Category domain
 			
-	is_domain_set: BOOLEAN is
-			-- Checks whether `domain' is set
-		do
-			Result := domain /= Void
-		end
-			
 feature -- Setter
 
 	set_title (a_title: STRING) is
@@ -71,6 +65,14 @@ feature -- Setter
 			domain := url
 		ensure
 			domain_set: domain = url
+		end
+		
+feature -- Status
+
+	has_domain: BOOLEAN is
+			-- Is `domain' set?
+		do
+			Result := domain /= Void
 		end
 		
 feature -- Debug

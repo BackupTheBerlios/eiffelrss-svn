@@ -495,7 +495,7 @@ feature -- Debug
 				Result.append ("* Documentation: " + docs.location + "%N")
 			end
 			
-			if ttl /= Void then
+			if ttl /= 0 then
 				Result.append ("* TTL: " + ttl.out + "%N")
 			end
 			

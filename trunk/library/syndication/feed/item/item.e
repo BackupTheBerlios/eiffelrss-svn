@@ -221,6 +221,16 @@ feature -- Setter (metadata)
 		ensure
 			is_read_set: is_read = value
 		end
+		
+feature -- Status
+
+	has_title: BOOLEAN is
+			-- Is `title' set and non-empty?
+		do
+			Result := title /= Void and then not title.is_empty
+		end
+		
+-- [TODO]: Write other `has_*' features
 
 feature -- Debug
 

@@ -24,6 +24,14 @@ feature -- Setter
 			categories_set: categories.is_equal (category_list)
 		end
 		
+feature -- Status
+	
+	has_categories: BOOLEAN is
+			-- Are there any categories?
+		do
+			Result := categories.count > 0
+		end
+		
 feature -- Basic operations
 
 	add_category (category: CATEGORY) is
