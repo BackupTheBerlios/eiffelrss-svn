@@ -56,11 +56,6 @@ cluster
 			assertion (require)
 		end
 
-	all observer (syndication):		"observer"
-		exclude
-			".svn"
-		end
-	
 	library adt (syndication):		"../../trunk/library/adt"
 		exclude
 			".svn"

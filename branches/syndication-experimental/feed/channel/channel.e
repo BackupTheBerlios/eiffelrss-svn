@@ -26,7 +26,7 @@ feature -- Initialization
 			set_title (a_title)
 			set_link (a_link)
 			set_description (a_description)
-			initialization			
+			initialization
 		end
 		
 feature -- Access
