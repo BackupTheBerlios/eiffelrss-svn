@@ -85,6 +85,7 @@ external
 	object:
 		"`$(ISE_EIFFEL)/library/vision2/implementation/gtk/Clib/vision2-gtk-config --object`",
 		"${ISE_EIFFEL}/C_library/libpng/libpng.a",
-		"${ISE_EIFFEL}/C_library/zlib/libz.a"
+		"${ISE_EIFFEL}/C_library/zlib/libz.a",
+		"$(ISE_EIFFEL)/library/net/spec/$(ISE_PLATFORM)/lib/libnet.a"
 
 end
