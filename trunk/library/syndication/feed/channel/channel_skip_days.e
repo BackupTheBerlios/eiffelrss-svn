@@ -10,7 +10,7 @@ class
 inherit
 	TWO_WAY_SORTED_SET[STRING]
 		redefine
-			extend, put
+			extend, put, make
 		end
 	EXCEPTIONS
 		undefine
@@ -19,6 +19,15 @@ inherit
 		
 create
 	make
+
+feature -- Initialization
+
+	make is
+			-- Create an empty list.
+		do
+			Precursor {TWO_WAY_SORTED_SET}
+			compare_objects
+		end
 
 feature -- Element change
 
