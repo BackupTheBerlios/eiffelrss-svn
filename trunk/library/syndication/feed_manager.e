@@ -25,6 +25,7 @@ feature -- Initialization
 		do
 			make_with_size (10)
 			set_default_refresh_period (30)
+			compare_objects
 		end
 		
 	make_custom (a_refresh_period: INTEGER) is
