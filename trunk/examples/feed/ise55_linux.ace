@@ -1,5 +1,5 @@
 system
-	"properties_example"
+	"feed_example"
 
 root
 	FEED_EXAMPLE: make
