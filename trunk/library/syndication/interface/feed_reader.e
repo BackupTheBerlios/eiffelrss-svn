@@ -1,6 +1,6 @@
 indexing
-	description: "Objects that ..."
-	author: ""
+	description: "Class which loads data from an xml file to a feed object"
+	author: "Michael Käser"
 	date: "$Date$"
 	revision: "$Revision$"
 
