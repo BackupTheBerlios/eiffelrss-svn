@@ -22,6 +22,7 @@ feature {NONE} -- Initialization
 			-- Create address.
 		do
 			Precursor (a)
+			
 			path_charset.add ("?")			
 			path_charset.add ("&")
 			path_charset.add ("=")
