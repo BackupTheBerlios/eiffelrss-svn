@@ -234,11 +234,13 @@
 \texttt{FEED} is the central datastructure of EiffelRSS. It defines an
 abstract syndication feed.
 
+See figure \ref{fig:feed} for an overview of the cluster.
+
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=\textwidth]{./figures/EIFFELRSS_SYNDICATION_FEED}
   \caption{BON diagram of cluster \texttt{FEED}}
-  \label{fig:formats}
+  \label{fig:feed}
 \end{figure}
 
 
@@ -294,30 +296,947 @@ end -- class FEED_EXAMPLE
 \end{lstlisting}
 
 
-\chapter{Feed implementation}
-\label{cha:feed-implementation}
-
-
-\section{Class FEED}
+\chapter{Class FEED}
 \label{sec:feed-feed}
 
 
-\section{Class CHANNEL}
+\section{Overview}
+\label{sec:feed-overview}
+
+\texttt{FEED} implements an abstract syndication feed.
+
+
+\section{Features}
+\label{sec:feed-features}
+
+\texttt{FEED} inherits from \texttt{CHANNEL}, so all the
+features of \texttt{CHANNEL} are availabe as well.
+
+\subsection{Initialization}
+\label{sec:feed-initialization}
+
+\subsubsection{make\_from\_channel}
+
+\begin{lstlisting}[language=Eiffel]
+make_from_channel (a_channel: CHANNEL)
+  -- Create a new feed from an existing channel
+\end{lstlisting}
+
+\subsection{Access}
+\label{sec:feed-access}
+
+\subsubsection{last\_updated}
+
+\begin{lstlisting}[language=Eiffel]
+last_updated: DATE_TIME
+  -- Time the channel was last updated
+\end{lstlisting}
+
+\subsubsection{refresh\_period}
+
+\begin{lstlisting}[language=Eiffel]
+refresh_period: INTEGER
+  -- Refresh period in minutes
+\end{lstlisting}
+
+
+\subsection{Setter}
+\label{sec:feed-setter}
+
+\subsubsection{set\_channel}
+
+\begin{lstlisting}[language=Eiffel]
+set_channel (a_channel: CHANNEL)
+  -- Set channel
+\end{lstlisting}
+
+\subsubsection{set\_refresh\_period}
+
+\begin{lstlisting}[language=Eiffel]
+set_refresh_period (a_refresh_period: INTEGER)
+  -- Set refresh periode in minutes
+\end{lstlisting}
+
+\subsubsection{set\_last\_updated}
+
+\begin{lstlisting}[language=Eiffel]
+set_last_updated (date: DATE_TIME)
+  -- Set time this channel was last updated
+\end{lstlisting}
+
+
+\subsection{Status}
+\label{sec:feed-status}
+
+\subsubsection{has\_refresh\_period}
+
+\begin{lstlisting}[language=Eiffel]
+has_refresh_period: BOOLEAN
+  -- Is `refresh_period' set?
+\end{lstlisting}
+
+\subsubsection{has\_last\_updated}
+
+\begin{lstlisting}[language=Eiffel]
+has_last_updated: BOOLEAN
+  -- Is `last_updated' set?
+\end{lstlisting}
+
+\subsubsection{is\_outdated}
+
+\begin{lstlisting}[language=Eiffel]
+is_outdated: BOOLEAN
+  -- Is the feed outdated?
+\end{lstlisting}
+
+\subsubsection{is\_outdated\_default}
+
+\begin{lstlisting}[language=Eiffel]
+is_outdated_default (default_refresh_period: INTEGER) : BOOLEAN
+  -- Is the feed outdated? 
+  -- Use either `refresh_period' or `default_refresh_period' to determine
+  -- whether the feed is outdated.
+\end{lstlisting}
+
+
+\subsection{Basic operations}
+\label{sec:feed-basic-operations}
+
+\subsubsection{create\_cloud}
+
+\begin{lstlisting}[language=Eiffel]
+create_cloud (a_domain: STRING; a_port: INTEGER; a_path: STRING; a_register_procedure: STRING; a_protocol: STRING)
+  -- Create and add a cloud
+\end{lstlisting}
+
+\subsubsection{create\_image}
+
+\begin{lstlisting}[language=Eiffel]
+create_image (a_url: URL; a_title: STRING; a_link: URL)
+  -- Create and add an image with URL, title, and link
+\end{lstlisting}
+
+\subsubsection{create\_text\_input}
+
+\begin{lstlisting}[language=Eiffel]
+create_text_input (a_title: STRING; a_description: STRING; a_name: STRING; a_link: URL)
+  -- Create and add a text input with URL, title, and link
+\end{lstlisting}
+
+\subsubsection{new\_item}
+
+\begin{lstlisting}[language=Eiffel]
+new_item (a_title: STRING; a_link: URL; a_description: STRING)
+  -- Create an item with title, link and description
+\end{lstlisting}
+
+\subsection{Debug}
+\label{sec:feed-debug}
+
+\subsubsection{to\_string}
+
+\begin{lstlisting}[language=Eiffel]
+to_string: STRING
+  -- Returns a string representation of feed
+  -- This feature is especially useful for debugging
+\end{lstlisting}
+
+
+\chapter{Class CHANNEL}
 \label{sec:feed-channel}
 
 
-\section{Class ITEM}
+\section{Overview}
+\label{sec:feed-channel-overview}
+
+\texttt{CHANNEL} is a class for abstract syndication channels. It uses
+the subclasses \texttt{CHANNEL\_CLOUD}, \texttt{CHANNEL\_IMAGE},
+\texttt{CHANNEL\_TEXT\_INPUT}, \texttt{CHANNEL\_SKIP\_DAYS} and
+\texttt{CHANNEL\_SKIP\_HOURS}.
+
+
+\section{Features}
+\label{sec:feed-channel-features}
+
+\subsection{Initialization}
+\label{sec:channel-initialization}
+
+\subsubsection{}
+
+\begin{lstlisting}[language=Eiffel]
+\end{lstlisting}
+
+\subsection{Access}
+\label{sec:channel-access}
+
+\subsubsection{}
+
+\begin{lstlisting}[language=Eiffel]
+\end{lstlisting}
+
+\subsection{Access (RSS 0.91)}
+\label{sec:channel-access-rss091}
+
+\subsubsection{}
+
+\begin{lstlisting}[language=Eiffel]
+\end{lstlisting}
+
+\subsection{Access (RSS 1.0)}
+\label{sec:channel-access-rss10}
+
+\subsubsection{}
+
+\begin{lstlisting}[language=Eiffel]
+\end{lstlisting}
+
+\subsection{Access (categories)}
+\label{sec:channel-access-categories}
+
+\subsubsection{}
+
+\begin{lstlisting}[language=Eiffel]
+\end{lstlisting}
+
+\subsection{Access (metadata)}
+\label{sec:channel-access-metadata}
+
+\subsubsection{}
+
+\begin{lstlisting}[language=Eiffel]
+\end{lstlisting}
+
+\subsection{Setter}
+\label{sec:channel-setter}
+
+\subsubsection{}
+
+\begin{lstlisting}[language=Eiffel]
+\end{lstlisting}
+
+\subsection{Setter (RSS 0.91)}
+\label{sec:channel-setter-rss091}
+
+\subsubsection{}
+
+\begin{lstlisting}[language=Eiffel]
+\end{lstlisting}
+
+\subsection{Setter (RSS 1.0)}
+\label{sec:channel-setter-rss10}
+
+\subsubsection{}
+
+\begin{lstlisting}[language=Eiffel]
+\end{lstlisting}
+
+\subsection{Setter (categories)}
+\label{sec:channel-setter-categories}
+
+\subsubsection{}
+
+\begin{lstlisting}[language=Eiffel]
+\end{lstlisting}
+
+\subsection{Status}
+\label{sec:channel-status}
+
+\subsubsection{}
+
+\begin{lstlisting}[language=Eiffel]
+\end{lstlisting}
+
+\subsection{Status (RSS 0.91)}
+\label{sec:channel-status-rss091}
+
+\subsubsection{}
+
+\begin{lstlisting}[language=Eiffel]
+\end{lstlisting}
+
+\subsection{Status (RSS 1.0)}
+\label{sec:channel-status-rss10}
+
+\subsubsection{}
+
+\begin{lstlisting}[language=Eiffel]
+\end{lstlisting}
+
+\subsection{Status (categories)}
+\label{sec:channel-status-categories}
+
+\subsubsection{}
+
+\begin{lstlisting}[language=Eiffel]
+\end{lstlisting}
+
+\subsection{Status (metadata)}
+\label{sec:channel-status-metadata}
+
+\subsubsection{}
+
+\begin{lstlisting}[language=Eiffel]
+\end{lstlisting}
+
+\subsection{Basic operations}
+\label{sec:channel-basic-operations}
+
+\subsubsection{}
+
+\begin{lstlisting}[language=Eiffel]
+\end{lstlisting}
+
+\subsection{Basic operations (RSS 0.91)}
+\label{sec:channel-basic-operations-rss091}
+
+\subsubsection{}
+
+\begin{lstlisting}[language=Eiffel]
+\end{lstlisting}
+
+\subsection{Basic operations (RSS 1.0)}
+\label{sec:channel-basic-operations-rss10}
+
+\subsubsection{}
+
+\begin{lstlisting}[language=Eiffel]
+\end{lstlisting}
+
+
+\subsection{Basic operations (categories)}
+\label{sec:channel-basic-operations-categories}
+
+\subsubsection{}
+
+\begin{lstlisting}[language=Eiffel]
+\end{lstlisting}
+
+\subsection{Sort}
+\label{sec:channel-sort}
+
+\subsubsection{}
+
+\begin{lstlisting}[language=Eiffel]
+\end{lstlisting}
+
+\subsection{Sort (categories)}
+\label{sec:channel-sort-categories}
+
+\subsubsection{}
+
+\begin{lstlisting}[language=Eiffel]
+\end{lstlisting}
+
+\subsection{Debug}
+\label{sec:channel-debug}
+
+\subsubsection{}
+
+\begin{lstlisting}[language=Eiffel]
+\end{lstlisting}
+
+\section{Subclass CHANNEL\_CLOUD}
+\label{sec:channel-cloud}
+
+\subsection{Initialization}
+\label{sec:channel-cloud-initialization}
+
+\subsubsection{}
+
+\begin{lstlisting}[language=Eiffel]
+\end{lstlisting}
+
+\subsection{Access}
+\label{sec:channel-cloud-access}
+
+\subsubsection{}
+
+\begin{lstlisting}[language=Eiffel]
+\end{lstlisting}
+
+\subsection{Setter}
+\label{sec:channel-cloud-setter}
+
+\subsubsection{}
+
+\begin{lstlisting}[language=Eiffel]
+\end{lstlisting}
+
+\subsection{Debug}
+\label{sec:channel-cloud-debug}
+
+\subsubsection{}
+
+\begin{lstlisting}[language=Eiffel]
+\end{lstlisting}
+
+
+\section{Subclass CHANNEL\_IMAGE}
+\label{sec:channel-image}
+
+\subsection{Initialization}
+\label{sec:channel-image-initialization}
+
+\subsubsection{}
+
+\begin{lstlisting}[language=Eiffel]
+\end{lstlisting}
+
+\subsection{Constants}
+\label{sec:channel-image-constants}
+
+\subsubsection{}
+
+\begin{lstlisting}[language=Eiffel]
+\end{lstlisting}
+
+\subsection{Access}
+\label{sec:channel-image-access}
+
+\subsubsection{}
+
+\begin{lstlisting}[language=Eiffel]
+\end{lstlisting}
+
+\subsection{Setter}
+\label{sec:channel-image-setter}
+
+\subsubsection{}
+
+\begin{lstlisting}[language=Eiffel]
+\end{lstlisting}
+
+\subsection{Status}
+\label{sec:channel-image-status}
+
+\subsubsection{}
+
+\begin{lstlisting}[language=Eiffel]
+\end{lstlisting}
+
+\subsection{Debug}
+\label{sec:channel-image-debug}
+
+\subsubsection{}
+
+\begin{lstlisting}[language=Eiffel]
+\end{lstlisting}
+
+\section{Subclass CHANNEL\_TEXT\_INPUT}
+\label{sec:channel-text-input}
+
+\subsection{Initialization}
+\label{sec:channel-text-input-initialization}
+
+\subsubsection{}
+
+\begin{lstlisting}[language=Eiffel]
+\end{lstlisting}
+
+\subsection{Access}
+\label{sec:channel-text-input-access}
+
+\subsubsection{}
+
+\begin{lstlisting}[language=Eiffel]
+\end{lstlisting}
+
+\subsection{Setter}
+\label{sec:channel-text-input-setter}
+
+\subsubsection{}
+
+\begin{lstlisting}[language=Eiffel]
+\end{lstlisting}
+
+\subsection{Debug}
+\label{sec:channel-text-input-debug}
+
+\subsubsection{}
+
+\begin{lstlisting}[language=Eiffel]
+\end{lstlisting}
+
+\section{Subclass CHANNEL\_SKIP\_DAYS}
+\label{sec:channel-skip-days}
+
+\texttt{CHANNEL\_SKIP\_DAYS} inherits from
+\texttt{TWO\_WAY\_SORTED\_SET}, so all the features of
+\texttt{TWO\_WAY\_SORTED\_SET} are availabe as well.
+
+\subsection{Element change}
+\label{sec:channel-skip-days-element-change}
+
+\subsubsection{}
+
+\begin{lstlisting}[language=Eiffel]
+\end{lstlisting}
+
+
+\section{Subclass CHANNEL\_SKIP\_HOURS}
+\label{sec:channel-skip-hours}
+
+\texttt{CHANNEL\_SKIP\_HOURS} inherits from
+\texttt{TWO\_WAY\_SORTED\_SET}, so all the features of
+\texttt{TWO\_WAY\_SORTED\_SET} are availabe as well.
+
+\subsection{Element change}
+\label{sec:channel-skip-hours-element-change}
+
+\subsubsection{}
+
+\begin{lstlisting}[language=Eiffel]
+\end{lstlisting}
+
+
+\chapter{Class ITEM}
 \label{sec:feed-item}
 
 
-\section{Class CATEGORY}
+\section{Overview}
+\label{sec:feed-item-overview}
+
+\texttt{ITEM} is a class for feed items. It uses the subclasses
+\texttt{ITEM\_ENCLOSURE}, \texttt{ITEM\_GUID} and \texttt{ITEM\_SOURCE}.
+
+
+\section{Features}
+\label{sec:feed-item-features}
+
+
+\subsection{Initialization}
+\label{sec:item-initialization}
+
+\subsubsection{}
+
+\begin{lstlisting}[language=Eiffel]
+\end{lstlisting}
+
+\subsection{Access}
+\label{sec:item-access}
+
+\subsubsection{}
+
+\begin{lstlisting}[language=Eiffel]
+\end{lstlisting}
+
+\subsection{Access (categories)}
+\label{sec:item-access-categories}
+
+\subsubsection{}
+
+\begin{lstlisting}[language=Eiffel]
+\end{lstlisting}
+
+\subsection{Access (metadata)}
+\label{sec:item-access-metadata}
+
+\subsubsection{}
+
+\begin{lstlisting}[language=Eiffel]
+\end{lstlisting}
+
+\subsection{Setter}
+\label{sec:item-setter}
+
+\subsubsection{}
+
+\begin{lstlisting}[language=Eiffel]
+\end{lstlisting}
+
+\subsection{Setter (categories)}
+\label{sec:item-setter-categories}
+
+\subsubsection{}
+
+\begin{lstlisting}[language=Eiffel]
+\end{lstlisting}
+
+\subsection{Setter (metadata)}
+\label{sec:item-setter-metadata}
+
+\subsubsection{}
+
+\begin{lstlisting}[language=Eiffel]
+\end{lstlisting}
+
+\subsection{Status}
+\label{sec:item-status}
+
+\subsubsection{}
+
+\begin{lstlisting}[language=Eiffel]
+\end{lstlisting}
+
+\subsection{Status (categories)}
+\label{sec:item-status-categories}
+
+\subsubsection{}
+
+\begin{lstlisting}[language=Eiffel]
+\end{lstlisting}
+
+\subsection{Basic operations (categories)}
+\label{sec:item-basic-operations-categories}
+
+\subsubsection{}
+
+\begin{lstlisting}[language=Eiffel]
+\end{lstlisting}
+
+\subsection{Sort (categories)}
+\label{sec:item-sort-categories}
+
+\subsubsection{}
+
+\begin{lstlisting}[language=Eiffel]
+\end{lstlisting}
+
+\subsection{Debug}
+\label{sec:item-debug}
+
+\subsubsection{}
+
+\begin{lstlisting}[language=Eiffel]
+\end{lstlisting}
+
+
+\section{Subclass ITEM\_ENCLOSURE}
+\label{sec:item-enclosure}
+
+\subsection{Initialization}
+\label{sec:item-enclosure-initialization}
+
+\subsubsection{}
+
+\begin{lstlisting}[language=Eiffel]
+\end{lstlisting}
+
+\subsection{Access}
+\label{sec:item-enclosure-access}
+
+\subsubsection{}
+
+\begin{lstlisting}[language=Eiffel]
+\end{lstlisting}
+
+\subsection{Setter}
+\label{sec:item-enclosure-setter}
+
+\subsubsection{}
+
+\begin{lstlisting}[language=Eiffel]
+\end{lstlisting}
+
+\subsection{Debug}
+\label{sec:item-enclosure-debug}
+
+\subsubsection{}
+
+\begin{lstlisting}[language=Eiffel]
+\end{lstlisting}
+
+
+\section{Subclass ITEM\_GUID}
+\label{sec:item-guid}
+
+\subsection{Initialization}
+\label{sec:item-guid-initialization}
+
+\subsubsection{}
+
+\begin{lstlisting}[language=Eiffel]
+\end{lstlisting}
+
+\subsection{Access}
+\label{sec:item-guid-access}
+
+\subsubsection{}
+
+\begin{lstlisting}[language=Eiffel]
+\end{lstlisting}
+
+\subsection{Setter}
+\label{sec:item-guid-setter}
+
+\subsubsection{}
+
+\begin{lstlisting}[language=Eiffel]
+\end{lstlisting}
+
+\subsection{Debug}
+\label{sec:item-guid-debug}
+
+\subsubsection{}
+
+\begin{lstlisting}[language=Eiffel]
+\end{lstlisting}
+
+\section{Subclass ITEM\_SOURCE}
+\label{sec:item-source}
+
+\subsection{Initialization}
+\label{sec:item-source-initialization}
+
+\subsubsection{}
+
+\begin{lstlisting}[language=Eiffel]
+\end{lstlisting}
+
+\subsection{Access}
+\label{sec:item-source-access}
+
+\subsubsection{}
+
+\begin{lstlisting}[language=Eiffel]
+\end{lstlisting}
+
+\subsection{Setter}
+\label{sec:item-source-setter}
+
+\subsubsection{}
+
+\begin{lstlisting}[language=Eiffel]
+\end{lstlisting}
+
+\subsection{Debug}
+\label{sec:item-source-debug}
+
+\subsubsection{}
+
+\begin{lstlisting}[language=Eiffel]
+\end{lstlisting}
+
+
+\chapter{Class CATEGORY}
 \label{sec:feed-category}
 
 
-\section{Observers}
-\label{sec:feed-observers}
+\section{Overview}
+\label{sec:feed-category-overview}
+
+\texttt{CATEGORY} is a class for channel and item categories.
 
 
+\section{Features}
+\label{sec:feed-category-features}
+
+\subsection{Initialization}
+\label{sec:category-initialization}
+
+\subsubsection{make}
+
+\begin{lstlisting}[language=Eiffel]
+make
+  -- Create a category with title `[unnamed category]')
+\end{lstlisting}
+
+\subsubsection{make\_title}
+
+\begin{lstlisting}[language=Eiffel]
+make_title (a_title: STRING)
+  -- Create a category with title `a_title'
+\end{lstlisting}
+
+\subsubsection{make\_title\_domain}
+
+\begin{lstlisting}[language=Eiffel]
+make_title_domain (a_title: STRING; a_domain: URL)
+  -- Create a category with title `a_title' and domain `a_domain'
+\end{lstlisting}
+
+
+\subsection{Access}
+
+\label{sec:category-access}
+
+\subsubsection{title}
+
+\begin{lstlisting}[language=Eiffel]
+title: STRING
+  -- Category title
+\end{lstlisting}
+
+\subsubsection{domain}
+
+\begin{lstlisting}[language=Eiffel]
+domain: URL
+  -- Category domain
+\end{lstlisting}
+
+
+\subsection{Setter}
+\label{sec:category-setter}
+
+\subsubsection{set\_title}
+
+\begin{lstlisting}[language=Eiffel]
+set_title (a_title: STRING)
+  -- Set title to to `a_title'
+\end{lstlisting}
+
+\subsubsection{set\_domain}
+
+\begin{lstlisting}[language=Eiffel]
+set_domain (url: URL)
+  -- Set domain to to `url'
+\end{lstlisting}
+
+\subsection{Status}
+\label{sec:category-status}
+
+\subsubsection{has\_domain}
+
+\begin{lstlisting}[language=Eiffel]
+has_domain: BOOLEAN
+  -- Is `domain' set?
+\end{lstlisting}
+
+\subsection{Debug}
+\label{sec:category-debug}
+
+
+\subsubsection{to\_string}
+
+\begin{lstlisting}[language=Eiffel]
+to_string: STRING
+  -- Returns a string representation of category
+  -- This feature is especially useful for debugging
+\end{lstlisting}
+
+
+\chapter{Observers}
+\label{cha:feed-observers}
+
+
+\section{Overview}
+\label{sec:feed-observers-overview}
+
+\texttt{FEED} is observable. This means it is of type
+\texttt{OBSERVABLE\_CHANNEL} and has features to notify subscribed
+observers in the case of updates.
+
+\texttt{CHANNEL\_OBSERVER} is a deferred class which observers have to
+implement to observe a feed. There is also a simple observer,
+\texttt{SIMPLE\_CHANNEL\_OBSERVER} which you can use as a starting
+point for your own observer classes.
+
+
+\section{Class OBSERVABLE\_CHANNEL}
+\label{sec:feed-observable-channel}
+
+
+\subsection{Access}
+\label{sec:feed-observable-channel-access}
+
+\subsubsection{observers}
+
+\begin{lstlisting}[language=Eiffel]
+observers: TWO_WAY_LIST[CHANNEL_OBSERVER]
+  -- List of subscribed observers
+\end{lstlisting}
+
+
+\subsection{Setter}
+\label{sec:feed-observable-channel-setter}
+
+\subsubsection{set\_observers}
+
+\begin{lstlisting}[language=Eiffel]
+set_observers (observer_list: like observers)
+  -- List of subscribed observers
+\end{lstlisting}
+
+
+\subsection{Status}
+\label{sec:feed-observable-channel-status}
+
+\subsubsection{has\_observers}
+
+\begin{lstlisting}[language=Eiffel]
+has_observers: BOOLEAN
+  -- Is `observers' set?
+\end{lstlisting}
+
+
+\subsection{Basic operations}
+\label{sec:feed-observable-channel-basic-operations}
+
+\subsubsection{add\_observer}
+
+\begin{lstlisting}[language=Eiffel]
+add_observer (an_observer: CHANNEL_OBSERVER)
+  -- Add an observer
+\end{lstlisting}
+
+\subsubsection{remove\_observer}
+
+\begin{lstlisting}[language=Eiffel]
+remove_observer (an_observer: CHANNEL_OBSERVER)
+  -- Remove an observer
+\end{lstlisting}
+
+
+\section{Class CHANNEL\_OBSERVER}
+\label{sec:feed-observer}
+
+\subsection{Observer}
+\label{sec:feed-channel-observer-observer}
+
+\subsubsection{item\_added}
+
+\begin{lstlisting}[language=Eiffel]
+item_added (new_item: ITEM)
+  -- Is called when a new item is added to this channel
+deferred
+\end{lstlisting}
+
+\subsubsection{channel\_updated}
+
+\begin{lstlisting}[language=Eiffel]
+channel_updated (channel: CHANNEL)
+  -- Is called when a new channel is added
+deferred
+\end{lstlisting}
+
+
+\section{Class SIMPLE\_CHANNEL\_OBSERVER}
+\label{sec:feed-channel-observer}
+
+\subsection{Access}
+\label{sec:feed-simple-channel-observer-access}
+
+\subsubsection{added\_item}
+
+\begin{lstlisting}[language=Eiffel]
+added_item: ITEM
+  -- The newly added item
+\end{lstlisting}
+
+\subsubsection{updated\_channel}
+
+\begin{lstlisting}[language=Eiffel]
+updated_channel: CHANNEL
+  -- The newly updated channel
+\end{lstlisting}
+
+
+\subsection{Observer}
+\label{sec:feed-simple-channel-observer-observer}
+
+\subsubsection{item\_added}
+
+\begin{lstlisting}[language=Eiffel]
+item_added (new_item: ITEM)
+  -- Is called when a new item is added to this channel
+\end{lstlisting}
+
+\subsubsection{channel\_updated}
+
+\begin{lstlisting}[language=Eiffel]
+channel_updated (channel: CHANNEL)
+  -- Is called when a new channel is added
+\end{lstlisting}
 
 %-------------------------------------------------------------------------------
 % Part: FORMATS
