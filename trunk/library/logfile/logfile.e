@@ -55,7 +55,7 @@ feature -- Basic operations
 				create time_now.make_now				
 				timestamp := "[" + time_now.formatted_out ("[0]hh:[0]mi:[0]ss [0]dd mmm yyyy") + "]: "
 				
-				lines := a_message.split ('%N')				
+				lines := a_message.split ('%N')	
 				
 				from
 					i := 1
@@ -67,7 +67,14 @@ feature -- Basic operations
 					else
 						put_string ("                        ")
 					end
-					put_string (lines.i_th(i))
+					
+					put_string ( lines.i_th(i) )
+					
+					if (i = lines.count) then
+						put_string ( " (" )
+						put_integer( a_priority )
+						put_string ( ")" )
+					end
 					put_new_line
 					
 					i := i + 1
@@ -95,6 +102,9 @@ feature -- Access
 		-- The current threshold used
 	messages_logged: INTEGER
 		-- The number of messages which got logged
+		
+	Developer, Info, Notice, Warning, Error, Critical, Alert, Emerge: INTEGER is unique
+		-- Predefined prioritys
 
 invariant
 	file_is_open: is_open_append
