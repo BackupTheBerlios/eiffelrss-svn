@@ -76,8 +76,14 @@
 %-------------------------------------------------------------------------------
 % Configure \maketitle
 %-------------------------------------------------------------------------------
-\title{PROPERTIES \\ Developer Guide}
-\author{Thomas Weibel, <thomas@beeblebrox.net>}
+\title{EiffelRSS \\ PROPERTIES \\ Developer Guide}
+\author{
+  Michael K\"aser <kaeserm@student.ethz.ch>
+  \and 
+  Martin Luder <luderm@student.ethz.ch>
+  \and 
+  Thomas Weibel <weibelt@student.ethz.ch>
+}
 \date{\today}
 
 
@@ -126,16 +132,80 @@
 \setlength{\mathindent}{0em}
 
 
+%-------------------------------------------------------------------------------
+% Commandos
+%-------------------------------------------------------------------------------
+\newcommand{\hr}{\rule{\textwidth}{1pt}}
+
+
 %===============================================================================
 % Document
 %===============================================================================
 \begin{document}
-\maketitle
 
+\begin{titlepage}
+  \newlength{\centeroffset}
+  \setlength{\centeroffset}{-0.5\oddsidemargin}
+  \addtolength{\centeroffset}{0.5\evensidemargin}
+
+  \thispagestyle{empty}
+
+  \noindent\includegraphics[width=\textwidth]{./figures/big_ETH}\\[-3mm]
+  \hr
+
+  \vspace*{\stretch{1}}
+
+  \makebox[0pt][l]{
+    \begin{minipage}{\textwidth}
+      \flushright{
+        \Huge\bfseries EiffelRSS
+      }
+
+      \noindent\rule{\textwidth}{3pt}\\[2.5ex]
+
+      \hfill\emph{
+        \Large PROPERTIES: Developer Guide
+      }
+    \end{minipage}
+  }
+
+  \vspace{\stretch{1}}
+
+  \makebox[0pt][l]{
+    \begin{minipage}{\textwidth}
+      \flushright{
+        \bfseries 
+        Michael K\"aser <kaeserm@student.ethz.ch>\\[0.3ex]
+        Martin Luder <luderm@student.ethz.ch>\\[0.3ex]
+        Thomas Weibel <weibelt@student.ethz.ch>\\[0.3ex]
+      }
+    \end{minipage}
+  }
+
+  \vspace{\stretch{1}}
+
+  \noindent\hr\\[1mm]
+  \includegraphics[width=\textwidth]{./figures/big_inf}
+\end{titlepage}
+
+% Use roman page numbering
+\pagenumbering{roman}
+
+\clearpage
 \tableofcontents
+
+\clearpage
+\listoffigures
 
 \chapter{Introduction}
 \label{cha:introduction}
+
+
+% Set page counter to zero
+\setcounter{page}{0} 
+
+% Use arabic page numbering
+\pagenumbering{arabic}
 
 
 \section{Overview}
@@ -159,7 +229,7 @@ See figure \ref{fig:uml-diagram} for an overview of the class
 
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=\textwidth]{./uml}
+  \includegraphics[width=\textwidth]{./figures/uml}
   \caption{UML diagramm of \texttt{PROPERTIES}}
   \label{fig:uml-diagram}
 \end{figure}
