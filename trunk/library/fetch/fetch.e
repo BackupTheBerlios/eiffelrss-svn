@@ -8,7 +8,7 @@ class
 	FETCH
 
 inherit
-	DATA_RESOURCE_FACTORY
+	FETCH_RESOURCE_FACTORY
 	
 create
 	make, make_source
