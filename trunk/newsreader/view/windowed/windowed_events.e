@@ -61,7 +61,7 @@ feature {NONE} -- Events
 			if mw /= void then add_dialog.show_modal_to_window (mw) end
 		end
 
-	on_edit is
+	on_info is
 			-- open edit dialog for currently selected item/feed
 		local
 			mw: MAIN_WINDOW
@@ -69,17 +69,17 @@ feature {NONE} -- Events
 			mw ?= application.application_displayer
 			if mw /= void then 
 				if mw.has_feed_focus then
-					on_feed_edit
+					show_feed_info
 				elseif mw.has_item_focus then
-					on_item_edit
+					show_item_info
 				end
 			end
 		end
 	
-	on_feed_edit is
+	show_feed_info is
 			-- open edit dialog for current feed
 		local
-			edit_dialog: EDIT_DIALOG
+			edit_dialog: FEED_INFO_DIALOG
 			mw: MAIN_WINDOW
 		do
 			if application.feed_manager.count > 0 then
@@ -90,10 +90,10 @@ feature {NONE} -- Events
 		end
 		
 	
-	on_item_edit is
+	show_item_info is
 			-- open edit dialog fro current item
 		local
-			edit_dialog: ITEM_EDIT_DIALOG
+			edit_dialog: ITEM_INFO_DIALOG
 			mw: MAIN_WINDOW
 		do
 			if application.current_feed /= void and then application.current_feed.items.count > 0 then

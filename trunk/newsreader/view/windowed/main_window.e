@@ -347,7 +347,7 @@ feature {NONE} -- Implementation
 				-- CTRL-U: edit feed/item
 			create key.make_with_code (feature {EV_KEY_CONSTANTS}.key_u)
 			create accelerator.make_with_key_combination (key, true, false, false)
-			accelerator.actions.extend (agent on_edit)
+			accelerator.actions.extend (agent on_info)
 			accelerators.extend (accelerator)
 				-- CTRL-D: remove selected feed
 			create key.make_with_code (feature {EV_KEY_CONSTANTS}.key_d)

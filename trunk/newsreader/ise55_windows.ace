@@ -60,7 +60,7 @@ cluster
 
 	feed_context (commands):		"$\feed_context"
 
-	all eiffelrss:		"..\library"
+	library eiffelrss:		"..\library"
 		exclude
 			".svn"; 
 		default
@@ -93,6 +93,7 @@ cluster
 		end
 
 	library wel:		"$ISE_EIFFEL\library\wel"
+
 
 	library vision2:		"${ISE_EIFFEL}\library\vision2"
 		exclude
