@@ -1,6 +1,6 @@
 indexing
 	description: "Test class for PROPERTIES"
-	author: "$Author$"
+	author: "Thomas Weibel"
 	date: "$Date$"
 	revision: "$Rev$"
 

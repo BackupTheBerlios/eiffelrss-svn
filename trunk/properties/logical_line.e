@@ -1,6 +1,6 @@
 indexing
 	description: "Class to represent a logical line of a properties file."
-	author: "$Author$"
+	author: "Thomas Weibel"
 	date: "$Date$"
 	revision: "$Rev$"
 

@@ -1,6 +1,6 @@
 indexing
 	description: "Class to represent a persistent set of properties. This is a port of the java.util.Properties class."
-	author: "$Author$"
+	author: "Thomas Weibel"
 	date: "$Date$"
 	revision: "$Rev$"
 
