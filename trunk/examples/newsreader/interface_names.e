@@ -7,10 +7,15 @@ indexing
 class
 	INTERFACE_NAMES
 
-feature -- Access
+feature -- Access / Buttons
 
 	Button_ok_item: STRING is "OK"
 			-- String for "OK" buttons.
+	
+	Button_cancel_item: STRING is "Cancel"
+			-- String for "Cancel" buttons
+
+feature -- Access / Menus
 
 	Menu_file_item: STRING is "&File"
 			-- String for menu "File"
@@ -33,6 +38,30 @@ feature -- Access
 	Menu_file_exit_item: STRING is "E&xit"
 			-- String for menu "File/Exit"
 
+	Menu_edit_item: STRING is "E&dit"
+			-- String for menu "Edit"
+	
+	Menu_edit_preferences_item: STRING is "&Preferences...%TCtrl+P"
+			-- String for menu "Edit/Preferences..."
+	
+	Menu_channel_item: STRING is "&Channel"
+			-- String for menu "Channel
+	
+	Menu_channel_add_item: STRING is "&Add...%TCtrl+N"
+			-- String for menu "Channel/Add..."
+	
+	Menu_channel_refresh_item: STRING is "&Refresh%TCtrl+T"
+			-- String for menu "Channel/Refresh"
+	
+	Menu_channel_edit_item: STRING is "&Edit...%TCtrl+U"
+			-- String for menu "Channel/Edit...
+	
+	Menu_channel_remove_item: STRING is "Re&move%TCtrl+D"
+			-- String for menu "Channel/Remove"
+	
+	Menu_channel_remove_all_item: STRING is "Re&load all%TCtrl+Shift+T"
+			-- String for menu "Channel/Reload all"
+	
 	Menu_help_item: STRING is "&Help"
 			-- String for menu "Help"
 
@@ -42,8 +71,28 @@ feature -- Access
 	Menu_help_about_item: STRING is "&About..."
 			-- String for menu "Help/About"
 
+feature -- Access / preferences
+
+	Preferences_item: STRING is "Preferences"
+			-- String for Preferences main frame
+			
+	Preferences_ask_on_exit_item: STRING is "Ask on exit"
+			-- String for 'Ask on exit' item in preferences
+			
+	Preferences_user_specific_item: STRING is "User specific settings"
+			-- String for 'User specific settings' item in preferences
+
+feature -- Access / feed representation
 	Label_confirm_close_window: STRING is "You are about to close this window.%NClick OK to proceed."
 			-- String for the confirmation dialog box that appears
 			-- when the user try to close the first window.
-
+	
+	Feed_detail_view_title_column: STRING is "Title"
+			-- String for the title column in the feed detail view
+	
+	Feed_detail_view_description_column: STRING is "Description"
+			-- String for the description column in the feed detail view
+	
+	Feed_detail_view_date_column: STRING is "Date"
+			-- String for the date column in the feed detail view
 end -- class INTERFACE_NAMES

@@ -55,12 +55,24 @@ cluster
 
 	all eiffelrss:		"E:\ETHRSS\eiffelrss\trunk\library"
 		exclude
-			"svn"; "doc"; 
+			"svn"; "doc"; svn; svn; svn; svn; svn; 
 		end
 
 	gobo:		"D:\Eiffel55\free_add_ons\gobo\library"
 
 	newsreader:		"E:\ETHRSS\eiffelrss\trunk\examples\newsreader"
+
+	all time:		"$ISE_EIFFEL\library\time"
+		exclude
+			french; german; 
+		end
+
+	feed_representation (newsreader):		"$\feed_representation"
+
+	windows (newsreader):		"$\windows"
+
+
+	bars (windows):		"$\bars"
 
 
 external
