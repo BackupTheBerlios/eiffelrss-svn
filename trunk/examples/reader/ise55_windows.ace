@@ -43,5 +43,10 @@ cluster
 		exclude
 			".svn"
 		end
+		
+	library gobo:		"$ISE_EIFFEL\free_add_ons\gobo\library"
+		exclude
+			"other"; "ve"; "se"; "hact"; "expat"; 
+		end
 
 end
