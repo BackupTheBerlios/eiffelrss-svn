@@ -84,16 +84,16 @@ feature -- Setter
 		
 feature -- Element change
 
-	add (feed: FEED) is
+	add (feed: FEED; url: STRING) is
 			-- Add `feed'
 		require
 			non_void_feed: feed /= Void
 		do
-			put (feed, feed.link.location)
-			urls.extend ([feed.link.location,feed.link.location])
+			put (feed, url)
+			urls.extend ([url,feed.link.location])
 			last_added_feed := feed
 		ensure
-			feed_added: item (feed.link.location) = feed
+			feed_added: item (url) = feed
 		end
 		
 	add_from_url (url: STRING) is

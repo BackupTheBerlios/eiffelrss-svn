@@ -16,7 +16,7 @@ feature -- Initialization
 			-- Creation procedure.
 		do
 			-- Create a simple feed with some categories
-			create feed.make ("EiffelRSS", create {HTTP_URL}.make ("http://eiffelrss.berlios.de/Main/AllRecentChanges?action=rss"), "EiffelRSS news")
+			create feed.make ("EiffelRSS", create {HTTP_URL}.make ("http://eiffelrss.berlios.de"), "EiffelRSS news")
 			feed.add_category (create {CATEGORY}.make_title ("RSS"))
 			feed.add_category (create {CATEGORY}.make_title ("Programming"))
 			feed.add_category (create {CATEGORY}.make_title ("Eiffel"))
@@ -50,9 +50,9 @@ feature -- Initialization
 			io.put_string ("============%N%N%N")
 
 			create feed_manager.make
-			feed_manager.add (feed)
+			feed_manager.add (feed, "http://eiffelrss.berlios.de/Main/AllRecentChanges?action=rss")
 			feed_manager.refresh_all
-			io.put_string (feed_manager.item (feed.link.location).to_string)
+			io.put_string (feed_manager.item ("http://eiffelrss.berlios.de/Main/AllRecentChanges?action=rss").to_string)
 		end
 		
 feature -- Arguments
