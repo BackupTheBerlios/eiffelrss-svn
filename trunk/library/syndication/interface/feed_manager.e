@@ -1,6 +1,6 @@
 indexing
 	description: "Class to represent a collection of feeds."
-	author: "Thomas Weibel"
+	author: "Thomas Weibel, Martin Luder"
 	date: "$Date$"
 	revision: "$Rev$"
 
@@ -26,6 +26,7 @@ feature -- Initialization
 			make_with_size (10)
 			set_default_refresh_period (30)
 			compare_objects
+			create urls.make
 		end
 		
 	make_custom (a_refresh_period: INTEGER) is
@@ -41,6 +42,33 @@ feature -- Access
 
 	default_refresh_period: INTEGER
 			-- Default refresh period in minutes
+	
+	last_added_feed: FEED
+			-- feed that was last added
+
+	feed_addresses: SIMPLE_LIST_FILE is
+			-- Returns a sortable list representation of the feeds saved in FEED_MANAGER
+		local
+			url: STRING
+		do
+			from
+				create Result.make
+				urls.start
+			until
+				urls.off
+			loop
+				url ?= urls.item.item (1)
+				if url /= void then
+					Result.extend (url)
+				end
+				urls.forth
+			end
+			
+		ensure then
+			Result_exists: Result /= Void
+			good_count: Result.count = count
+		end
+
 
 feature -- Setter
 
@@ -62,6 +90,8 @@ feature -- Element change
 			non_void_feed: feed /= Void
 		do
 			put (feed, feed.link.location)
+			urls.extend ([feed.link.location,feed.link.location])
+			last_added_feed := feed
 		ensure
 			feed_added: item (feed.link.location) = feed
 		end
@@ -69,9 +99,14 @@ feature -- Element change
 	add_from_url (url: STRING) is
 			-- Add feed with URL `url'
 		require
-			non_empty_url: url /= Void and then not url.empty
+			non_empty_url: url /= Void and then not url.is_empty
+		local
+			feed: FEED
 		do
-			put ((create {FEED_READER}.make_url (url)).read, url)
+			feed := (create {FEED_READER}.make_url (url)).read
+			put (feed, feed.link.location)
+			urls.extend ([url, feed.link.location])
+			last_added_feed := feed
 		ensure
 			feed_added: item (url) /= Void
 		end
@@ -81,7 +116,7 @@ feature -- Refresh
 	refresh (url: STRING) is
 			-- Refresh feed with URL `url', if the feed is outdated
 		require
-			non_empty_url: url /= Void and then not url.empty
+			non_empty_url: url /= Void and then not url.is_empty
 		local
 			feed: FEED
 		do
@@ -95,7 +130,7 @@ feature -- Refresh
 	refresh_force (url: STRING) is
 			-- Refresh feed with URL `url', even if the feed is not outdated
 		require
-			non_empty_url: url /= Void and then not url.empty
+			non_empty_url: url /= Void and then not url.is_empty
 		local
 			feed: FEED
 		do
@@ -250,6 +285,10 @@ feature -- Conversion (sort)
 			Result.set_order (create {FEED_REVERSE_SORT_BY_DESCRIPTION[FEED]})
 			Result.sort
 		end
+
+feature {NONE} -- Implementation
+
+	urls: LINKED_LIST[TUPLE[STRING,STRING]]
 		
 invariant
 	default_refresh_period_positive: default_refresh_period >= 0
