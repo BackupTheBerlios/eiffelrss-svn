@@ -50,7 +50,7 @@ feature -- Basic operations
 		address: STRING
 		pos: INTEGER
 	do
-		source_address := an_address
+		source_address := an_address.twin
 		
 		pos := an_address.substring_index ("://", 1)
 		if pos = 0 then
@@ -71,9 +71,11 @@ feature -- Basic operations
 			elseif service.is_equal ("file") then
 				create {FETCH_RESOURCE_FILE} resource.make (address)
 			else
+				source_address := Void
 				error := Invalid_address
 			end			
 		else
+			source_address := Void
 			error := Invalid_address
 		end
 	end
