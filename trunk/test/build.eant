@@ -11,20 +11,10 @@
 
 	<target name="help">
 		<echo message="usage:"/>
-		<echo message="   geant install"/>
 		<echo message="   geant test"/>
 		<echo message="   geant test_debug"/>
 		<echo message="   geant clean"/>
 		<echo message="   geant clobber"/>
-	</target>
-
-	<target name="install" depend="init">
-		<description>
-			Install the Gobo Eiffel tests.
-		</description>
-
-		<set name="target" value="install"/>
-		<geant target="do_all"/>
 	</target>
 
 	<target name="test" depend="init">
@@ -78,8 +68,20 @@
 			in all subdirectories.
 		</description>
 
+		<geant file="build.eant" target="${target}" dir="adt"/>
+		<geant file="build.eant" target="clean" dir="adt" if="${do_clean}"/>
+
+		<geant file="build.eant" target="${target}" dir="fetch"/>
+		<geant file="build.eant" target="clean" dir="fetch" if="${do_clean}"/>
+
+		<geant file="build.eant" target="${target}" dir="logfile"/>
+		<geant file="build.eant" target="clean" dir="logfile" if="${do_clean}"/>
+
 		<geant file="build.eant" target="${target}" dir="properties"/>
 		<geant file="build.eant" target="clean" dir="properties" if="${do_clean}"/>
+
+		<geant file="build.eant" target="${target}" dir="syndication"/>
+		<geant file="build.eant" target="clean" dir="syndication" if="${do_clean}"/>
 	</target>
 
 </project>
