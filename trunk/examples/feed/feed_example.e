@@ -16,7 +16,7 @@ feature -- Initialization
 			-- Creation procedure.
 		do
 			-- Create a simple feed with some categories
-			create feed.make ("EiffelRSS", create {HTTP_URL}.make ("http://eiffelrss.berlios.de/Main/AllRecentChanges?action=rss"), "EiffelRSS news")
+			create feed.make ("EiffelRSS", create {HTTP_URL}.make ("http://eiffelrss.berlios.de"), "EiffelRSS news")
 			feed.add_category (create {CATEGORY}.make_title ("RSS"))
 			feed.add_category (create {CATEGORY}.make_title ("Programming"))
 			feed.add_category (create {CATEGORY}.make_title ("Eiffel"))
