@@ -31,9 +31,6 @@ cluster
 
 	feed_context (commands):		"$/feed_context"
 
-
-
-
 	library eiffelrss:		"../library"
 		exclude
 			".svn"
@@ -55,7 +52,7 @@ cluster
 			assertion (require)
 		end
 
-	library net:		"$ISE_EIFFEL\library\net"
+	library net:		"$ISE_EIFFEL/library/net"
 
 	library gobo:		"$ISE_EIFFEL/free_add_ons/gobo/library"
 		exclude
