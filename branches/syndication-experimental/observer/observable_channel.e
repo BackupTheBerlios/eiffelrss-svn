@@ -5,7 +5,7 @@ indexing
 	revision: "$Rev$"
 
 deferred class
-	CHANNEL_OBSERVABLE
+	OBSERVABLE_CHANNEL
 	
 feature -- Access
 
@@ -89,4 +89,4 @@ feature {CHANNEL_OBSERVABLE} -- Initialize `observers'
 invariant
 	non_void_observers: observers /= Void
 
-end -- class CHANNEL_OBSERVABLE
+end -- class OBSERVABLE_CHANNEL
