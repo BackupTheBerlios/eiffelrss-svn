@@ -64,6 +64,7 @@ feature -- Basic operations
 			-- Fetch the data from the given source address
 	local
 		resource: DATA_RESOURCE
+		test: STRING
 	do
 		if error = None then
 			create data.make_empty
@@ -83,6 +84,12 @@ feature -- Basic operations
 						data := data + resource.last_packet
 					end
 				end
+			end
+			
+			test := data.twin
+			test.keep_tail (5)
+			if test.is_equal("0%R%N%R%N") then
+				data.remove_tail (5)
 			end
 			
 			if resource.error then

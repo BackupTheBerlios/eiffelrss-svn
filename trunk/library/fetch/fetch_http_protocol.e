@@ -11,7 +11,8 @@ inherit
 	HTTP_PROTOCOL
 	
 redefine
-	initiate_transfer
+	initiate_transfer,
+	get_headers
 	end
 	
 create
@@ -46,6 +47,35 @@ feature
 			end
 		rescue
 			error_code := Transfer_failed
+		end
+		
+	get_headers is
+			-- Get HTTP headers
+		local
+			str: STRING
+		do
+			headers.wipe_out
+			from
+			until
+				error or else (str /= Void and str.is_equal ("%R"))
+			loop
+				check_socket (main_socket, Read_only)
+				if not error then
+					main_socket.read_line
+					str := main_socket.last_string.twin
+						debug
+							Io.error.put_string (str)
+							Io.error.put_new_line
+						end
+					if not str.is_empty then headers.extend (str) end
+				end
+			end
+			check_error
+			if not error then 
+				check_socket (main_socket, Read_only)
+				if not error then main_socket.read_line end
+				get_content_length 
+			end
 		end
 
 
