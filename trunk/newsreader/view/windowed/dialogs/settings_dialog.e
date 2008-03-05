@@ -20,7 +20,7 @@ inherit
 			default_create,
 			copy
 		end
-		
+
 	APP_REF
 		undefine
 			default_create,
@@ -35,15 +35,17 @@ inherit
 			is_equal
 		end
 
-feature -- Initialization
-	
+feature {NONE} -- Initialization
+
 	make is
 			-- creation procedure
 		do
 			make_app_ref
 			default_create
 		end
-	
+
+feature {EV_ANY} -- Implementation
+
 	initialize is
 		local
 			main_vertical_box: EV_VERTICAL_BOX
@@ -52,7 +54,7 @@ feature -- Initialization
 			icon: EV_PIXMAP
 		do
 			Precursor
-			
+
 				-- create containers
 			create main_vertical_box
 			main_vertical_box.set_border_width (5)
@@ -61,7 +63,7 @@ feature -- Initialization
 			create cell
 			cell.set_minimum_height (5)
 			main_vertical_box.extend (cell)
-			
+
 				-- create buttons
 			create button_box
 			button_box.extend (create {EV_CELL})
@@ -82,7 +84,7 @@ feature -- Initialization
 			extend (main_vertical_box)
 			set_default_push_button (ok_button)
 			set_default_cancel_button (cancel_button)
-			
+
 				-- set dialog options
 			close_request_actions.extend (agent destroy)
 
@@ -93,16 +95,16 @@ feature -- Initialization
 		end
 
 feature {NONE} -- Implementation
-	
+
 	ok_button: EV_BUTTON
 	cancel_button: EV_BUTTON
-	
+
 	content: EV_VERTICAL_BOX
-	
+
 	on_ok is
 			-- called when ok is clicked
 		deferred
 		end
-		
+
 
 end -- class SETTINGS_DIALOG

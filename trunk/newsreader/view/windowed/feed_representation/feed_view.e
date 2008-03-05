@@ -13,15 +13,15 @@ inherit
 			initialize,
 			is_in_default_state
 		end
-	
+
 	APP_REF
 		undefine
 			default_create,
 			copy,
 			is_equal
 		end
-	
-	WINDOWED_EVENTS 
+
+	WINDOWED_EVENTS
 		undefine
 			default_create,
 			copy,
@@ -30,8 +30,8 @@ inherit
 
 create
 	make_with_feed
-	
-feature -- Initialization
+
+feature {NONE} -- Initialization
 
 	make_with_feed (a_feed: FEED) is
 			-- create item with a_feed
@@ -42,17 +42,18 @@ feature -- Initialization
 			feed := a_feed
 			default_create
 		end
-	
+
+feature {EV_ANY} -- Implementation
+
 	initialize is
 		do
 			Precursor
 			set_text (feed.title)
 			select_actions.extend (agent on_click)
 		end
-	
+
 	is_in_default_state: BOOLEAN is true
-		
-		
+
 feature -- Events
 
 	on_click is
@@ -63,7 +64,7 @@ feature -- Events
 		do
 			application.logfile.log_message ("NEWSFEED_LIST: feed clicked", feature {LOGFILE}.Developer)
 			application.set_current_feed (feed)
-			
+
 			mw ?= application.application_displayer
 			if mw /= void then
 				mw.show_feed
@@ -74,7 +75,7 @@ feature -- Events
 feature -- Access
 
 	feed: FEED
-		
+
 invariant
 	feed_not_void: feed /= void
 

@@ -4,7 +4,7 @@ indexing
 	date: "$Date$"
 	revision: "$Revision$"
 
-class 
+class
 	PREFERENCES_DIALOG
 
 inherit
@@ -16,16 +16,18 @@ inherit
 			make
 		end
 
-create 
+create
 	make
 
-feature -- Initialization
+feature {NONE} -- Initialization
 
 	make is
 		do
 			Precursor
 			load_properties
 		end
+
+feature {EV_ANY} -- Implementation
 
 	initialize is
 		local
@@ -35,9 +37,9 @@ feature -- Initialization
 		do
 			Precursor
 			application.logfile.log_message ("showing preferences dialog", feature{LOGFILE}.Developer)
-			
+
 				-- create options widgets:
-				
+
 				-- Ask_on_exit
 			create ask_on_exit.make_with_text (Preferences_ask_on_exit_item)
 			ask_on_exit.set_tooltip (Preferences_ask_on_exit_tooltip)
@@ -92,29 +94,29 @@ feature -- Initialization
 			content.extend (hbox)
 			content.disable_item_expand (hbox)
 
-			
+
 				-- set dialog options
 			set_title (preferences_title)
 			set_minimum_size (400, 200)
 		end
-	
-feature {NONE} 
+
+feature {NONE} -- Implementation
 
 	ask_on_exit: EV_CHECK_BUTTON
 		-- Ask_on_exit option
 
 	user_specific: EV_CHECK_BUTTON
 		-- User_specific option
-	
+
 	share_feeds: EV_CHECK_BUTTON
 		-- Share_feeds option
-	
+
 	show_toolbar: EV_CHECK_BUTTON
 		-- Show_toolbar option
-	
+
 	browser_path: EV_TEXT_FIELD
 		-- path to browser
-	
+
 	date_format: EV_TEXT_FIELD
 		-- date format
 
@@ -123,7 +125,7 @@ feature {NONE}
 			-- is callon on ok_button click
 		local
 			mw: MAIN_WINDOW
-		do			
+		do
 			application.application_displayer.information_displayer.show_progress (8)
 			application.application_displayer.information_displayer.progress_forward
 				-- User_specific
@@ -174,7 +176,7 @@ feature {NONE}
 				-- Date_format
 			application.logfile.log_message ("Preferences: setting 'Date_format' to '" + date_format.text + "'", feature{LOGFILE}.developer)
 			application.properties.force (date_format.text, "Date_format")
-			
+
 			application.application_displayer.information_displayer.progress_forward
 				-- save properties
 			application.save_properties
@@ -213,13 +215,13 @@ feature {NONE}
 feature {NONE} -- Events
 
 	on_user_specific_select is
-			-- 
+			--
 		do
 			if user_specific.is_selected then
 				share_feeds.enable_sensitive
 			else
 				share_feeds.disable_sensitive
 			end
-		end		
-		
+		end
+
 end -- class PREFERENCES_DIALOG

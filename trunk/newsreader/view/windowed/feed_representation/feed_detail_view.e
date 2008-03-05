@@ -14,14 +14,14 @@ inherit
 		end
 create
 	make
-	
-feature -- Initialisation
+
+feature {NONE} -- Initialisation
 
 	make is
 			-- creation procedure
 		do
 			Precursor {INFORMATION_PANEL}
-			
+
 			create feed_url
 			feed_url.align_text_left
 			feed_url.set_font (create {EV_FONT}.make_with_values (feature {EV_FONT_CONSTANTS}.Family_screen, feature {EV_FONT_CONSTANTS}.Weight_regular, feature {EV_FONT_CONSTANTS}.Shape_italic, 11))
@@ -32,27 +32,27 @@ feature -- Initialisation
 			feed_description.align_text_left
 			label_left_box.extend (feed_description)
 			label_left_box.disable_item_expand (feed_description)
-			
+
 			create list
 
 			extend (list)
 			list.set_column_titles (<<Feed_detail_view_title_column,Feed_detail_view_description_column,Feed_detail_view_date_column >>)
-			
+
 			set_minimum_height (200)
 			list.set_minimum_width (350)
 			list.set_column_widths (<<150,10,100>>)
-			
+
 			list.enable_multiple_selection
 			list.resize_actions.extend (agent on_resize)
-			
+
 			list.column_title_click_actions.extend (agent on_column_title_click)
-			
+
 			title_sort := no_sort
 			pub_date_sort := no_sort
 		end
 
 feature -- Basic operations
-	
+
 	display_feed (f: FEED) is
 			-- display feed in widget
 		require
@@ -61,19 +61,19 @@ feature -- Basic operations
 			desc_string: STRING
 		do
 			feed := f
-			
+
 			set_label_text (feed.title)
 			application.logfile.log_message ("showing items of feed '" + feed.title + "'", feature{LOGFILE}.Developer)
-			
+
 			feed_url.set_text (feed.link.location)
-			
+
 			desc_string := feed.description
 			if feed.description.count > 100 then
 				desc_string := feed.description.substring (1, 100) + "..."
 			end
 			feed_description.set_text (desc_string)
 			feed_description.set_tooltip (feed.description)
-			
+
 			list.wipe_out
 			from
 				feed.items.start
@@ -84,20 +84,20 @@ feature -- Basic operations
 				feed.items.forth
 			end
 		end
-	
+
 	wipe_out_list is
 			-- empty list
 		do
 			feed := void
-			
+
 			set_label_text ("")
 			feed_url.set_text ("")
 			feed_description.set_text ("")
 			feed_description.set_tooltip ("")
 			list.wipe_out
 		end
-		
-	
+
+
 	selected_item: ITEM is
 			-- selected item in list
 		local
@@ -117,7 +117,7 @@ feature -- Basic operations
 		ensure
 			result_void_implies_empty_list: (Result = void) implies list.is_empty
 			result_not_void: Result /= void
-		end		
+		end
 
 feature -- Access
 
@@ -155,29 +155,29 @@ feature -- Events
 					pub_date_sort := desc_sort
 				end
 			else
-				
+
 			end
 			list.wipe_out
 			display_feed (feed)
 		end
-	
+
 	on_feed_url_click (a,b,c: INTEGER; d,e,f: DOUBLE; g,h: INTEGER) is
 			-- called when url of feed (in the top label) is clicked
 		do
 			open_url (application.current_feed.link, true)
 		end
-		
+
 
 feature {NONE} -- Implementation
 
 	list: EV_MULTI_COLUMN_LIST
-	
+
 	feed: FEED
-	
+
 	feed_url, feed_description: EV_LABEL
-	
+
 	no_sort, asc_sort, desc_sort: INTEGER is unique
-	
+
 	title_sort: INTEGER
 	pub_date_sort: INTEGER
 
@@ -197,6 +197,6 @@ feature {NONE} -- Implementation
 				list.set_column_width (0, 2)
 			end
 		end
-	
-		
+
+
 end -- class FEED_DETAIL_VIEW

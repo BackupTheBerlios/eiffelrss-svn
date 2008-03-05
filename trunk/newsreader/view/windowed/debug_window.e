@@ -6,7 +6,7 @@ indexing
 
 class
 	DEBUG_WINDOW
-	
+
 inherit
 	EV_TITLED_WINDOW
 		rename
@@ -58,7 +58,7 @@ inherit
 			copy,
 			is_equal
 		end
-	
+
 	LOGFILE
 		rename
 			put as logfile_put,
@@ -94,11 +94,11 @@ inherit
 		select
 			is_empty
 		end
-		
-create 
+
+create
 	make_filename_threshold, make_filename
 
-feature -- Initialization
+feature {NONE} -- Initialization
 
 	make is
 			-- create app_ref and window
@@ -106,23 +106,23 @@ feature -- Initialization
 			make_app_ref
 			default_create
 		end
-		
-	
+
 	make_filename_threshold (a_filename: STRING; a_threshold: INTEGER)  is
 			-- Create logfile object with a_filename as file name and a_threshold as output threshold
 		do
 			Precursor {LOGFILE} (a_filename, a_threshold)
 			make
 		end
-	
+
 	make_filename (a_filename: STRING) is
 			-- Create logfile object with a_filename as file name
 		do
 			Precursor {LOGFILE} (a_filename)
 			make
 		end
-		
-	
+
+feature {EV_ANY} -- Implementation
+
 	initialize is
 		local
 			accelerator: EV_ACCELERATOR
@@ -132,7 +132,7 @@ feature -- Initialization
 		do
 			Precursor
 			create main_vbox
-			
+
 			create properties_box
 			create show_properties.make_with_text ("Show properties")
 			show_properties.select_actions.extend (agent on_show_properties)
@@ -152,7 +152,7 @@ feature -- Initialization
 			text_view.disable_edit
 			main_vbox.extend (text_view)
 			extend (main_vbox)
-			
+
 				-- set accelerators
 			create key.make_with_code (feature {EV_KEY_CONSTANTS}.key_tab)
 			create accelerator.make_with_key_combination (key, true, true, false)
@@ -161,9 +161,9 @@ feature -- Initialization
 				accelerator.actions.extend (agent mw.on_debug_window)
 			end
 			accelerators.extend (accelerator)
-			
+
 			close_request_actions.extend (agent hide)
-			
+
 			set_title ("DEBUG")
 			set_size (250, 700)
 			set_minimum_size (150, 200)
@@ -173,9 +173,11 @@ feature -- Initialization
 			icon.set_with_named_file ("graphics/newsreader_icon.png")
 			set_icon_pixmap (icon)
 		end
-		
+
+feature {NONE} -- Implementation
+
 	is_in_default_state: BOOLEAN is true
-		
+
 	main_vbox: EV_VERTICAL_BOX
 	refesh_button: EV_BUTTON
 	properties_box: EV_VERTICAL_BOX
@@ -198,10 +200,10 @@ feature -- Events
 			string := string + "%N"
 			string := string + application.user_properties.list
 			properties_view.set_text (string)
-			
+
 			log_message ("debug window: refresh clicked", Developer)
 		end
-	
+
 	on_show_properties is
 			-- called when show_properties is clicked
 		do
@@ -212,10 +214,10 @@ feature -- Events
 				properties_box.hide
 			end
 		end
-		
+
 
 feature -- Basic operations
-	
+
 	log_message (a_message: STRING; a_priority: INTEGER) is
 			-- Log the message to the logfile if a_priority is equal or greater than the threshold
 			-- Add message to window
@@ -225,6 +227,6 @@ feature -- Basic operations
 				text_view.append_text (a_message + "%N")
 			end
 		end
-		
-		
+
+
 end -- class DEBUG_WINDOW

@@ -19,7 +19,7 @@ inherit
 			default_create,
 			copy
 		end
-		
+
 	APP_REF
 		undefine
 			default_create,
@@ -37,14 +37,16 @@ inherit
 create
 	make
 
-feature -- Initialization
+feature {NONE} -- Initialization
 
 	make is
 		do
 			make_app_ref
 			default_create
 		end
-	
+
+feature {EV_ANY} -- Implementation
+
 	initialize is
 		do
 			Precursor
@@ -62,8 +64,7 @@ feature --  Basic Operations
 		do
 			newsfeed_list.display_list
 		end
-		
-	
+
 	display_feed is
 			-- set feed to be shown in detail view
 		do
@@ -77,26 +78,26 @@ feature --  Basic Operations
 		end
 
 feature -- Access
-	
+
 	selected_item: ITEM is
 			-- selected feed item in feed_detail_view
 		do
 			Result := feed_detail_view.selected_item
 		end
-	
+
 	has_item_focus: BOOLEAN is
 			-- has item list focus?
 		do
 			Result := feed_detail_view.has_list_focus
 		end
-	
+
 	has_feed_focus: BOOLEAN is
 			-- has feed list focus?
 		do
 			Result := newsfeed_list.has_list_focus
 		end
-		
-		
+
+
 
 feature {NONE} -- Implementation
 

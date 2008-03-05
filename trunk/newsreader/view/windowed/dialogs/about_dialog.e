@@ -4,7 +4,7 @@ indexing
 	date: "$Date$"
 	revision: "1.0.0"
 
-class 
+class
 	ABOUT_DIALOG
 
 inherit
@@ -28,10 +28,10 @@ inherit
 			is_equal
 		end
 
-create 
+create
 	default_create
 
-feature {NONE} -- Initialize
+feature {EV_ANY} -- Implementation
 
 	initialize is
 		local
@@ -80,6 +80,8 @@ feature {NONE} -- Initialize
 			set_icon_pixmap (icon)
 		end
 
+feature {NONE} -- Implementation
+
 	ok_button: EV_BUTTON
-	
+
 end -- class ABOUT_DIALOG

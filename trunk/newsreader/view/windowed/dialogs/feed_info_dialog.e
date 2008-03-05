@@ -5,7 +5,7 @@ indexing
 	revision: "$Revision$"
 
 class
-	FEED_INFO_DIALOG	
+	FEED_INFO_DIALOG
 
 inherit
 	SETTINGS_DIALOG
@@ -14,12 +14,12 @@ inherit
 		redefine
 			initialize
 		end
-	
-create 
+
+create
 	make
 
-feature -- Initialization
-	
+feature {EV_ANY} -- Implementation
+
 	initialize is
 		local
 			hbox: EV_HORIZONTAL_BOX
@@ -28,7 +28,7 @@ feature -- Initialization
 		do
 			Precursor
 			application.logfile.log_message ("showing feed edit dialog", feature{LOGFILE}.Developer)
-			
+
 				-- title
 			create hbox
 			create label.make_with_text (Info_feed_title_item + ":")
@@ -135,36 +135,35 @@ feature -- Initialization
 			create copyright
 			hbox.extend (copyright)
 			content.extend (hbox)
-			
+
 			set_minimum_width (300)
-			
+
 			load
-			
+
 			set_title (Info_title + ": '" + feed.title + "'")
 		end
 
 feature {NONE} -- Implementation
-	
+
 	on_edited is
 			-- called when ok is clicked
 		do
-			
+
 		end
-	
+
 	feed: FEED
-	
+
 	feed_title, link, pub_date, language, copyright, managing_editor, web_master, last_build_date, feed_generator, docs: EV_TEXT_FIELD
-	
+
 	description: EV_TEXT
 
 	label_width: INTEGER is 90
-	
-	
+
 	load is
 			-- load feed information
 		do
 			feed := application.current_feed
-			
+
 			application.application_displayer.information_displayer.show_progress (11)
 			application.application_displayer.information_displayer.progress_forward
 				-- feed_title
@@ -212,5 +211,5 @@ feature {NONE} -- Implementation
 			application.application_displayer.information_displayer.progress_forward
 			application.application_displayer.information_displayer.progress_done
 		end
-		
+
 end -- class EDIT_DIALOG
